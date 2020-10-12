@@ -1,0 +1,145 @@
+% !TEX program = xelatex
+%Wzór dokumentu
+%tu zmień marginesy i rozmiar czcionki
+    \documentclass[a4paper,12pt]{article}
+	\usepackage{inputenc}[utf8]
+    \usepackage[margin=1.5cm]{geometry}
+    
+ %Lepiej tego nie zmieniaj, jak co to dodawaj pakiety
+	\usepackage{titlesec}
+	\usepackage{titling}
+	\usepackage{fancyhdr}
+	\usepackage{mdframed}
+	\usepackage{graphicx}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	
+%inny wygląd
+	%\usepackage{tgbonum}
+	
+	
+	%Zmienne, zmień je!
+	\graphicspath{ {./ilustracje/} }
+    \title{title}
+    \author{Grzegorz Koperwas}
+    \date{[data]}
+    
+  %lokalizacja polska (odkomentuj jak piszesz po polsku)
+  
+    \usepackage{polski}
+    \usepackage[polish]{babel} 
+    \usepackage{indentfirst}
+	\usepackage{icomma} 
+	
+    \brokenpenalty=1000
+    \clubpenalty=1000
+    \widowpenalty=1000    
+ 
+ %nie odkometowuj wszystkiego, użyj mózgu
+    %\renewcommand\thechapter{\arabic{chapter}.}
+	\renewcommand\thesection{\arabic{section}.}
+	\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+	\renewcommand\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+
+%Makra
+    
+\newcommand{\obrazek}[2]{
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=#1]{#2}
+	\end{figure}
+}     
+            
+    
+    \newcommand{\twierdzonko}[1]{
+        \begin{center}
+        \begin{mdframed}
+        #1
+        \end{mdframed}          
+        \end{center}
+    } 
+    
+    \newcommand{\dwanajeden}[2]{
+	\ensuremath \left( \begin{array}{c}
+		#1\\
+		#2
+	\end{array} \right)
+}  
+      
+%Stopka i head (sekcja której nie powinno się zmieniać)
+    \pagestyle{fancy}
+    \fancyhead{}
+    \fancyfoot{}
+    
+    %Zmieniaj od tego miejsca
+	\rfoot{\thepage}
+	\lfoot{Grzegorz Koperwas, \LaTeX note}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{1pt}
+
+    
+\begin{document}
+
+\section{Pierwsze ćwiczenia:}
+
+\subsection{Dlaczego ekonomia należy do nauk społecznych?}
+
+Ekonomia należy do nauk społecznych ponieważ bada dystrybucje dóbr i zasobów w
+\emph{społeczeństwie}, co jest jednym z procesów zachodzących w społeczeństwie.
+
+\subsection{Z jakim okresem historycznym wiąże się naukowy rozwój ekonomii? Dlaczego?}
+
+Ekonomia wyodrębniła się jako nauka pod koniec 18 wieku, wraz z początkami rewolucji
+przemysłowej oraz po publikacji książki \emph{“The Wealth of Nations” Adama Smitha},
+która to przyjeła teze iż bogactwo danego kraju nie wynika z pełności skarbca monarchy, 
+lecz z przychodu narodowego.
+
+\subsection{Jakie impulsy spowodowały powstanie teorii ekonomicznych?}
+
+Impulsem dla powstania Teorii Ekonomicznych była potrzeba opisania nowych procesów w rodzących się pod koniec 18 wieku systemach kapitalistycznych, które zastępowały agralne systemy feudalne. Przed ich powstaniem uważało się iż ziemia była głównym źródłem potęgi ekonomicznej kraju, gdyż system feudalny skupiał się właśnie na produkcji żywności z tejże ziemi.
+
+Kolejnym z impulsów było upowszechnienie się narzędzi matematycznych oraz wczesne katastrofy ekonomiczne takie jak upadek \emph{Kompanii Mórz Południowych}.
+
+\subsection{Porównaj definicje ekonomii \emph{A. Marshalla} ze współczesną jej definicją. Co łączy te definicje, co zaś różni?}
+
+Definicja \emph{A. Marshalla} skupia się na relacji między ludźmi a dystrybucją zasobów materialnych. Nowoczesna ekonomia jest definiowana jako nauka społeczna o produkcji, dystrybucji oraz konsumpcji dóbr. Definicje te łączy uznanie ekonomi jako nauki badającej społeczeństwo jak i jego interakcje z dobrami, jednak \emph{definicja Marshalla} skupia się bardziej na badaniach społecznych, gdzie nowoczesna definicja skupia się bardziej na badaniu obiegu dóbr.
+
+\subsection{Które [z] poniższych zagadnień mają charakter mikroekonomiczny, które zaś makroekonomiczny:}
+
+\begin{enumerate}
+	\item ,,Dlaczego oniżyła się cena jabłek?''
+
+	mikroekonomiczny
+
+	\item ,,Dlaczego wzrósł poziom cen w Polsce,''
+
+	makroekonomiczny
+
+	\item ,,Dlaczego wzrosło bezrobocie w Zabrzu''
+
+	mikroekonomiczny
+
+	\item ,,Dlaczego wzrosło bezrobocie w Polsce''
+
+	makroekonomiczny
+
+	\item ,,Dlaczego zmniejszyły się zyski w przemyśle tytoniowym''
+
+	mikroekonomiczny
+\end{enumerate}
+
+\subsection{Podaj inne przykłady problemów mikroekonomicznych i makroekonomicznych? (po 5 przykładów)}
+
+\subsubsection*{Makroekonomiczne:}
+\begin{itemize}
+	\item Dlaczego zarobkki Amerykańskiej klasy średniej spadają;
+	\item Dlaczego wzrosła produktywność społeczeństwa;
+	\item Jakie będą skutki załamania giełdy amerykańskiej;
+	\item Obniżenie stóp procentowych;
+	\item Spadek wzrostu PKB
+\end{itemize}
+\subsubsection*{Mikroekonomiczne:}
+
+TODO
+
+\end{document}
