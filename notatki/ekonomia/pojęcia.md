@@ -16,7 +16,15 @@
 
 # Prawa
 
-**Prawa, zasady, terorie ekonomiczne** mają charakter statystyczny
+**Prawa, zasady, teorie ekonomiczne** mają charakter statystyczny
 
 **Modele** są uproszczeniem rzeczywistości
 
+# Definicje
+
+Dobra:
+
+- Konsumpcyjne - do konsumpcji
+- Inwestycyjne - do produkcji dóbr
+- Wolne - pochodzenia naturalnego
+- 
