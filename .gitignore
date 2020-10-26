@@ -4,3 +4,7 @@
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+*.h.gch
+*.nav
+*.snm
+*.toc
