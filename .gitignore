@@ -6,3 +6,7 @@
 *.synctex.gz
 *.autosave.xopp
 Untitled.md
+*.h.gch
+*.nav
+*.snm
+*.toc
