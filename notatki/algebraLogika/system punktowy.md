@@ -10,3 +10,7 @@ Po rozwiązaniu zadania przy tablicy mail wysłać, samodzielne zgłoszenie daje
 
 -----------
 
+
+> !!!
+>  ![image-20201020113207171](.system punktowy.assets/image-20201020113207171.png)
+> Udowodnić na 27.10.2020
