@@ -17,3 +17,4 @@
 > Model domu studenckiego składa się z
 
 ![image-20201019131856653](.ćwiczenia.assets/image-20201019131856653.png)
+
