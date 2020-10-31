@@ -1,0 +1,100 @@
+%Wzór dokumentu
+%tu zmień marginesy i rozmiar czcionki
+\documentclass[a4paper,12pt]{article}
+\usepackage[margin=3.5cm]{geometry}
+\usepackage{inputenc}[utf8]
+
+%Lepiej tego nie zmieniaj, jak co to dodawaj pakiety
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+%inny wygląd
+%\usepackage{tgbonum}
+
+
+%Zmienne, zmień je!
+\graphicspath{ {./ilustracje/} }
+\title{Ja, ołówek}
+\author{Grzegorz Koperwas}
+\date{\today}
+
+%lokalizacja polska (odkomentuj jak piszesz po polsku)
+
+\usepackage{polski}
+\usepackage[polish]{babel} 
+\usepackage{indentfirst}
+\usepackage{icomma} 
+
+\brokenpenalty=1000
+\clubpenalty=1000
+\widowpenalty=1000    
+
+%nie odkometowuj wszystkiego, użyj mózgu
+%\renewcommand\thechapter{\arabic{chapter}.}
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+
+%Makra
+
+\newcommand{\obrazek}[2]{
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=#1]{#2}
+\end{figure}
+}     
+        
+
+\newcommand{\twierdzonko}[1]{
+    \begin{center}
+    \begin{mdframed}
+    #1
+    \end{mdframed}          
+    \end{center}
+} 
+
+\newcommand{\dwanajeden}[2]{
+\ensuremath \left( \begin{array}{c}
+    #1\\
+    #2
+\end{array} \right)
+}  
+  
+%Stopka i head (sekcja której nie powinno się zmieniać)
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+
+%Zmieniaj od tego miejsca
+\rfoot{\thepage}
+\lfoot{Grzegorz Koperwas}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+Film ,,Ja, ołówek'' jest adaptacją eseju \emph{Leonarda E. Read'a} o tytule ,,I, Pencil'' z 1958 roku. Esej ten jak i jego adaptacja pokazują iż aktywność ekonomiczna, która sprawia wrażenie prostej, jest tak naprawdę nieskończenie skomplikowana i tylko poprzez decentralizowaną produkcje wszystkich dóbr możemy osiągnąć największą wydajność.
+
+Teza stawiana przez filmik mówi o tym że \emph{Ludzie potrzebują wolności, by móc spontanicznie, poprzez udział w procesach ekonomicznych, zaspokajać swoje potrzeby.} Co ciekawe, oryginalny esej stawia jeszcze dodatkową tezę, będącą krytyką jakiejkolwiek interwencji ekonomicznej w gospodarkę przez rządy, \emph{kiedy rząd posiada monopol na jakimś rynku\footnote{Dany został przykład usług pocztowych}, osoba patrząc na rządowe przedsięwzięcie dojdzie do fałszywej konkluzji iż nie może wydajniej sama zrealizować tej aktywności, gdyż nie posiada wymaganej wiedzy.}
+
+Wizje rzeczywistości przedstawione w eseju oraz filmiku, zakładają że ludzie są doskonałym z punktu widzenia ekonomistów gatunkiem \emph{,,Homo Economicus''}, i poprzez to że każda jednostka będzie próbowała zaspokoić swoje potrzeby, wszystkie jednostki będą mogły je zaspokoić. 
+Kolejnym, według mnie, błędem jest pominięcie konceptu abstrakcji. Jako student informatyki pojęcie abstrakcji jest mi bardzo przydatne gdyż pozwala mi na skupieniu się na wysokopoziomowych problemach bez zastanawiania się nad tym jak dokładanie poruszają się elektrony w komputerze.
+
+Tak jak programista zastanawia się nad zmiennymi zamiast nad pojedyńczymi bajtami pamięci, tak człowiek chcący stworzyć ołówek nie zastanawia się jak zebrać nasiona kawy dla drwala. Stosujemy abstrakcję by uprościć sobie proces stworzenia ołówka. Filmik oraz esej stawiają tezę iż żadna osoba nie może posiadać całości wiedzy potrzebnej do produkcji tego \emph{ołówka}, lecz zapominają iż poprzez abstrakcję nie musimy jej znać w całości.
+
+Dlatego teza wynikająca z eseju jest nie prawdziwa, gdyż rząd mający monopol na jakimś rynku nie ma monopolu na wszystkie procesy w nim przebiegające. Zawsze, na którymś poziomie, będą zachodzić procesy będące za warstwą abstrakcji, pracodawcy nie powinno interesować co jego pracownik zjadł na śniadanie.
+
+Esej oraz filmik zapominają również iż nie zawsze pragnienia jednostki są równe pragnieniom ogółu populacji. Dobrym przykładem jest właśnie rynek usług pocztowych. Głównym celem usług pocztowych prowadzonych przez rządy jest zapewnienie równego dostępu wszystkich osób do poczty. Nie pokrywa się to właśnie z podstawowymi potrzebami jednostki, a tym bardziej pragnieniem zysku korporacji. Z tego powodu właśnie rządy muszą prowadzić monopole na rynkach, gdzie inna idea\footnote{Amerykańska poczta każdego roku traci dużo pieniędzy na obsłudze obszarów o mniejszym zagęszczeniu ludności, wiele prywatnych firm kurierskich polega właśnie na poczcie w celu obsługi tych obszarów.} jest ważniejsza niż wydajność gwarantowana przez niewidzialną rękę rynku.
+
+Innym przykład rynku, gdzie zupełna wolności jednostki nie przekłada się na lepszą wydajność usług, jest rynek medyczny. Normalna jednostka nie posiada wiedzy, lub/i nie jest w stanie dokonywać racjonalnych decyzji gdy w gre wchodzi jej życie. Wszyscy w przeważającej większości jesteśmy się w stanie zgodzić iż wartość życia ludzkiego, w szczególności naszego dąży do nieskończoności.
+
+Z tego powodu naturalne procesy wolnorynkowe są zaburzone i przez to w celu realizacji idei ochrony ludzkiego życia najefektywniejsze jest zmonopolizowanie tego rynku przez rząd, gdyż politycy którzy go tworzą posiadają potrzebę posiadania władzy, a ludzie którzy w społeczeństwie demokratycznym oprócz rozliczania ich przy wyborach z racjonalnych czynników, zwrócą uwagę na sposób realizacji idei przez nich.
+\end{document}
