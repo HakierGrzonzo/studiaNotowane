@@ -1,0 +1,104 @@
+%Wzór dokumentu
+%tu zmień marginesy i rozmiar czcionki
+    \documentclass[a4paper,12pt]{article}
+    \usepackage[margin=3.5cm]{geometry}
+    \usepackage{inputenc}[utf8]
+    
+ %Lepiej tego nie zmieniaj, jak co to dodawaj pakiety
+	\usepackage{titlesec}
+	\usepackage{titling}
+	\usepackage{fancyhdr}
+	\usepackage{mdframed}
+	\usepackage{graphicx}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	
+%inny wygląd
+	%\usepackage{tgbonum}
+	
+	
+	%Zmienne, zmień je!
+	\graphicspath{ {./ilustracje/} }
+    \title{Kolokwium}
+    \author{Grzegorz Koperwas}
+    \date{\today}
+    
+  %lokalizacja polska (odkomentuj jak piszesz po polsku)
+  
+    \usepackage{polski}
+    \usepackage[polish]{babel} 
+    \usepackage{indentfirst}
+	\usepackage{icomma} 
+	
+    \brokenpenalty=1000
+    \clubpenalty=1000
+    \widowpenalty=1000    
+ 
+ %nie odkometowuj wszystkiego, użyj mózgu
+    %\renewcommand\thechapter{\arabic{chapter}.}
+	\renewcommand\thesection{\arabic{section}.}
+	\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+	\renewcommand\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+
+%Makra
+    
+\newcommand{\obrazek}[2]{
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=#1]{#2}
+	\end{figure}
+}     
+            
+    
+    \newcommand{\twierdzonko}[1]{
+        \begin{center}
+        \begin{mdframed}
+        #1
+        \end{mdframed}          
+        \end{center}
+    } 
+    
+    \newcommand{\dwanajeden}[2]{
+	\ensuremath \left( \begin{array}{c}
+		#1\\
+		#2
+	\end{array} \right)
+}  
+      
+%Stopka i head (sekcja której nie powinno się zmieniać)
+    \pagestyle{fancy}
+    \fancyhead{}
+    \fancyfoot{}
+    
+    %Zmieniaj od tego miejsca
+	\rfoot{\thepage}
+	\lfoot{Grzegorz Koperwas, \LaTeX note}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{1pt}
+
+    
+\begin{document}
+\maketitle
+
+Grupa C, Zestaw 2
+
+\section{}
+\begin{align*}
+    \frac{120 \cdot 10^{-6} \cdot 10^{-3} \cdot 16 \cdot 10^{-3}}{\left(25 \cdot 10^{-3}\right)^2} &= \frac{1920}{625} \cdot 10^{-6} \\
+    \frac{384}{125} \cdot \frac{10^{-6}}{10^6} &= \frac{384}{125} \cdot 10^{-12} \text{MN}
+\end{align*}
+\section{}
+\begin{align*}
+    \left[F \right] &= \frac{kg \cdot m}{s^2} \\
+    \frac{kg \cdot m}{s^2} \cdot \frac{m^2}{kg \cdot kg} &= \left[G\right] \\
+    \left[G\right] &= \frac{m^3}{kg \cdot s^2}
+\end{align*}
+\section{}
+\begin{align*}
+    \vec{a} &= \left[4; 2; -3\right]\\
+    \vec{b} &= \left[-9; -5; 6\right]\\
+    - \left(\vec{b} \times \vec{a}\right) &= \vec{a} \times \vec{b} = \\
+    &= \left[2 \cdot 6 - 3 \cdot 5; 3 \cdot 9 - 4 \cdot 6; 2 \cdot 9 - 4 \cdot 5\right] = \\
+    &= \left[-3; 3; -2\right]
+\end{align*}
+\end{document}

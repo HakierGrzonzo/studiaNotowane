@@ -1,0 +1,262 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      7984,        252]
+NotebookOptionsPosition[      6591,        217]
+NotebookOutlinePosition[      7092,        236]
+CellTagsIndexPosition[      7049,        233]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ StyleBox["Wprowadzenie wzorow na sile odsrodkowa \"",
+  FontColor->RGBColor[0, 0, 1]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["F", "od"], TraditionalForm]],
+  FontColor->RGBColor[0, 0, 1],ExpressionUUID->
+  "1479ee2a-12e2-4c41-9374-e83197355e77"],
+ StyleBox["\"  i sile grawitacji \"",
+  FontColor->RGBColor[0, 0, 1]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["F", "g"], TraditionalForm]],
+  FontColor->RGBColor[0, 0, 1],ExpressionUUID->
+  "c3807cab-69c9-4452-9b81-909884c02c20"],
+ StyleBox["\".",
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox["\n",
+  FontColor->RGBColor[0, 0, 1]]
+}], "Subsection",ExpressionUUID->"a6eca4a2-fba6-4857-a9ed-47dfd3d091fe"],
+
+Cell[BoxData[{
+ FormBox[
+  RowBox[{
+   RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], ";"}], 
+  TraditionalForm], "\[IndentingNewLine]", 
+ FormBox[
+  RowBox[{
+   RowBox[{"Fod", "=", 
+    FractionBox[
+     RowBox[{"m", "\[Times]", 
+      SuperscriptBox["v", "2"]}], "R"]}], ";"}], 
+  TraditionalForm], "\[IndentingNewLine]", 
+ FormBox[
+  RowBox[{
+   RowBox[{"Fg", "=", 
+    RowBox[{"m", "\[Times]", "g"}]}], ";"}], TraditionalForm]}], "Input",
+ CellLabel->
+  "In[178]:=",ExpressionUUID->"3268204d-ad3a-4165-a02c-8bc23355181b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ StyleBox["Wprowadzenie wzorow na energie potencjalne wozka w punkcie startu \
+\"",
+  FontColor->RGBColor[0, 0, 1]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["E", "p1"], TraditionalForm]],
+  FontColor->RGBColor[0, 0, 1],ExpressionUUID->
+  "be538240-1f93-4431-bef0-48161c01ed65"],
+ StyleBox["\"  i w najwyzszym punkcie petli \"",
+  FontColor->RGBColor[0, 0, 1]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["E", "p2"], TraditionalForm]],
+  FontColor->RGBColor[0, 0, 1],ExpressionUUID->
+  "b2f7e4ff-fd0c-41be-a977-071fbe4fb554"],
+ StyleBox["\" \noraz na energie kinetyczna wozka w najwyzszym punkcie petli \
+\"",
+  FontColor->RGBColor[0, 0, 1]],
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["E", "k2"], TraditionalForm]],
+  FontColor->RGBColor[0, 0, 1],ExpressionUUID->
+  "c7502344-8300-47cf-9614-f5212cc79ce1"],
+ StyleBox["\". Symbol \"m\" oznacza mase wozka wraz z pasazerami, \"g\" - \
+przyspieszenie ziemskie, \"v\" - predkosc wozka.",
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox["\n",
+  FontColor->RGBColor[0, 0, 1]]
+}], "Subsection",ExpressionUUID->"264b3713-8ea2-46a7-b3a8-12078075af1b"],
+
+Cell[BoxData[{
+ FormBox[
+  RowBox[{
+   RowBox[{"Ep1", "=", 
+    RowBox[{"m", "\[Times]", "g", "\[Times]", "H"}]}], ";"}], 
+  TraditionalForm], "\[IndentingNewLine]", 
+ FormBox[
+  RowBox[{
+   RowBox[{"Ep2", "=", 
+    RowBox[{"m", "\[Times]", "g", "\[Times]", 
+     RowBox[{"(", 
+      RowBox[{"2", "\[Times]", "R"}], ")"}]}]}], ";"}], 
+  TraditionalForm], "\[IndentingNewLine]", 
+ FormBox[
+  RowBox[{
+   RowBox[{"Ek2", "=", 
+    FractionBox[
+     RowBox[{"m", "\[Times]", 
+      SuperscriptBox["v", "2"]}], "2"]}], ";"}], TraditionalForm]}], "Input",
+ CellLabel->
+  "In[181]:=",ExpressionUUID->"e51dbb69-78d5-4214-b65c-d36a8b5e00a3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ StyleBox["Rozwiazanie ukladu rownan bedacych matematycznym zapisem rownosci \
+sily odsrodkowej i sily przyciagania ziemskiego w najwyzszym punkcie petli \
+oraz zasady zachowania energii.",
+  FontColor->RGBColor[0, 0, 1]],
+ StyleBox["\n",
+  FontColor->RGBColor[0, 0, 1]]
+}], "Subsection",ExpressionUUID->"a3f478f0-f881-460e-9522-4ca941002bcd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"r1", "=", 
+   RowBox[{"Solve", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Fod", "==", "Fg"}], ",", " ", 
+       RowBox[{
+        RowBox[{"Ep1", "-", "Ep2"}], "==", "Ek2"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"H", ",", "v"}], "}"}]}], "]"}]}], TraditionalForm]], "Input",
+ CellLabel->
+  "In[184]:=",ExpressionUUID->"b8548c94-154e-4438-bc76-9f7e2893fac1"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"H", "\[Rule]", 
+      FractionBox[
+       RowBox[{"5", " ", "R"}], "2"]}], ",", 
+     RowBox[{"v", "\[Rule]", 
+      RowBox[{
+       RowBox[{"-", 
+        SqrtBox["g"]}], " ", 
+       SqrtBox["R"]}]}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"H", "\[Rule]", 
+      FractionBox[
+       RowBox[{"5", " ", "R"}], "2"]}], ",", 
+     RowBox[{"v", "\[Rule]", 
+      RowBox[{
+       SqrtBox["g"], " ", 
+       SqrtBox["R"]}]}]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.810980125842867*^9},
+ CellLabel->
+  "Out[184]=",ExpressionUUID->"6ce32db9-8813-4b51-ae7d-bfc477cc45aa"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Sporzadzenie wykresu obrazujacego zaleznosc  \
+wymaganej wysokosci zjezdzalni \"H\" od promienia petli \"R\".",
+ FontColor->RGBColor[0, 0, 1]]], "Subsection",ExpressionUUID->"35420b8a-f79f-\
+4497-8cce-9211922c225d"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"Plot", "[", 
+   RowBox[{
+    RowBox[{"H", "/.", 
+     RowBox[{"r1", "[", 
+      RowBox[{"[", 
+       RowBox[{"1", ",", "1"}], "]"}], "]"}]}], ",", 
+    RowBox[{"{", 
+     RowBox[{"R", ",", "5", ",", "10"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"BaseStyle", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"FontFamily", "\[Rule]", "\"\<Times\>\""}], ",", 
+       RowBox[{"FontSlant", "\[Rule]", "\"\<Italic\>\""}], ",", 
+       RowBox[{"FontSize", "\[Rule]", "12"}]}], "}"}]}], ",", 
+    "\[IndentingNewLine]", " ", 
+    RowBox[{"PlotStyle", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"RGBColor", "[", 
+         RowBox[{"1", ",", "0", ",", "0"}], "]"}], ",", 
+        RowBox[{"Thickness", "[", "0.006", "]"}]}], "}"}], "}"}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"AxesLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{"\"\<R [m]\>\"", ",", "\"\<H [m]\>\""}], "}"}]}]}], "]"}], 
+  TraditionalForm]], "Input",
+ CellChangeTimes->{
+  3.620567261217936*^9, {3.8109801198428855`*^9, 3.8109801229678774`*^9}},
+ CellLabel->
+  "In[185]:=",ExpressionUUID->"22603d3c-8509-4beb-9879-54df24ab865c"]
+}, Open  ]]
+},
+WindowSize->{1264, 889},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+DockedCells->FEPrivate`FrontEndResource[
+ "FEExpressions", "CompatibilityToolbar"],
+Magnification->1.25,
+FrontEndVersion->"12.1 for Microsoft Windows (64-bit) (June 9, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"06a055de-1d20-4691-b809-0bed2a6894d6"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 672, 19, 104, "Subsection",ExpressionUUID->"a6eca4a2-fba6-4857-a9ed-47dfd3d091fe"],
+Cell[1255, 43, 530, 17, 131, "Input",ExpressionUUID->"3268204d-ad3a-4165-a02c-8bc23355181b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1822, 65, 1103, 29, 206, "Subsection",ExpressionUUID->"264b3713-8ea2-46a7-b3a8-12078075af1b"],
+Cell[2928, 96, 632, 20, 108, "Input",ExpressionUUID->"e51dbb69-78d5-4214-b65c-d36a8b5e00a3"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3597, 121, 359, 7, 134, "Subsection",ExpressionUUID->"a3f478f0-f881-460e-9522-4ca941002bcd"],
+Cell[CellGroupData[{
+Cell[3981, 132, 427, 13, 55, "Input",ExpressionUUID->"b8548c94-154e-4438-bc76-9f7e2893fac1"],
+Cell[4411, 147, 676, 24, 57, "Output",ExpressionUUID->"6ce32db9-8813-4b51-ae7d-bfc477cc45aa"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5136, 177, 239, 3, 67, "Subsection",ExpressionUUID->"35420b8a-f79f-4497-8cce-9211922c225d"],
+Cell[5378, 182, 1197, 32, 190, "Input",ExpressionUUID->"22603d3c-8509-4beb-9879-54df24ab865c"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

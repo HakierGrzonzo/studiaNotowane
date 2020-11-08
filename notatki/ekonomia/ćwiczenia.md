@@ -18,3 +18,4 @@
 
 ![image-20201019131856653](.ćwiczenia.assets/image-20201019131856653.png)
 
+![image-20201102132815805](.ćwiczenia.assets/image-20201102132815805.png)

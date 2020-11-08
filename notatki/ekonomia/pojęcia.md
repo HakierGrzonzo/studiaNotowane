@@ -27,4 +27,4 @@ Dobra:
 - Konsumpcyjne - do konsumpcji
 - Inwestycyjne - do produkcji dóbr
 - Wolne - pochodzenia naturalnego
-- 
+-
