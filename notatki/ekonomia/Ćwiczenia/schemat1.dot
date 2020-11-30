@@ -1,0 +1,31 @@
+digraph G {
+    graph [fontsize=10 fontname="Verdana" compound=true];
+    node [shape=round fontsize=10 fontname="Verdana"];
+    compound=true;
+    subgraph cluster_1 {
+        node [style=filled,color=grey];
+        "Producent 1" "Producent 2";
+        label = "Rynek producentów";
+        color =blue;
+    }
+    subgraph cluster_2 {
+        node [style=filled,color=grey];
+        Banki Giełda 
+        label = "Rynek usług finansowych";
+        color =blue;
+    }
+    "Producent 1" -> "Producent 2"
+    "Producent 2" -> "Producent 1"[label=" dobra nie-konsumpcyjne i usługi"];
+    Konsument -> "Producent 1"[lhead=cluster_1, label="Praca"];
+    "Producent 2" -> Konsument [ltail=cluster_1, label="Dobra konsumpcyjne i usługi"];
+    "Dobra naturalne" -> "Producent 1"[lhead=cluster_1, label="zasoby"];
+    Banki -> Giełda;
+    Konsument -> Banki[lhead=cluster_2, label="oszczędności"];
+    "Producent 2" -> Banki [lhead=cluster_2, ltail=cluster_1, label="Dywidenty"]
+    Giełda -> "Producent 2" [lhead=cluster_1, label="inwestycje"]
+    Rząd -> Konsument[label=" Zasiłki"];
+    Rząd -> "Producent 1" [lhead=cluster_1, headlabel="dotacje"];
+    Konsument -> Rząd [label="Podatki"];
+    "Producent 1" -> Rząd [ltail=cluster_1, headlabel="podatki"];
+    Banki -> Rząd [label="obligacje"]
+}
