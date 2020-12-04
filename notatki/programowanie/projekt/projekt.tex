@@ -1,0 +1,125 @@
+% !TEX program = xelatex
+%Wzór dokumentu
+%tu zmień marginesy i rozmiar czcionki
+    \documentclass[a4paper,12pt]{article}
+	\usepackage{inputenc}[utf8]
+    \usepackage[margin=2.5cm]{geometry}
+    
+ %Lepiej tego nie zmieniaj, jak co to dodawaj pakiety
+	\usepackage{titlesec}
+	\usepackage{titling}
+	\usepackage{fancyhdr}
+	\usepackage{mdframed}
+	\usepackage{graphicx}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	\usepackage{multicol}
+	
+%inny wygląd
+	%\usepackage{tgbonum}
+	
+	
+	%Zmienne, zmień je!
+	\graphicspath{ {./ilustracje/} }
+    \title{Ćwiczenia z Ekonomi}
+    \author{Grzegorz Koperwas}
+    \date{\today}
+    
+  %lokalizacja polska (odkomentuj jak piszesz po polsku)
+  
+    \usepackage{polski}
+    \usepackage[polish]{babel} 
+    \usepackage{indentfirst}
+	\usepackage{icomma} 
+	
+    \brokenpenalty=1000
+    \clubpenalty=1000
+    \widowpenalty=1000    
+ 
+ %nie odkometowuj wszystkiego, użyj mózgu
+    %\renewcommand\thechapter{\arabic{chapter}.}
+	\renewcommand\thesection{\arabic{section}.}
+	\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+	\renewcommand\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+
+%Makra
+    
+\newcommand{\obrazek}[2]{
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=#1]{#2}
+	\end{figure}
+}     
+            
+    
+    \newcommand{\twierdzonko}[1]{
+        \begin{center}
+        \begin{mdframed}
+        #1
+        \end{mdframed}          
+        \end{center}
+    } 
+    
+    \newcommand{\dwanajeden}[2]{
+	\ensuremath \left( \begin{array}{c}
+		#1\\
+		#2
+	\end{array} \right)
+}  
+      
+%Stopka i head (sekcja której nie powinno się zmieniać)
+    \pagestyle{fancy}
+    \fancyhead{}
+    \fancyfoot{}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{1pt}
+    \rfoot{\theauthor{}}
+    
+\begin{document}
+
+\begin{titlepage}
+    Politechnika Śląska
+
+    Wydział Matematyki Stosowanej
+
+    Kierunek Informatyka
+
+
+    \begin{center}
+        Gliwice, \today
+
+        \vspace{2cm}
+
+        \Large{Programowanie I}
+
+        \vspace{1cm}
+
+        \Large{\bfseries{Założenia do projektu zaliczeniowego}}
+
+        \vspace{1cm}
+
+        \large{,,BrainFuckCompiler64''}
+
+        \vspace{2cm}
+
+        \theauthor{} gr. 2 lab 2C
+	\end{center}
+	\thispagestyle{empty}
+\end{titlepage}
+
+\section{Opis projektu:}
+Celem projektu jest stworzenie kompilatora ezoterycznego języka \emph{brainfuck} na procesor \emph{MOS 6502/6510}, dokładnie założone jest skupienie się na komputerze \emph{Commodore 64}.
+
+Program ma akceptować pliki tekstowe z kodem źródłowym i generować z nich pliki assemblera\footnote{Nie będe pisał własnego assemblera, wykorzystany zostanie \emph{kickassembler}}. Pliki po przetworzeniu przez assembler powinny być uruchamiane bez problemów przez emulator \emph{VICE}.
+
+\section{Funkcjonalności:}
+\begin{itemize}
+    \item Kompilacja
+    \item Generowanie ostrzeżeń
+    \item ośmiobitowa ,,taśma'' o długości 256 bajtów, z zabezpieczeniami przed overflowami
+    \item Konwersja ASCII $\rightarrow$ PETSCII oraz PETSCII $\rightarrow$ ASCII dla operacji wejścia/wyjścia, jeśli będzie to możliwe
+\end{itemize}
+
+
+
+\end{document}
