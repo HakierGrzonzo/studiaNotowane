@@ -3,5 +3,10 @@
     "cSpell.words": [
         "Read'a",
         "antyprzekatna"
-    ]
+    ],
+    "latex-workshop.bibtex-format.tab": "4 spaces",
+    "latex-workshop.intellisense.unimathsymbols.enabled": true,
+    "latex-workshop.latex.recipe.default": "lastUsed",
+    "latex-workshop.view.pdf.hand": true,
+    "latex-workshop.view.pdf.invertMode.brightness": 0
 }
