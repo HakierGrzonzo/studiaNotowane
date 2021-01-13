@@ -1,0 +1,114 @@
+% !TEX program = xelatex
+%Wzór dokumentu
+%tu zmień marginesy i rozmiar czcionki
+\documentclass[a4paper,12pt]{article}
+\usepackage{inputenc}[utf8]
+\usepackage[margin=2.8cm]{geometry}
+%\usepackage[polish]{babel}
+
+%Lepiej tego nie zmieniaj, jak co to dodawaj pakiety
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{float}
+
+
+
+%inny wygląd
+%\usepackage{tgbonum}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+%Zmienne, zmień je!
+\graphicspath{ {./ilustracje/} }
+\title{Covid-19 Pandemic in Poland}
+\author{Grzegorz Koperwas}
+\date{\today}
+
+%lokalizacja polska (odkomentuj jak piszesz po polsku)
+
+%\usepackage{polski}
+%\usepackage[polish]{babel} 
+%\usepackage{indentfirst}
+%\usepackage{icomma} 
+
+%\brokenpenalty=1000
+%\clubpenalty=1000
+%\widowpenalty=1000    
+
+%nie odkometowuj wszystkiego, użyj mózgu
+%\renewcommand\thechapter{\arabic{chapter}.}
+%\renewcommand\thesection{\arabic{section}.}
+%\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+%\renewcommand\thesubsubsection{\arabic{subsubsection}.}
+
+%Makra
+
+\newcommand{\obrazek}[2]{
+\begin{figure}[h]]
+    \centering
+    \includegraphics[scale=#1]{#2}
+\end{figure}
+}     
+        
+
+\newcommand{\twierdzonko}[1]{
+    \begin{center}
+    \begin{mdframed}
+    #1
+    \end{mdframed}          
+    \end{center}
+} 
+
+\newcommand{\dwanajeden}[2]{
+\ensuremath \left( \begin{array}{c}
+    #1\\
+    #2
+\end{array} \right)
+}  
+
+%Stopka i head (sekcja której nie powinno się zmieniać)
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+
+%Zmieniaj od tego miejsca
+\rfoot{\thepage}
+\lfoot{}
+\lhead{}
+%\rhead{Ostatnia edycja: \today}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\nocite{projections}
+As of the 7th of january the pandemic situation in Poland is unclear. The validity of data available is disputed, but some trends remain visible. 
+
+
+According to \url{worldometers.info} the situation is not great, but seems to be under control. As of today the daily new case number is around 12000 people per day, and it is not dropping. The reported ICU capacity seems to be sufficient. The currently implemented measures such as a universal mask mandate may have been sufficient during the summer, but there have been a sharp rise of case numbers after the opening of educational institutions in october\footnote{The case numbers have a 2 week delay due to incubation period of the virus.}. Combined with social unrest and protests in the following months\footnote{The effect of protest on case numbers may have been low, as in the summer during BLM protests in the USA} led to a steep increase in case rates.
+
+However, the introduction of more disruptive measures in recent months has resulted in lower case number, but due to changes in case reporting, it is disputed if that reduction of case numbers is real. One area that is hard to manipulate is the death rate, which is improving constantly and is currently at around $3\%$. This adds some legitimacy to official numbers.
+
+It is hard to propose any other measures aside from complete lockdown and better vaccine distribution, which may be threatened by the growing anti-vaccine movements in poland\cite{key}. Currently the future of this developing situation depends on the speed of vaccine rollout, which has been slow so far and plagued with one high profile scandal. If it is fast enough, then Poland may join the \emph{one country} club of covid-free nations.
+
+\bibliographystyle{alpha}
+\bibliography{main}
+
+\end{document}

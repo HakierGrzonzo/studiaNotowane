@@ -14,6 +14,13 @@
 	\usepackage{amsmath}
 	\usepackage{amsfonts}
 	\usepackage{multicol}
+	\usepackage{hyperref}
+	\hypersetup{
+		colorlinks=false,
+		linkcolor=blue,
+		filecolor=magenta,      
+		urlcolor=cyan,
+	}
 	
 %inny wygląd
 	%\usepackage{tgbonum}
@@ -21,7 +28,7 @@
 	
 	%Zmienne, zmień je!
 	\graphicspath{ {./ilustracje/} }
-    \title{Ćwiczenia z Ekonomi}
+    \title{Ćwiczenia z Ekonomii}
     \author{Grzegorz Koperwas}
     \date{\today}
     
@@ -69,6 +76,15 @@
 
 \newcommand{\popytLewo}{\\\includegraphics[scale=.33]{popytLewo.png}}
 \newcommand{\popytPrawo}{\\\includegraphics[scale=.33]{popytPrawo.png}}
+\let\oldsection\section
+\renewcommand\section{\clearpage\oldsection}
+
+\titleformat{\section}
+			{\bfseries\Large}
+			{\thesection}
+			{0.9ex}
+			{}
+			[\vspace{-4mm}\rule{\textwidth}{1pt}]
 
 %Stopka i head (sekcja której nie powinno się zmieniać)
     \pagestyle{fancy}
@@ -93,7 +109,9 @@
 	\end{center}
 	\thispagestyle{empty}
 \end{titlepage}
-
+\setcounter{tocdepth}{1}
+\tableofcontents
+\pagebreak
 \section{Pierwsze ćwiczenia:}
 
 
@@ -329,7 +347,7 @@ Dobra produkcyjne są używane do produkcji innych dóbr.
 
 \subsection{Czy to samo dobro może być dobrem konsumpcyjnym i dobrem produkcyjnym?}
 
-Tak, jednym z takich dóbr jest chleb, który jest dobrem konsumpcyjnym, oraz jest również używany do produkcji kanapek. 
+Tak, jednym z takich dóbr jest chleb, który jest dobrem konsumpcyjnym, oraz jest również używany do produkcji kanapek.
 
 \subsection{Czy dobro inwestycyjne jest tym samym co dobro kapitałowe?}
 
@@ -339,9 +357,24 @@ Dobra inwestycyjne to to samo co dobra kapitałowe.
 
 \obrazek{0.5}{kwadrat.png}
 
-\subsection{}
-\subsection{}
-\subsection{}
+\subsection{,,W krajach Europy Zachodniej masło nie jest dobrem rzadkim''. Zajmij stanowisko wobec tego stwierdzenia i uzasadnij je.}
+
+Masło nie jest dobrem rzadkim ponieważ jest jego produkowana ograniczona ilość, która jest na tyle mała iż zachodzi import masła\footnote{\url{https://foodfakty.pl/eksport-serow-i-masla-z-polski-wiekszy-niz-przed-rokiem}} z innych krajów Unii Europejskiej. Jest to spowodowane ograniczoną produkcją mleka tłustego, z którego są produkowane śmietany itp.
+
+Jednak warto zauważyć iż mleko odtłuszczone, te które kupujemy w sklepach, staje się praktycznie dobrem rzadkim. Jest one praktycznie \emph{odpadem} przy produkcji innych produktów mlecznych i często dochodzi do sytuacji gdzie jest one tańsze od wody lub bardziej opłaca się je wylewać niż sprzedawać.\footnote{\url{https://time.com/4530659/farmers-dump-milk-glut-surplus/}}
+
+\subsection{Przypomnij sobie definicję ekonomii. Dlaczego ekonomia zajmuje się dobrami rzadkimi? W jakim aspekcie zajmuje się również dobrami wolnymi?}
+
+Ekonomia zajmuje się dobrami rzadkimi, ponieważ to jak ludzie, jako istoty społeczne, zarządzają ograniczoną ilością zasobów jest ciekawe oraz zrozumienie tych procesów pozwala nam na próby ich poprawy. Systemy ekonomiczne i ich metody dystrybucji dóbr rzadkich definiują instytucje państwowe. Wadliwe systemy ekonomiczne takie jak hiszpańska \emph{,,Encomienda''} pozostawiają swoje ślady w społeczeństwach ameryki łacińskiej do dziś.\footnote{Polecam wideo-lekturę filmu o skutkach \emph{Encomiendy} w Meksyku \url{https://youtu.be/SPs6tjXsf7M} [ENG]}
+
+Dobra wolne, mimo iż z definicji nie są ograniczone, również posiadają swoje procesy dystrybucji, które mogą być przedmiotem rozważań nauki społecznej jaką jest ekonomia.
+
+\subsection{,,Piasek pustynny zawsze będzie dobrem wolnym, ponieważ jego ilość przekracza potrzeby ludzkie''. Czy zgadzasz się z tym stwierdzeniem?}
+
+Piasek pustynny może nie jest materiałem tak rzadkim jak piasek plażowy, który bywa nawet kradziony\footnote{\tiny{\url{https://www.theguardian.com/global/2018/jul/01/riddle-of-the-sands-the-truth-behind-stolen-beaches-and-dredged-islands}}}, jednak kto wie, może kiedyś zapotrzebowanie na piasek pustynny wzrośnie wobec rosnących kosztów piasku plażowego oraz opracowania jakiejś metody przetwarzania ziaren na inne rozmiary.
+
+Nigdy nic nie wiadomo, jednak kopanie piasku na środku pustyni nie jest tak prostą sprawą, głównie z powodu obecnie istniejącej infrastruktury lub jej braku. Z tych powodów piasek pustynny może się łatwo stać dobrem rzadkim, z powodu trudności w eksploatacji.
+
 \subsection{Ziemia ta była dobrem wolnym czy rzadkim?}
 
 Rzadkim, iż jej ilość była skończona.
@@ -366,9 +399,9 @@ Rzadkim, iż jej ilość była skończona.
 
 \begin{itemize}
 	\item konsumpcja - strumień
-	\item inwestycja - zasób 
+	\item inwestycja - zasób
 	\item dług - zasób
-	\item koszt - zasób 
+	\item koszt - zasób
 	\item płaca - strumień
 	\item podatek - strumień / zasób
 	\item majątek - zasób
@@ -390,15 +423,15 @@ Zasoby:
 \subsection{Jak są mierzone zasoby i strumienie:}
 \begin{enumerate}
 	\item na koncie bankowym
-	\begin{itemize}
-		\item strumień - zmiana w czasie
-		\item zasób - stan konta
-	\end{itemize}
+	      \begin{itemize}
+		      \item strumień - zmiana w czasie
+		      \item zasób - stan konta
+	      \end{itemize}
 	\item za pomocą gazomierza
-	\begin{itemize}
-		\item strumień - zmiana wskazania od ostatniej kontroli
-		\item zasób - stan licznika
-	\end{itemize}
+	      \begin{itemize}
+		      \item strumień - zmiana wskazania od ostatniej kontroli
+		      \item zasób - stan licznika
+	      \end{itemize}
 \end{enumerate}
 
 \subsection{Czy dobra wolne są przedmiotem podziału.}
@@ -415,7 +448,9 @@ Tak jeżeli:
 
 \begin{itemize}
 	\item Na rynku panuje monopol narzucający konsumentowi dany wybór.
-	\item 
+	\item Koszt zmiany wybranego producenta jest zbyt wysoki z powodu niestandaryzowanych rozwiązań.
+
+	      Przykładem jest firma \emph{Apple} gdzie konsument korzystający z jej rozwiązań nie może łatwo integrować produktów konkurencji, tylko musi płacić więcej za rozwiązanie firmy \emph{Apple}. Na przykład do aktualizacji firmware na słuchawkach bezprzewodowych jest potrzebny telefon marki \emph{iPhone} itd.
 \end{itemize}
 
 \subsection{,,W gospodarstwie domowym odbywa się konsumpcja, w przedsiębiorstwie zaś odbywa się produkcja''}
@@ -476,7 +511,7 @@ Jeśli w celu osiągnięciu danego celu będziemy marnować zasoby poprzez nie u
 \begin{enumerate}
 	\item 5\% - Szukanie możliwości zdobycia funduszy w inny sposób, zwiększenie ilości studentów w grupach na pierwszym roku.
 	\item 20\% - Patrz punkt poprzedni $+$ Zaprzestanie dotowania organizacji nie przynoszących dochodów bezpośrednio
-	\item 50\% - Patrz punkt poprzedni $+$ Zatrzymanie inwestycji w infrastrukturę, sprzedaż nieruchomości,  
+	\item 50\% - Patrz punkt poprzedni $+$ Zatrzymanie inwestycji w infrastrukturę, sprzedaż nieruchomości,
 \end{enumerate}
 
 \subsection{Wynajmujesz mieszkanie, za które płacisz właścicielowi 20 tys. PLN rocznie. Twoje oszczędności w wysokości 200 tys. PLN są ulokowane na koncie ban­kowym na 15\% rocznie. Mieszkanie można nabyć za 200 tys. PLN.}
@@ -489,7 +524,7 @@ Decyduje się na zakup mieszkania gdyż jest ono dobrem które nie traci na obec
 \subsection{Mając do dyspozycji 100 tys. PLN stajesz przed wyborem jednej z poniższych możliwości}
 
 \begin{itemize}
-	\item lokata na koncie bankowym o rocznym oprocentowaniu wynoszącym 30\% 
+	\item lokata na koncie bankowym o rocznym oprocentowaniu wynoszącym 30\%
 	\item kupno obligacji Skarbu Państwa, które przynoszą 35 tys. PLN rocznego dochodu
 	\item kupno akcji spółek notowanych na giełdzie, od których dywidenda wyniesie średnio 20\% rocznie.
 \end{itemize}
@@ -510,12 +545,12 @@ Jeśli koszt przechowywania kartonów jest nie zerowy (na jednostkę czasu) będ
 
 \subsection{Ulokowałeś 100 tys. PLN w akcjach spółek notowanych na giełdzie, przy­noszących 20\% rocznej dywidendy. W wyniku hossy zarobiłeś dodatkowo 5 tys. PLN, które możesz przeznaczyć na sfinansowanie wakacji lub na nabycie dodatkowych akcji.}
 
-\emph{Ceny wycieczek zagranicznych wzrosną w ciągu roku prawdopodobnie o 30\%. 
-Na co przeznaczysz 5 tys. PLN? Uzasadnij odpo­wiedź.}
+\emph{Ceny wycieczek zagranicznych wzrosną w ciągu roku prawdopodobnie o 30\%.
+	Na co przeznaczysz 5 tys. PLN? Uzasadnij odpo­wiedź.}
 
 \vspace{1cm}
 
-Zarobione 5000 zł przeznaczę na wycieczkę zagraniczną.
+Zarobione 5000 zł przeznaczę na wycieczkę zagraniczną, ponieważ zysku z giełdy z kwoty 5000 zł będą mniejsze od wzrostu cen wycieczek zagranicznych.
 
 \section{Rynek i Gospodarka Rynkowa}
 
@@ -525,11 +560,11 @@ Zarobione 5000 zł przeznaczę na wycieczkę zagraniczną.
 
 \begin{itemize}
 	\item w warunakch wymiany barterowej - Znalezienie osoby która:
-	\begin{itemize}
-		\item Posiada samochód
-		\item Podoba się jej moja biżuteria
-	\end{itemize}
-	lub zacznę poszukiwania trzeciego dobra i osoby trzeciej która za biżuterię odda mi dobro za którę nabędę samochód.
+	      \begin{itemize}
+		      \item Posiada samochód
+		      \item Podoba się jej moja biżuteria
+	      \end{itemize}
+	      lub zacznę poszukiwania trzeciego dobra i osoby trzeciej która za biżuterię odda mi dobro za którę nabędę samochód.
 	\item Towarowo - pieniężnej - Uniwersalne dobro to pieniądz - sprzedam więc osobie trzeciej biżuterię, a za otrzymane pieniądze kupię samochód.
 \end{itemize}
 
@@ -538,8 +573,8 @@ Zarobione 5000 zł przeznaczę na wycieczkę zagraniczną.
 \emph{Gdy cena innych dóbr w 1993 wzrosły w porównaniu z 1989 o 100\%, cena relatywna dobra X wzrosła czy zmalała?}
 
 \begin{align*}
-	100 \cdot \left(1 + 100 \%\right) = 100 \cdot 2 &= 200 \\
-	200 &< 700 \Rightarrow \text{Cena relatywna wzrosła}
+	100 \cdot \left(1 + 100 \%\right) = 100 \cdot 2 & = 200                                           \\
+	200                                             & < 700 \Rightarrow \text{Cena relatywna wzrosła}
 \end{align*}
 
 \subsection{Wypełnij tabelę}
@@ -549,12 +584,12 @@ Zarobione 5000 zł przeznaczę na wycieczkę zagraniczną.
 \begin{table}[h]
 	\begin{tabular}{|c|c|c|}
 		\hline
-		Wyszczególnienie & \multicolumn{2}{c|}{Cena} \\ 
-		& nakładu czynnika produkcji & zasobu czynnika produkcji \\\hline
-		Ziemia	& koszt eksploatacji	 & ilość ziemi 	\\
-		Praca	& płaca	 & - \\
-		Kapitał rzeczowy	& maszyny	& Wytworzenie Dobra\\
-		Kapitał pieniężny	& oprocentowanie & Wartość zysku	\\\hline
+		Wyszczególnienie  & \multicolumn{2}{c|}{Cena}                              \\
+		                  & nakładu czynnika produkcji & zasobu czynnika produkcji \\\hline
+		Ziemia            & koszt eksploatacji         & ilość ziemi               \\
+		Praca             & płaca                      & -                         \\
+		Kapitał rzeczowy  & maszyny                    & Wytworzenie Dobra         \\
+		Kapitał pieniężny & oprocentowanie             & Wartość zysku             \\\hline
 	\end{tabular}
 	\centering
 \end{table}
@@ -605,7 +640,7 @@ Zgromadzenie historycznych danych z lat ubiegłych takich jak:
 	\item Ilość sprzedawanych rowerów w danych półkach cenowych.
 	\item Ceny sprzedawanych rowerów (z uwzględnieniem inflacji itp.)
 	\item Popularność wszelakich usług wypożyczania rowerów.
-	Tutaj możliwa by była pewnie analiza demografii użytkowników tych usług.
+	      Tutaj możliwa by była pewnie analiza demografii użytkowników tych usług.
 \end{itemize}
 
 Na ich podstawie można by było zobaczyć w jaką stronę przesuwają się trendy, a tym samym jak będzie się zmieniać popyt.
@@ -825,7 +860,7 @@ produkty materialne
 
 \subsubsection{Ziemia jako czynnik produkcyjny przynosi dochód w postaci:}
 
-renty 
+renty
 
 \subsubsection{Zagadnieniem makroekonomicznym nie jest:}
 
@@ -1094,14 +1129,14 @@ Załóżmy, że KSK wynosi 0,6. Dla produkcji faktycznej równej 100 występuje 
 O ile zwiększy się produkcja, przy której ukształtuje się nowa równowaga.
 
 \begin{align*}
-	Y_1 &= 100 \\
-	C &= 0,6 \cdot Y \\
-	I &= 0,4 \cdot Y = 40
+	Y_1 & = 100              \\
+	C   & = 0,6 \cdot Y      \\
+	I   & = 0,4 \cdot Y = 40
 \end{align*}
 Jeśli $I$ zwiększy się o 30 to $Y$:
 \begin{align*}
-	Y_2 &= \frac{40 + 30}{0,4} = 175 \\
-	175 - 100 &= 75 \Rightarrow \text{Produkcja zwiększy się o 75}
+	Y_2       & = \frac{40 + 30}{0,4} = 175                         \\
+	175 - 100 & = 75 \Rightarrow \text{Produkcja zwiększy się o 75}
 \end{align*}
 
 \subsection{}
@@ -1121,17 +1156,124 @@ Zmienia się z 500 na 300.
 
 \subsection{Jaka część faktycznych inwestycji nie wchodzi w skład popytu globalnego? Dlaczego?}
 
+Część inwestycji jest przeznaczana na rzeczy nie wpływające na popyt globalny, może to być na przykład amortyzacja.
+
 \subsection{}
 
 \subsubsection{Oblicz wielkość dochodu w punkcie równowagi, gdy popyt inwestycyjny wynosi 400, a funkcja konsumpcji ma postać $C = 0,8Y$.}
 
-\[400 = \left(1 - 0,8\right)\cdot Y = 0,2Y\]
-\[Y = \frac{10}{2} \cdot 400 = 2000\]
+\begin{align*}
+	400 & = \left(1 - 0,8\right)\cdot Y = 0,2Y \\
+	Y   & = \frac{10}{2} \cdot 400 = 2000
+\end{align*}
+Wartość dochodu w punkcie równowagi to 2000.
 
 \subsubsection{Czy produkcja będzie większa, czy mniejsza, gdy funkcja konsumpcji przybierze postać $C = 100 + 0,7Y$?}
 
-\[400 = \left(1 - 0,7\right)\cdot Y - 100 = 0,3Y - 100\]
-\[Y = \frac{10}{3} \cdot 400 - 100 \approx 1233 < 2000\]
+\begin{align*}
+	400 & = \left(1 - 0,7\right)\cdot Y - 100 = 0,3Y - 100   \\
+	Y   & = \frac{10}{3} \cdot 400 - 100 \approx 1233 < 2000
+\end{align*}
 
 Będzie mniejsza.
+
+\subsection{Wyjaśnij, dlaczego poniższe stwierdzenia są nieprawdziwe}
+
+\subsubsection*{Gdyby tylko ludzie byli gotowi więcej oszczędzić, inwestycje zwiększyłyby się i można by ponownie ożywić gospodarkę.}
+
+W celu pobudzenia produkcji należy pobudzić konsumpcje, a zwiększenie procentu dochodów przeznaczanych na oszczędności przyniesie odwrotny efekt.
+
+\subsubsection*{Niższa produkcja prowadzi do niższych wydatków i do jeszcze niższej produkcji; spadkowy ruch gospodarki wzdłuż tej spirali może trwać bez końca.}
+
+W modelu \emph{Keynesa} produkcja zależy od wydatków, a nie wydatki od produkcji.
+
+\subsection{}
+
+Załóżmy, że funkcja konsumpcji w gospodarce zamkniętej bez udziału państwa ma postać:
+\[C = a + \text{KSK} \cdot Y\]
+
+Konsumpcja autonomiczna wynosi 300 [$a = 300$], krańcowa skłonność do konsumpcji kształtuje się na poziomie $\text{KSK} = 0,7$
+
+Wiedząc, że wzór funkcji oszczędności można wyprowadzić w oparciu o wzór na funkcję konsumpcji[\dots][,] oblicz, przy jakim poziomie produkcji oszczędności będą równe 0?
+
+\vspace{1cm}
+Dla $I = 0$ wynika że $C = Y$, zatem:
+\begin{align*}
+	Y           & = a + 0,7 \cdot Y           \\
+	0,3 \cdot Y & = a = 300                   \\
+	Y           & = 300 \cdot \frac{10}{3}    \\
+	Y           & = 1000 \Rightarrow C = 1000
+\end{align*}
+
+Przy poziomie produkcji równym 1000.
+
+\subsection{}
+
+Mnożnik inwestycyjny odzwierciedla skalę wpływu zmiany poziomu wydatków inwestycyjnych na zmianę poziomu dochodu narodowego i produkcji w punkcie równowagi.
+
+Załóżmy, że $\text{KSK} = 0,6$, a na rynku występuje równowaga.
+
+Jeśli popyt inwestycyjny wzrośnie o 30, to o ile zmieni się produkcja, przy której ukształtuje się nowy stan równowagi?
+
+\begin{align*}
+	Y \cdot 0,6                  & = C               \\
+	Y \cdot \left(1 - 0,6\right) & = Y \cdot 0,4 = I \\
+	30 \cdot \frac{10}{4}        & = 75              \\
+	75 \cdot 0,6                 & = 45
+\end{align*}
+
+Produkcja zmieni się o 45
+
+
+\subsection{}
+Mnożnik inwestycyjny jest skorelowany z poziomem krańcowej skłonności do konsumpcji (KSK).
+
+Opierając się na tej zależności, oblicz wartość mnożnika dla gospodarki zamkniętej bez udziału państwa, przy danej funkcji oszczędności ($S$), gdzie $Y$ oznacza dochód narodowy:
+
+\paragraph*{a) $S = -400 + 0,3\cdot Y$}
+\begin{align*}
+	Y & = C + S\left(Y\right)                                       \\
+	C & = Y - S\left(Y\right)                                       \\
+	C & = Y - \left( - 400 + 0,3 \cdot Y\right) = 0,7 \cdot Y + 400
+\end{align*}
+
+Zatem $\text{KSK} = 0,7$; $a = 400$. Mnożnik inwestycyjny to:
+
+\begin{align*}
+	m_i = \frac{\Delta Y}{\Delta I_a} = \frac{1}{1 - \text{KSK}}
+\end{align*}
+
+Zatem $m_i = \frac{1}{\frac{3}{10}} = \frac{10}{3}$
+\paragraph*{b) $S = -300 + 0,25\cdot Y$}
+$m_i = \frac{1}{4}^{-1} = 4$
+
+\paragraph*{c) $S = -250 + 0,2\cdot Y$}
+
+$m_i = \frac{1}{5}^{-1} = 5$
+
+\subsection{Wskaż, które z poniższych stwierdzeń są prawdziwe, a które fałszywe, przypisz do nich (P) lub (F):}
+
+\begin{itemize}
+	\item Im niższa jest krańcowa skłonność do konsumpcji, tym bardziej stroma jest krzywa agregatowego popytu. Fałsz
+	\item Wzrost krańcowej skłonności do oszczędzania zwiększa konsumpcję. Fałsz
+	\item Wzrost popytu inwestycyjnego zmienia nachylenie krzywej zagregowanego popytu. Fałsz
+	\item Mnożnik inwestycyjny jest ściśle skorelowany z krańcową skłonnością do konsumpcji. Prawda
+
+	\item Iloraz krańcowej skłonności do konsumpcji i krańcowej skłonności do oszczędzania jest równy 1.
+
+	      \begin{align*}
+		      \lim_{\text{KSK}\rightarrow 1^{-}} \frac{\text{KSK}}{1 - \text{KSK}}          & = +\infty \text{, Zatem:}         \\
+		      \bigwedge_{\text{KSK} \in \left(0; 1\right)}\frac{\text{KSK}}{1 - \text{KSK}} & \not = 1 \Rightarrow \text{Fałsz}
+	      \end{align*}
+
+	\item Nachylenie krzywej popytu globalnego nie zależy od krańcowej skłonności do konsumpcji. Fałsz
+	\item W sytuacji braku równowagi w przedsiębiorstwie pojawiają się nieplanowane zmiany stanu zapasów. Prawda
+\end{itemize}
+
+\subsection{O ile zmieniła się wartość popytu inwestycyjnego, jeżeli wartość punkt równowagi wzrosła o 10, a $\text{KSK} = 0,8$?}
+
+$10 \cdot \left(1 - 0,8\right) = 2$
+
+Zmieni się o 2.
+
 \end{document}
