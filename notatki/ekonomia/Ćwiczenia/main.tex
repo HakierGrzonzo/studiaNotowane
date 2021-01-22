@@ -15,12 +15,15 @@
 	\usepackage{amsfonts}
 	\usepackage{multicol}
 	\usepackage{hyperref}
+	\usepackage{float}
 	\hypersetup{
 		colorlinks=false,
 		linkcolor=blue,
 		filecolor=magenta,      
 		urlcolor=cyan,
 	}
+	\usepackage{tikz}
+	\usetikzlibrary{arrows}
 	
 %inny wygląd
 	%\usepackage{tgbonum}
@@ -84,7 +87,9 @@
 			{\thesection}
 			{0.9ex}
 			{}
-			[\vspace{-4mm}\rule{\textwidth}{1pt}]
+			[\titlerule\vspace{1cm}]
+
+\titleformat{\subsection}{\bfseries}{\large{Zad. \thesubsection}}{0.9ex}{}[\vspace{5mm}]
 
 %Stopka i head (sekcja której nie powinno się zmieniać)
     \pagestyle{fancy}
@@ -1019,6 +1024,9 @@ Zatem te metody mierzą tą samą rzecz jednak przez inne czynniki.
 
 \subsubsection{Jaka jest różnica między PKB liczonym według cen rynkowych a PKB liczonym według cen czynników produkcji?}
 
+PKB liczone według cen rynkowych mierzy produkcję krajową według cen płaconych przez ostatecznych konsumentów, przez to uwzględnia podatki pośrednie. PKB liczone według cen czynników produkcji pomija podatki pośrednie ale uwzględnia subsydia.
+
+
 \subsubsection{Wyjaśnij  różnicę między produktem krajowym brutto a produktem narodowym brutto. Kiedy PKB jest wyższe od PNB i na odwrót?}
 
 Produkt krajowy analizuje dochód pod względem \emph{geograficznym},  produkt narodowy pod względem \emph{obywatelstwa posiadaczy środków produkcji}. Produkt krajowy będzie wyższy od produktu narodowego jeśli większość produkcji jest realizowana przez zagraniczne firmy, produkt narodowy będzie wyższy jeśli obywatele danego kraju realizują produkcje w innych państwach.
@@ -1272,7 +1280,7 @@ $m_i = \frac{1}{5}^{-1} = 5$
 
 \subsection{O ile zmieniła się wartość popytu inwestycyjnego, jeżeli wartość punkt równowagi wzrosła o 10, a $\text{KSK} = 0,8$?}
 
-$10 \cdot \left(1 - 0,8\right) = 2$
+\[10 \cdot \left(1 - 0,8\right) = 2\]
 
 Zmieni się o 2.
 

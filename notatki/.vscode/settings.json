@@ -8,5 +8,8 @@
     "latex-workshop.intellisense.unimathsymbols.enabled": true,
     "latex-workshop.latex.recipe.default": "lastUsed",
     "latex-workshop.view.pdf.hand": true,
-    "latex-workshop.view.pdf.invertMode.brightness": 0
+    "latex-workshop.view.pdf.invertMode.brightness": 0,
+    "files.associations": {
+        "random": "cpp"
+    }
 }

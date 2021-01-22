@@ -1,0 +1,127 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage{inputenc}[utf8]
+\usepackage[polish]{babel}
+
+%Lepiej tego nie zmieniaj, jak co to dodawaj pakiety
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=false,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+%\apptocmd{\frame}{}{\justifying}{} % Allow optional arguments after frame.
+
+\urlstyle{same}
+%Zmienne, zmień je!
+\graphicspath{ {./ilustracje/} }
+\title[BFC64]{Brainfuck Compiler 64 - Programowanie bardzo niskopoziomowe.}
+\author{Grzegorz Koperwas}
+\date{\today}
+
+%lokalizacja polska (odkomentuj jak piszesz po polsku)
+
+\usepackage{polski}
+\usepackage[polish]{babel} 
+\usepackage{indentfirst}
+\usepackage{icomma} 
+\usetheme{Warsaw}
+
+\brokenpenalty=1000
+\clubpenalty=1000
+\widowpenalty=1000    
+
+%nie odkometowuj wszystkiego, użyj mózgu
+%\renewcommand\thechapter{\arabic{chapter}.}
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{subsubsection}.}
+
+%Makra
+
+\newcommand{\obrazek}[2]{
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=#1]{#2}
+\end{figure}
+}     
+        
+
+\newcommand{\twierdzonko}[1]{
+    \begin{center}
+    \begin{mdframed}
+    #1
+    \end{mdframed}          
+    \end{center}
+} 
+
+\newcommand{\dwanajeden}[2]{
+\ensuremath \left( \begin{array}{c}
+    #1\\
+    #2
+\end{array} \right)
+}  
+
+\captionsetup[figure]{name=Załącznik}
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+\begin{frame}
+    \tableofcontents
+\end{frame}
+\section{Jak napisać kompilator?}
+\begin{frame}
+    \frametitle{Jak napisać kompilator?}
+    Zanim zaczniemy pisać kompilator musimy sobie odpowiedzieć na parę pytań
+
+    \begin{description}
+        \item[Czemu?] \pause By móc mówić że napisałem kompilator.
+        \item[Czego?] \pause Brainfuck'a - języka stworzonego by twórca mógł napisać kompilator w 256 bajtach.
+        \item[Na co?] \pause Commodore 64 - Ten 40 letni assembler nie będzie taki trudny.
+    \end{description}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Brainfuck 101}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Brainfuck} - jak sama nazwa wskazuje nie jest zbytnio czytelnym językiem.
+            
+            Brainfuck nie posiada koncepcji zmiennej, zamiast tego oferuje nam \emph{dużą} taśmę z komórkami na zmienne liczbowe.
+
+            \begin{lstlisting}[frame=L,basicstyle=\tiny\ttfamily,numbers=left]
+++++++++
+[
+    >++++
+    [
+        >++>+++>+++>+<<<<-
+    ]
+    >+>+>->>+
+    [<]
+    <-
+]
+>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.
+            \end{lstlisting}
+            \scriptsize{Jak ktoś pomyślał że to ,,Hello World'' to gratulacje.}
+
+        \end{column}
+        \begin{column}{.5\textwidth}
+            Jego cała składnia składa się nie z słów, jak w \texttt{c++}, tylko z paru znaków: 
+
+            \begin{description}
+                \item[{$<$}, {$>$}] Przesuń taśmę w lewo/prawo
+                \item[+, -] Dodaj/Odejmnij 1 od komórki pamięci
+                \item[., ,] Wypisz/wczytaj znak do komórki pamięci
+                \item[{[, ]}] Pętla \texttt{while~(komórka~!=~0)}.
+            \end{description}
+        \end{column}
+    \end{columns}
+\end{frame}
+\end{document}
