@@ -1,0 +1,20 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/hakiergrzonzo/Desktop/polibuda/notatki II/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/p5.9.20210110.0/
+$(OUT)	Programowanie/lab1/makefile	/^$(OUT): $(OBJFILES)$/;"	t
+CC	Programowanie/lab1/makefile	/^CC = g++$/;"	m
+CFILES	Programowanie/lab1/makefile	/^CFILES   = $(wildcard *.c)$/;"	m
+CPPFILES	Programowanie/lab1/makefile	/^CPPFILES = $(wildcard *.cpp)$/;"	m
+OBJFILES	Programowanie/lab1/makefile	/^OBJFILES = $(CFILES:.c=.o) $(CPPFILES:.cpp=.o)$/;"	m
+OUT	Programowanie/lab1/makefile	/^OUT      = main$/;"	m
+clean	Programowanie/lab1/makefile	/^clean:$/;"	t
+main	Programowanie/lab1/main.cpp	/^int main()$/;"	f	typeref:typename:int
+run	Programowanie/lab1/makefile	/^run: $(OUT)$/;"	t
