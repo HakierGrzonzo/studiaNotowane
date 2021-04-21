@@ -1,0 +1,295 @@
+% !TEX program = xelatex
+%Wzór dokumentu
+%tu zmień marginesy i rozmiar czcionki
+\documentclass[a4paper,12pt]{article}
+\usepackage{inputenc}[utf8]
+\usepackage[margin=2.8cm]{geometry}
+\usepackage[polish]{babel}
+
+%Lepiej tego nie zmieniaj, jak co to dodawaj pakiety
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{tikz}
+	\usetikzlibrary{arrows}
+	\usetikzlibrary{patterns}
+\usepackage{pgf}
+\usepackage[section]{placeins}
+
+
+
+%inny wygląd
+%\usepackage{tgbonum}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+%Zmienne, zmień je!
+\graphicspath{ {./ilustracje/} }
+\title{Tworzenie i uruchamianie prostych kontenerów w środowisku  docker-compose}
+\author{Grzegorz Koperwas}
+\date{\today}
+
+%lokalizacja polska (odkomentuj jak piszesz po polsku)
+
+\usepackage{polski}
+\usepackage[polish]{babel} 
+\usepackage{indentfirst}
+\usepackage{icomma} 
+
+\brokenpenalty=1000
+\clubpenalty=1000
+\widowpenalty=1000    
+
+%nie odkometowuj wszystkiego, użyj mózgu
+%\renewcommand\thechapter{\arabic{chapter}.}
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{subsubsection}.}
+
+%Makra
+
+\newcommand{\obrazek}[2]{
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=#1]{#2}
+\end{figure}
+}     
+
+\newcommand{\stopnie}{\ensuremath{^{\circ}}}
+
+\newcommand{\twierdzonko}[1]{
+    \begin{center}
+    \begin{mdframed}
+    #1
+    \end{mdframed}          
+    \end{center}
+} 
+
+\newcommand{\dwanajeden}[2]{
+\ensuremath \left( \begin{array}{c}
+    #1\\
+    #2
+\end{array} \right)
+}  
+
+%Stopka i head (sekcja której nie powinno się zmieniać)
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+
+%Zmieniaj od tego miejsca
+\rfoot{\thepage}
+\lfoot{}
+\lhead{}
+\rhead{Ostatnia edycja: \today}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+
+
+\begin{document}
+\includepdf[pages=-]{PFZ-StrTytulowaWyp.pdf}
+
+\section{Wstęp teoretyczny}
+
+Celem doświadczenia jest zbadanie wartości tarcia statycznego tektury i foli aluminiowej oraz zbadanie wpływu powierzchni na wartość maksymalnej siły tarcia statycznego.
+
+\begin{figure}[h]
+	\begin{tikzpicture}[scale=.5]
+		% draw edge
+		\draw (0, 0) -- (10, 0) -- (10, -10);
+		% draw box
+		\draw (2, 0) rectangle (4, 2);
+		% draw wheel
+		\draw (10, 0) -- (11, 0.5) circle [radius=.5];
+		% draw line
+		\draw [ultra thin] (4, 1) -- (11, 1);
+		\draw [ultra thin] (11.5, 0.5) -- (11.5, -6);
+		% draw weight
+		\draw (11, -6) rectangle (12, -7);
+		% draw tension forces
+		\draw [thick, ->] (4, 1) -- (6, 1) node [above] {$N$};
+		\draw [thick, ->] (11, 1) -- (9, 1) node [above] {$N$};
+		\draw [thick, ->] (11.5, .5) -- (11.5, -1.5) node [right] {$N$};
+		\draw [thick, ->] (11.5, -6) -- (11.5, -4) node [right] {$N$};
+		% draw weight forces
+		\draw [thick, ->] (11.5, -6.5) -- (11.5, -8.5) node [below] {$Q_1$};
+		\draw [thick, ->] (3, 1) -- (3, -1) node [below] {$Q_2$};
+		% draw friction forces
+		\draw [thick, ->] (3, 0) -- (1, 0) node [above] { $F_s$ };
+	\end{tikzpicture}
+	\centering
+	\caption{Rozkład sił w układzie.}\label{forces}
+	\begin{flushleft}
+		Gdzie:
+	\end{flushleft}
+	\begin{itemize}
+		\item $F_s$ - siła tarcia statycznego,
+		\item $Q_1$, $Q_2$ - siły ciężaru obciążników,
+		\item $N$ - siły naciągu linki.
+	\end{itemize}
+\end{figure}
+
+Wartość maksymalna siły tarcia statycznego w układzie z rysunku \ref{forces} jest dana wzorem:
+
+\begin{equation}
+	F_{s_{\max}} = f_s \cdot Q_2
+\end{equation}\label{maxFriction}
+
+gdzie $f_s$ to współczynnik tarcia statycznego. W układzie wartość maksymalna siły tarcia statycznego jest również równa wartości siły naciągu $N$, której wartość jest natomiast równa wartości siły ciężaru $Q_1$.
+
+Zatem:
+
+\begin{align*}
+	F_{s_{\max}}\, & = N = Q_1,\quad \text{Z (\ref{maxFriction})} \\
+	f_s \cdot Q_2\, & = Q_1                                        \\
+	f_s            & = \frac{Q_1}{Q_2} = \frac{m_1 g}{m_2 g}
+\end{align*}
+
+Ostatecznie:
+
+\begin{equation}
+	f_s = \frac{m_1}{m_2}
+\end{equation}
+
+\section{Wyniki pomiarów:}
+
+\begin{table}[h]
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+			\hline
+			\multirow{2}{*}{Materiał}                   & \multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}rozmiar\\ {[}$cm^2${]} $\pm 1cm$\end{tabular}} & \multirow{2}{*}{\begin{tabular}[c]{@{}l@{}}masa obciążnika\\ {[}$g${]} $\pm 1g$\end{tabular}} & \multicolumn{10}{c|}{masa sumaryczna {[}$g${]} $\pm 1g$}                                                                            \\ \cline{4-13}
+			                                            &                                            &                                            & $m_1$                                                    & $m_2$ & $m_3$ & $m_4$ & $m_5$ & $m_6$ & $m_7$ & $m_8$ & $m_9$ & $m_{10}$ \\ \hline \hline
+			\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}tektura +\\ tektura\end{tabular}}  & 36                                         & 358                                        & 92                                                       & 121   & 137   & 124   & 135   & 127   & 107   & 122   & 123   & 156      \\ \cline{2-13}
+			                                            & 50                                         & 358                                        & 131                                                      & 169   & 91    & 146   & 174   & 129   & 153   & 161   & 184   & 135      \\ \cline{2-13}
+			                                            & 64                                         & 357                                        & 163                                                      & 154   & 144   & 151   & 129   & 153   & 131   & 153   & 144   & 114      \\ \hline \hline
+			\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}folia + \\ folia\end{tabular}} & 36                                         & 355                                        & 183                                                      & 148   & 182   & 148   & 185   & 174   & 165   & 165   & -     & -        \\ \cline{2-13}
+			                                            & 50                                         & 356                                        & 171                                                      & 191   & 176   & 162   & 173   & 153   & 166   & 183   & -     & -        \\ \cline{2-13}
+			                                            & 64                                         & 359                                        & 190                                                      & 178   & 169   & 180   & 170   & 176   & 154   & 156   & -     & -        \\ \hline
+		\end{tabular}%
+	}
+	\centering
+	\caption{Wyniki pomiarów}\label{pomiary:raw}
+\end{table}
+
+\begin{table}[h]
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		\multicolumn{10}{|c|}{Masa ostatniej monety {[}$g${]} $\pm 1g$}                  \\ \hline
+		$m_1$ & $m_2$ & $m_3$ & $m_4$ & $m_5$ & $m_6$ & $m_7$ & $m_8$ & $m_9$ & $m_{10}$ \\ \hline
+		\hline
+		6     & 6     & 5     & 5     & 3     & 5     & 5     & 3     & 3     & 3        \\ \hline
+		3     & 3     & 6     & 4     & 3     & 3     & 3     & 3     & 1     & 5        \\ \hline
+		3     & 5     & 6     & 2     & 5     & 2     & 6     & 3     & 3     & 6        \\ \hline
+		\hline
+		3     & 3     & 1     & 4     & 5     & 2     & 2     & 4     & -     & -        \\ \hline
+		2     & 3     & 3     & 6     & 3     & 3     & 3     & 3     & -     & -        \\ \hline
+		3     & 5     & 6     & 3     & 3     & 3     & 3     & 3     & -     & -        \\ \hline
+	\end{tabular}
+	\centering
+	\caption{Masa ostatniej monety dla każdego pomiaru}\label{data:lastOfMonetas}
+\end{table}
+Należy zauważyć, iż używana folia aluminiowa posiadała fabryczną fakturę heksagonalną.
+
+\section{Przetwarzanie danych oraz obliczone wartości}
+
+Z powodu błędów grubych przy pomiarach \texttt{tektura + tektura}, eliminujemy największy i najmniejszy pomiar, gdyż nie zostały one wykonane poprawnie.
+
+\begin{table}[h]
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		\multicolumn{10}{|c|}{masa sumaryczna po eliminacji {[}$g${]} $\pm 1g$}          \\ \hline
+		$m_1$ & $m_2$ & $m_3$ & $m_4$ & $m_5$ & $m_6$ & $m_7$ & $m_8$ & $m_9$ & $m_{10}$ \\ \hline\hline
+		-     & 121   & 137   & 124   & 135   & 127   & 107   & 122   & 123   & -        \\ \hline
+		131   & 169   & -     & 146   & 174   & 129   & 153   & 161   & -     & 135      \\ \hline
+		-     & 154   & 144   & 151   & 129   & 153   & 131   & 153   & 144   & -        \\ \hline\hline
+		183   & 148   & 182   & 148   & 185   & 174   & 165   & 165   & -     & -        \\ \hline
+		171   & 191   & 176   & 162   & 173   & 153   & 166   & 183   & -     & -        \\ \hline
+		190   & 178   & 169   & 180   & 170   & 176   & 154   & 156   & -     & -        \\ \hline
+	\end{tabular}
+	\centering
+	\caption{Wyniki pomiarów po eliminacji}\label{data:eliminated}
+\end{table}
+
+Podczas pomiarów była zapisywana również masa ostatniej dodanej monety.
+
+
+Błąd danego pomiaru $u\left( m_i \right)$ został obliczony jako połowa wartości z tablicy \ref{data:lastOfMonetas}.
+
+Z powodu tego, iż masy ostatnich monet w tablicy \ref{data:lastOfMonetas} są różne, obliczono średnią ważoną $\bar{m}$, gdzie za wagi przyjęto ${u\left( m_i \right)}^{-2}$, gdyż funkcja $f\left(x\right) = x^{-2}$ jest malejąca.
+
+
+\begin{table}
+	\centering
+	\resizebox{\textwidth}{!}{%
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+			\hline
+			Materiał                                        &
+			\begin{tabular}[c]{@{}l@{}}rozmiar\\ {[}$cm^2${]} $\pm 1cm^2$\end{tabular}                      &
+			\begin{tabular}[c]{@{}l@{}}masa obciążnika\\ {[}$g${]} $\pm 1g$\end{tabular}                      &
+			\begin{tabular}[c]{@{}c@{}}Średnia waż.\\ $\bar{m}$ {[}$g${]}\end{tabular}                      &
+			\multicolumn{1}{l|}{\begin{tabular}[c]{@{}l@{}}Niepewność\\ $\bar{m}$ {[}$g${]}\end{tabular}} &
+			$f_s$                                           &
+			$u\left(f_s\right)$                                                              \\ \hline\hline
+			\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}tektura +\\ tektura\end{tabular}}     & 36 & 358 & 125 & 0,69 & 0,350 & 0,0022\\ \cline{2-7}
+			                                                & 50 & 358 & 151 & 0,57 & 0,423 & 0,0020\\ \cline{2-7}
+			                                                & 64 & 357 & 149 & 0,54 & 0,418 & 0,0019\\ \hline\hline
+			\multirow{3}{*}{\begin{tabular}[c]{@{}l@{}}folia + \\ folia\end{tabular}}     & 36 & 355 & 175 & 0,36 & 0,493 & 0,0017\\ \cline{2-7}
+			                                                & 50 & 356 & 173 & 0,51 & 0,485 & 0,0020\\ \cline{2-7}
+			                                                & 64 & 359 & 171 & 0,58 & 0,477 & 0,0021\\ \hline
+		\end{tabular}%
+	}
+	\caption{Obliczone wartości}\label{data:obliczoneWart}
+\end{table}
+
+\begin{figure}
+	\resizebox{\textwidth}{!}{%
+		\input{someGraph.pgf}%
+	}
+	\centering
+	\caption{Wykresy zależności między powierzchnią styku a współczynnikiem tarcia}\label{plot:fsArea}
+\end{figure}
+
+\section{Wnioski}
+\subsection*{Powierzchnia styku a $f_s$}
+Z wykresów na rysunku \ref{plot:fsArea} widzimy, iż dla \texttt{folii + folii} nie ma żadnego związku między powierzchnią styku a współczynnikiem tarcia statycznego.
+
+Dla \texttt{tektury + tektury} nie możemy dostrzec jednoznacznego związku.
+
+\subsection*{Wartości współczynnika tarcia statycznego}
+
+Nie znaleźliśmy związku między powierzchnią styku a $f_s$, zatem ostatecznie uśredniamy\footnote{Uśredniono średnią ważoną gdzie za wagi przyjęto $u\left(f_s\right)^{-2}$} wartości z tablicy \ref{data:obliczoneWart} i, wraz z największą niepewnością, otrzymujemy:
+
+\vspace{.5cm}
+\begin{tabular}{lll}
+	Dla \texttt{tektura + tektura}: &	$\bar{f_s} = 0,403;$ &	$u\left(\bar{f_s}\right) = 0,0020$\\
+	Dla \texttt{folia + folia}: &	$\bar{f_s} = 0,488;$ &	$u\left(\bar{f_s}\right) = 0,0025$\\
+\end{tabular}
+
+\section{Sposoby na ograniczenie błędów}
+
+Głównymi źródłami błędów była niepewność wagi kuchennej na poziomie $\frac{1g}{\sqrt{3}}$, oraz duża rozbieżność wyników pomiarów.
+
+W celu zwiększenia precyzji pomiarów należałoby użyć bardziej precyzyjnych przyrządów oraz należałoby zastąpić masę odważników innym źródłem siły, na przykład cylindrem pneumatycznym z manometrem pokazującym maksymalne ciśnienie\footnote{Cylindry pneumatyczne LEGO oraz manometr cyfrowy podłączony do arduino jest ciekawym rozwiązaniem.}. Po wyznaczeniu charakterystyki siły $F_p$ cylindra od ciśnienia $P$ otrzymujemy źródło siły nieposiadające wad manualnego dodawania monet do szalki, pod warunkiem, że ciśnienie będzie dodawane powoli. 
+
+Innym sposobem na zwiększenie precyzji jest zmiana metody pomiarowej na inną, na przykład z \emph{równią pochyłą}.
+
+\end{document}
