@@ -1,0 +1,79 @@
+Input #0, matroska,webm, from 'Fullmetal Alchemist - Brotherhood - S01E01 - Fullmetal Alchemist.mkv':
+  Metadata:
+    title           : Fullmetal Alchemist: Brotherhood - 01
+    encoder         : libebml v1.3.10 + libmatroska v1.5.2
+    creation_time   : 2021-02-16T20:29:53.000000Z
+  Duration: 00:24:29.64, start: 0.000000, bitrate: 9739 kb/s
+    Chapter #0:0: start 0.000000, end 58.809000
+    Metadata:
+      title           : Prologue
+    Chapter #0:1: start 58.809000, end 148.774000
+    Metadata:
+      title           : OP
+    Chapter #0:2: start 148.774000, end 655.154000
+    Metadata:
+      title           : Part A
+    Chapter #0:3: start 655.154000, end 1347.137000
+    Metadata:
+      title           : Part B
+    Chapter #0:4: start 1347.137000, end 1437.603000
+    Metadata:
+      title           : ED
+    Chapter #0:5: start 1437.603000, end 1469.635000
+    Metadata:
+      title           : Preview
+    Stream #0:0(jpn): Video: h264 (High 10), yuv420p10le(tv, bt709/unknown/unknown, progressive), \
+                    1920x1080, SAR 1:1 DAR 16:9, 23.98 fps, 23.98 tbr, 1k tbn, 47.95 tbc (default)
+    Metadata:
+      BPS-eng         : 6345806
+      DURATION-eng    : 00:24:29.635000000
+      NUMBER_OF_FRAMES-eng: 35236
+      NUMBER_OF_BYTES-eng: 1165752385
+    Stream #0:1(eng): Audio: flac, 48000 Hz, 5.1(side), s16 (default)
+    Metadata:
+      BPS-eng         : 1473847
+      DURATION-eng    : 00:24:27.297000000
+      NUMBER_OF_FRAMES-eng: 17195
+      NUMBER_OF_BYTES-eng: 270321527
+    Stream #0:2(jpn): Audio: flac, 48000 Hz, stereo, s16
+    Metadata:
+      BPS-eng         : 714029
+      DURATION-eng    : 00:24:29.635000000
+      NUMBER_OF_FRAMES-eng: 17223
+      NUMBER_OF_BYTES-eng: 131170331
+    Stream #0:3(eng): Audio: flac, 48000 Hz, stereo, s32 (24 bit)
+    Metadata:
+      title           : Commentary
+      BPS-eng         : 1162785
+      DURATION-eng    : 00:24:28.622000000
+      NUMBER_OF_FRAMES-eng: 17211
+      NUMBER_OF_BYTES-eng: 213461522
+    Stream #0:4(eng): Subtitle: ass (default)
+    Metadata:
+      title           : Signs/Songs
+      BPS-eng         : 36
+      DURATION-eng    : 00:23:22.880000000
+      NUMBER_OF_FRAMES-eng: 87
+      NUMBER_OF_BYTES-eng: 6321
+    Stream #0:5(jpn): Subtitle: ass
+    Metadata:
+      BPS-eng         : 132
+      DURATION-eng    : 00:24:15.800000000
+      NUMBER_OF_FRAMES-eng: 393
+      NUMBER_OF_BYTES-eng: 24189
+    Stream #0:6: Attachment: otf
+    Metadata:
+      filename        : Wunderlich-Medium.otf
+      mimetype        : application/vnd.ms-opentype
+    Stream #0:7: Attachment: ttf
+    Metadata:
+      filename        : Calligraphic-810-BT.ttf
+      mimetype        : application/x-truetype-font
+    Stream #0:8: Attachment: otf
+    Metadata:
+      filename        : A-OTF-SHINMGOPRO-MEDIUM.OTF
+      mimetype        : application/vnd.ms-opentype
+    Stream #0:9: Attachment: ttf
+    Metadata:
+      filename        : DFPHSMincho-W9.ttf
+      mimetype        : application/x-truetype-font
