@@ -134,17 +134,21 @@ Celem doświadczenia było wyznaczenie współczynnika tłumienia gumki $\beta$ 
 	\caption{Układ pomiarowy w stanie spoczynku}
 \end{figure}
 
-W eksperymencie mierzy się wartości maksymalne i minimalne przyspieszenia $a$, zatem do wyznaczenia współczynnika tłumienia możemy skorzystać logarytmicznego dekrementu tłumienia.
+Drgania ciężarka na gumce są drganiami harmonicznymi, zatem możemy skorzystać z logarytmicznego dekrementu drgań:
 
+\begin{align*}
+	\beta T_o &= \frac{1}{m - i} \ln \frac{a_i}{a_m},\quad m = 0,\quad  a_i = a\left(t_i\right) \\
+	\beta &= \frac{1}{ - iT_o}\ln \frac{a\left(t_i\right)}{a_0},\quad T_o = \frac{t_i}{i},\quad i > 0 \\
+	\beta &= - \frac{1}{t_i} \ln \frac{a\left(t_i\right)}{a\left(t_0\right)},\quad \left[\beta\right] = \frac{1}{s} \\
+	\beta \cdot t_i &= \left| - \ln \frac{a\left(t_i\right)}{a\left(t_0\right)} \right|
+\end{align*}
+
+Zatem możemy odczytać $\beta$ jako nachylenie wykresu $z_i\left(T_i\right)$, gdzie:
 
 \begin{align}
 	z_i & = \ln \frac{a\left(t_i\right)}{a\left(t_0\right)} \\
 	T_i & = t_i - t_0
 \end{align}\label{eq:ziti}
-
-Gdzie $\beta$ to ujemne nachylenie wykresu stworzonego z par punktów $\left(T_i; z_i\right)$ dla kolejnych $t_i$ będących czasem w którym dokonano kolejnego pomiaru maksymalnego lub minimalnego przyspieszenia.
-
-\clearpage
 
 \section{Wyniki pomiarów:}
 
@@ -164,13 +168,15 @@ Telefon, którym były dokonywane pomiary, posiada akcelerometr zintegrowany w u
 
 W danych wygenerowanych przez użytą aplikację znajduje się informacja o rozdzielczości akcelerometru równej $0,0012 \frac{m}{s^2}$.
 
-Według informacji producenta, w największym zakresie $S_{16g}$, czułość układu wynosi $\frac{1}{2048}g \approx 0,0048 \frac{m}{s^2}$ w temperaturze $25\stopnie C$. Odchylenie punktu zerowego wynosi zwykle $\pm 0,150g$ 
+Według informacji producenta, w największym zakresie $S_{16g}$, czułość układu wynosi $\frac{1}{2048}g \approx 0,0048 \frac{m}{s^2}$ w temperaturze $25\stopnie C$. Odchylenie punktu zerowego wynosi zwykle $\pm 0,150g$. 
 
 Na potrzeby pracy została przyjęta niepewność akcelerometru $u\left(a\right) = 0,0048 \frac{m}{s^2}$
 
 \vspace{1cm}
 
 Niepewność czasu jest nie została podana przez aplikację, zatem przyjmujemy $u\left(t\right) = 0,0010 s$. Pomiary były dokonywane co $0,0025s$.
+
+\clearpage
 
 \section{Przetwarzanie danych oraz obliczone wartości}
 
@@ -209,7 +215,7 @@ Z wykresu odczytujemy maksymalne oraz minimalne wartości:
 
 Następnie dla każdego czasu $t_i$ w tabeli \ref{tab:max} oraz oddzielnie dla tabeli \ref{tab:min} obliczamy pary $z_i$ oraz $T_i$ zgodnie z równaniem (\ref{eq:ziti}).
 
-\begin{figure}
+\begin{figure}[h]
 	\input{lin.pgf}
 	\centering
 	\caption{Wykres dla obu zestawów wartości}
@@ -224,8 +230,8 @@ Zatem:
 \vspace{3mm}
 
 \begin{tabular}{lll}
-	Dla maksimów:	& $\beta_{\max} = 0,485;$	& $u\left(\beta_{\max}\right) = 0,031$ \\
-	Dla minimów:	& $\beta_{\min} = 0,328;$	& $u\left(\beta_{\min}\right) = 0,022$
+	Dla maksimów:	& $\beta_{\max} = 0,485 \frac{1}{s};$	& $u\left(\beta_{\max}\right) = 0,031 \frac{1}{s}$ \\
+	Dla minimów:	& $\beta_{\min} = 0,328\frac{1}{s};$	& $u\left(\beta_{\min}\right) = 0,022\frac{1}{s}$
 \end{tabular}
 
 \section{Wnioski}
@@ -237,7 +243,7 @@ Dla otrzymanych wcześniej wartości obliczamy średnią ważoną\footnote{Gdzie
 Ostatecznie:
 
 \[
-	\beta = 0,381;\: u\left(\beta\right) = 0,031
+	\beta = 0,381\frac{1}{s};\: u\left(\beta\right) = 0,031 \frac{1}{s}
 \]
 
 \section{Sposoby na ograniczenie błędów}

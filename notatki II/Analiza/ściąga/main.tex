@@ -1,0 +1,185 @@
+% !TEX program = xelatex
+%Wzór dokumentu
+%tu zmień marginesy i rozmiar czcionki
+\documentclass[a4paper,12pt]{article}
+\usepackage{inputenc}[utf8]
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[polish]{babel}
+
+%Lepiej tego nie zmieniaj, jak co to dodawaj pakiety
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{tikz}
+	\usetikzlibrary{arrows}
+	\usetikzlibrary{patterns}
+	\usetikzlibrary{decorations.pathmorphing}
+\usepackage{pgf}
+\usepackage[section]{placeins}
+
+
+
+%inny wygląd
+%\usepackage{tgbonum}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+%Zmienne, zmień je!
+\graphicspath{ {./ilustracje/} }
+\title{Tworzenie i uruchamianie prostych kontenerów w środowisku  docker-compose}
+\author{Grzegorz Koperwas}
+\date{\today}
+
+%lokalizacja polska (odkomentuj jak piszesz po polsku)
+
+\usepackage{polski}
+\usepackage[polish]{babel} 
+\usepackage{indentfirst}
+\usepackage{icomma} 
+
+\brokenpenalty=1000
+\clubpenalty=1000
+\widowpenalty=1000    
+
+%nie odkometowuj wszystkiego, użyj mózgu
+%\renewcommand\thechapter{\arabic{chapter}.}
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{subsubsection}.}
+
+%Makra
+
+\newcommand{\obrazek}[2]{
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=#1]{#2}
+\end{figure}
+}     
+
+\newcommand{\stopnie}{\ensuremath{^{\circ}}}
+
+\newcommand{\twierdzonko}[1]{
+    \begin{center}
+    \begin{mdframed}
+    #1
+    \end{mdframed}          
+    \end{center}
+} 
+
+\newcommand{\dwanajeden}[2]{
+\ensuremath \left( \begin{array}{c}
+    #1\\
+    #2
+\end{array} \right)
+}  
+
+%Stopka i head (sekcja której nie powinno się zmieniać)
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+
+%Zmieniaj od tego miejsca
+\rfoot{\thepage}
+\lfoot{}
+\lhead{}
+\rhead{Ostatnia edycja: \today}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+
+
+\begin{document}
+\begin{multicols}{2}
+    \section{Pochodne}
+    \begin{align*}
+        \sqrt{x} &\rightarrow \frac{1}{2 \sqrt{x}}\\
+        \sin x &\rightarrow \cos x\\
+        \cos x &\rightarrow - \sin x\\
+        \tg x &\rightarrow \frac{1}{\cos^2 x}\\
+        ctg\, x &\rightarrow \frac{ -1}{\sin^2 x}\\
+        \ln x &\rightarrow \frac{1}{x}\\
+        \frac{1}{x} &\rightarrow \frac{ - 1}{x^2}\\
+        f \left(g \left(x\right)\right) &\rightarrow f'\left(g\left(x\right)\right) \cdot g'\left(x\right)
+    \end{align*}
+    \section{Całki}
+    \begin{align*}
+        \int x^a\, dx &= \frac{x^{a + 1}}{a + 1} + c \\
+        \int \frac{dx}{x} &= \ln \left| x \right| + c \\
+        \int \frac{dx}{x^2 + a_2} &= \frac{1}{a} \arc\tan \frac{x}{a} + c \\
+        \int \frac{dx}{\sqrt{a^2 - x^2}} &= \arc\sin \frac{x}{a} + c \\
+        \int e^x\, dx &= e^x + c \\
+        \int a^x\, dx &= \frac{a^x}{\ln a} + c \\ 
+        \int \cos x\, dx &= \sin x + c \\
+        \int \sin x\, dx &= - \cos x + c \\
+        \int \frac{dx}{\cos^{2} x} &= \tan x + c \\
+        \int \frac{dx}{\sin^{2} x} &= - ctg\,  x + c \\
+        \int \frac{dx}{ax + b} &= \frac{1}{x} \ln \left| ax + b \right| + c \\
+        \int \tan x\, dx &= -\ln \left| \cos x \right| + c \\
+        \int ctg\,  x\, dx &= \ln \left| \sin x \right| + c \\
+        \int \left(ax + b\right)^n\, dx &= \frac{\left(ax + b\right)^{n + 1}}{a\left(n + 1\right)} + c \\
+        \int \frac{dx}{a^2 - x^2} &= \frac{1}{2a} \ln \left| \frac{a + x}{a - x} \right| + c \\
+        \int \sqrt{a^2 - x^2}\, dx &= \frac{a^2}{2} \arc\sin \frac{x}{a} + \frac{x}{2}\sqrt{a^2 - x^2} + c
+    \end{align*}
+    \subsection*{Całkowanie przez części}
+    \[
+        \int f\left( x \right) \cdot g' \left( x \right)\, dx = f\left( x \right)\cdot g\left( x \right) - \int f' \left( x \right) \cdot g\left( x \right)\, dx
+    \]
+
+    \subsection*{Całkowanie przez podstawianie}
+    \[
+        \int \limits^b_a f\left(g \left(x\right)\right) \cdot g' \left(x\right)\, dx = \int \limits^{g\left(b\right)}_{g\left(a\right)} f \left(t\right)\, dt,\quad t = g \left(x\right)
+    \]
+    \section{Fourier}
+    \[
+        f\left(x\right) = \frac{a_0}{2} + \sum \limits^\infty_{n = 1} \left( a_n \cos \frac{2\pi nx}{T} + b_n \sin \frac{2\pi nx}{T} \right)
+    \]
+    Gdzie:
+    \begin{align*}
+        a_0 &= \frac{1}{T} \int \limits^T_T f \left( x \right)\, dx \\
+        a_n &= \frac{1}{T} \int \limits^T_T f \left( x \right) \cos \frac{\pi n x}{T}\, dx \\
+        b_n &= \frac{1}{T} \int \limits^T_T f \left( x \right) \sin \frac{\pi n x}{T}\, dx
+    \end{align*}
+
+    \subsection*{Tożsamość Parsevala}
+    \[
+        \frac{1}{\pi}\int \limits^\pi_{ -\pi} f^2 \left(x\right)\, dx = \frac{a_0^2}{2} + \sum \limits^\infty_{n = 1} \left( a^2_n + b^2_n \right)
+    \]
+
+    \section{funkcja dwóch zmiennych}
+    Jeśli $f^"_{xy} \not = f^"_{yx}$ to zjebałeś.
+
+    \[
+        W\left(P\right) = \left|
+        \begin{matrix}
+            f^"_{x x}\left(P\right) & f^"_{x y}\left(P\right) \\
+            f^"_{x y}\left(P\right) & f^"_{y y}\left(P\right)
+        \end{matrix}\right|
+    \]
+
+    Jeśli $W\left(P\right) > 0$ to ekstremum.
+
+    Jeśli $W\left(P\right) < 0$ to nie ekstremum, w innym przypadku chuj wie.
+
+    Jeżeli $f^"_{x x}\left(P\right) > 0$ to maksimum.
+
+    Jeżeli $f^"_{x x}\left(P\right) < 0$ to minimum.
+\end{multicols}
+\end{document}
