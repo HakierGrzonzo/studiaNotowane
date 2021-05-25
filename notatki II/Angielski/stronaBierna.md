@@ -1,0 +1,7 @@
+- The program is searched for on Arch User Repositories.
+- The comments must be read, as inportant information may be contained in them.
+- The git link should be copied into the clipboard
+- The GIT repo is cloned.
+- The scripts should be checked for malicious content.
+- makepkg is started, dependecies and the program will be installed.
+- The program will be used to download the next program automaticly

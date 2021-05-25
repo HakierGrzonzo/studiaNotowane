@@ -144,23 +144,26 @@ Zasięg rzutu poziomego jest dany wzorem:
 \[z = v \sqrt{\frac{2 H}{g}}\]
 
 Zatem prędkość wypływającej cieczy jest dana wzorem:
-
-\[v = z \sqrt{\frac{g}{2 H}}\]
+\begin{equation}
+v = z \sqrt{\frac{g}{2 H}}\label{eq:rzut}
+\end{equation}
 
 Z równania \emph{Bernouliego} wynika że:
 \begin{align*}
 	\rho g h + p_1                                   & = p_2 + \frac{\rho v^2}{2}          \\
 	\left(gh + \frac{p_1 - p_2}{\rho}\right) \cdot 2 & = v^2,\quad \text{Niech } p_1 = p_2 \\
-	\sqrt{2gh}                                       & = v
 \end{align*}
+\begin{equation}
+	\sqrt{2gh} = v\label{eq:bern}
+\end{equation}
 
 Zatem powinna zachodzić zależność:
 \begin{equation*}
 	z \sqrt{\frac{1}{2H}} = \sqrt{2h}\qquad \left| \cdot \sqrt{2H} \right. 
 \end{equation*}
 \begin{equation}
-	z = 2\sqrt{hH}
-\end{equation}\label{eq:should}
+	z = 2\sqrt{hH}\label{eq:should}
+\end{equation}
 
 \section{Wyniki pomiarów:}
 
@@ -184,7 +187,7 @@ Na podstawie danych z tablicy \ref{tab:stale} odczytujemy że $\rho = 997,91 \fr
 \begin{figure}[hbt]
 	\includegraphics[scale=.05]{stanowisko.jpg}
 	\centering
-	\caption{Stanowisko pomiarowe}
+	\caption{Stanowisko pomiarowe}\label{fig:stanowisko}
 \end{figure}
 
 \begin{table}[hbt]
@@ -217,11 +220,11 @@ H [cm] $\pm 0,2cm$                    & 6,0     \\ \hline
   $u\left( P \right)$ &
   $z^2$ [$cm^2$] &
   $u\left( z^2 \right)$ \\ \hline\hline
-6,0 & 6,4 & 0,13 & 0,24 & 587,37 & 19,58 & 41,0 & 0,48 \\ \hline
-5,0 & 5,6 & 0,27 & 0,34 & 489,47 & 19,58 & 31,4 & 0,68 \\ \hline
-4,5 & 4,6 & 0,31 & 0,37 & 440,53 & 19,58 & 20,9 & 0,73 \\ \hline
-4,0 & 3,7 & 0,18 & 0,27 & 391,58 & 19,58 & 13,9 & 0,53 \\ \hline
-3,5 & 3,0 & 0,38 & 0,43 & 342,63 & 19,58 & 9,0  & 0,86 \\ \hline
+6,0 & 6,40 & 0,13 & 0,24 & 587 & 20 & 40,96 & 0,48 \\ \hline
+5,0 & 5,60 & 0,27 & 0,34 & 489 & 20 & 31,36 & 0,68 \\ \hline
+4,5 & 4,57 & 0,31 & 0,37 & 441 & 20 & 20,85 & 0,73 \\ \hline
+4,0 & 3,73 & 0,18 & 0,27 & 392 & 20 & 13,94 & 0,53 \\ \hline
+3,5 & 3,00 & 0,38 & 0,43 & 343 & 20 & 9,00  & 0,86 \\ \hline
 \end{tabular}
 \caption{Przetworzone wartości}\label{tab:processed}
 \end{table}
@@ -233,6 +236,58 @@ H [cm] $\pm 0,2cm$                    & 6,0     \\ \hline
 
 \subsection*{Wyznaczanie prędkości wypływu cieczy}
 
+Z równań (\ref{eq:rzut}) oraz (\ref{eq:bern}) obliczamy wartości $v$, wyniki są w tablicy \ref{tab:speeds}. Niestety, według naszych obliczeń $v_{rzut} \not = v_{ber}$ dla każdego $h$\footnote{Nawet wartość $\frac{v_{rzut}}{v_{ber}}\not = const.$, więc nie wygląda to na błąd w obliczeniach. W trakcie przeprowadzania doświadczenia zauważono że przepływ wody był turbulentny a zasięg $z$ zdawał się nawet oscylować.}, lecz na potrzeby tego sprawozdania, \emph{załóżmy} że $v_{rzut} = v_{ber}$, zatem równanie (\ref{eq:should}) jest prawdziwe.
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+$h$ [cm] $\pm 0,2cm$ & $v_{rzut}\; \left[\frac{m}{s^2}\right]$ & $u\left(v_{rzut}\right)$ & $v_{ber}\; \left[ \frac{m}{s^2}\right]$ & $u\left(v_{bern}\right)$ \\ \hline\hline
+6,0 & 0,579 & 0,022 & 1,085 & 0,036 \\ \hline
+5,0 & 0,506 & 0,031 & 0,990 & 0,040 \\ \hline
+4,5 & 0,413 & 0,033 & 0,940 & 0,042 \\ \hline
+4,0 & 0,338 & 0,024 & 0,886 & 0,044 \\ \hline
+3,5 & 0,271 & 0,039 & 0,829 & 0,047 \\ \hline
+\end{tabular}
+\caption{Obliczone wartości prędkości}
+\label{tab:speeds}
+\end{table}
+\subsection*{Sprawdzenie zależności zasięgu od wysokości słupa wody}
+
+Według równania (\ref{eq:should}) rysujemy wykres $z\left( \sqrt{h} \right)$.
+
+\begin{figure}[h]
+	\input{ZfromH.pgf}
+	\centering
+	\caption{Wykres $z\left(\sqrt{h}\right)$}\label{wyk:pierH}
+\end{figure}
+
+Nachyleniem prostej na wykresie \ref{wyk:pierH} jest $2\sqrt{H}$. Nachylenie prostej na wykresie jest równe $m = 6,12 cm^{\frac{1}{2}};\; u\left(m\right) = 0,50 cm^{\frac{1}{2}}$
+
 \section{Wnioski}
+
+\[H = \frac{\left(2 \sqrt{H}\right)^2}{4};\; u\left(H\right) = \frac{1}{2} m \cdot u\left(m\right)\]
+
+Zatem:
+
+\[H = 9,4 cm;\; u\left(H\right) = 1,5 cm\]
+
+Porównując wartość tą z zmierzoną wartością $H$:
+
+\begin{align*}
+	\left| H_z - H_o \right| &< U\left(H_z - H_o\right) \\
+	\left| 9,4 - 6,0 \right| &< 2 \cdot \sqrt{1,5^2 + 0,2^2} \\
+	3,4 &\not< 3,0
+\end{align*}
+
+Nie występuje zgodność wartości $H$.
+
 \section{Sposoby na ograniczenie błędów}
+
+Głównym problemem podczas pomiarów była niewystarczająca ergonomia stanowiska pomiarowego umieszczonego w wannie, co wymagało przyjmowania niekomfortowych pozycji do odczytu wartości poziomu wody w butelce. Stanowisko zbudowane na podwyższeniu (na przykład na stole), lub na powierzchni która może się zmoczyć i nie posiada wielkich ścian poprawiło by jakość pomiarów.
+
+Innym problemem była ,,budowa'' naczynia pomiarowego, w szczególności system mocowania linijki do pomiaru poziomu wody, dedykowana skala (lub system z pływakiem) na naczyniu dała by lepsze rezultaty.
+
+Kolejnym źródłem błędów był turbulentny przepływ wody, która sprawiał że, z nieznanych przyczyn, zasięg $z$ zdawał się oscylować z amplitudą nawet 5mm. Użycie wiertła (i papieru ściernego) zamiast rozgrzanej igły pozwoliłoby na uzyskanie bardziej regularnego otworu, gdyż kształt tego otrzymanego w doświadczeniu można by określić ,,serduszkowym''.
+
+Innym pomysłem pozwalającym na polepszenie ergonomii pomiarów było by dodanie barwnika spożywczego do wody, w celu ułatwienia odczytów (wystarczy spojrzeć na zdjęcie \ref{fig:stanowisko} by zrozumieć problem związany z przeźroczystością wody). Zwiększenie wartości badanych $h$ oraz $H$ o stopień wielkości, sprawiło by że, przy obecnych wartościach błędów, uzyskana precyzja była by większa.
 \end{document}
