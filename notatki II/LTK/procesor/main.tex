@@ -1,0 +1,246 @@
+\documentclass[aspectratio=169]{beamer}
+
+\newif\ifmore
+\morefalse
+
+\usepackage{inputenc}[utf8]
+\usepackage[polish]{babel}
+
+%Lepiej tego nie zmieniaj, jak co to dodawaj pakiety
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{arrows}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=false,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+%\apptocmd{\frame}{}{\justifying}{} % Allow optional arguments after frame.
+
+\urlstyle{same}
+%Zmienne, zmień je!
+\graphicspath{ {.} }
+\title{Procesory}
+\author{Grzegorz Koperwas \and Kamil Kowalczyk \and Kacper Nuckowski \and Weronika Chruszcz}
+\date{\today}
+
+%lokalizacja polska (odkomentuj jak piszesz po polsku)
+
+\usepackage{polski}
+\usepackage[polish]{babel} 
+\usepackage{indentfirst}
+\usepackage{icomma} 
+\usetheme{Warsaw}
+
+\brokenpenalty=1000
+\clubpenalty=1000
+\widowpenalty=1000    
+
+%nie odkometowuj wszystkiego, użyj mózgu
+%\renewcommand\thechapter{\arabic{chapter}.}
+%\renewcommand\thesection{\arabic{section}.}
+%\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+%\renewcommand\thesubsubsection{\arabic{subsubsection}.}
+
+%Makra
+
+\newcommand{\obrazek}[2]{
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=#1]{#2}
+\end{figure}
+}     
+        
+
+\newcommand{\twierdzonko}[1]{
+    \begin{center}
+    \begin{mdframed}
+    #1
+    \end{mdframed}          
+    \end{center}
+} 
+
+\newcommand{\dwanajeden}[2]{
+\ensuremath \left( \begin{array}{c}
+    #1\\
+    #2
+\end{array} \right)
+}  
+
+\lstdefinestyle{json}{
+    frame=trBL,
+    numbers=left,
+    basicstyle=\ttfamily\tiny,
+    keywordstyle=\color{blue},
+    morekeywords={ Metadata }
+}
+
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\section{Proces produkcji}
+\subsection{Czym jest binning?}
+\begin{frame}
+    \begin{columns}
+        \begin{column}{.5\textwidth}
+            \obrazek{.1}{/home/hakiergrzonzo/Desktop/polibuda/notatki II/LTK/procesor/tsmc.jpg}
+        \end{column}
+        \begin{column}{.5\textwidth}
+            \obrazek{.1}{/home/hakiergrzonzo/Desktop/polibuda/notatki II/LTK/procesor/binning.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Co oznaczają nanometry?}
+\begin{frame}
+    \obrazek{.5}{/home/hakiergrzonzo/Desktop/polibuda/notatki II/LTK/procesor/process.png}
+\end{frame}
+
+\subsection{Nowe sposoby na stare problemy}
+\begin{frame}
+    \begin{columns}
+        \begin{column}{.6\textwidth}
+            \obrazek{.25}{/home/hakiergrzonzo/Desktop/polibuda/notatki II/LTK/procesor/ryzen.jpg}
+        \end{column}
+        \begin{column}{.4\textwidth}
+            Procesor Ryzen 9 3900X ma 2 chipy z rdzeniami i jeden do obsługi i/o na starszym procesie.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\section{RISC a CISC}
+\subsection{Czym jest CISC?}
+\begin{frame}
+    \begin{columns}
+        \begin{column}{.3\textwidth}
+            \obrazek{.09}{/home/hakiergrzonzo/Desktop/polibuda/notatki II/LTK/procesor/x86.png}
+            \begin{center}
+                \tiny{Lista kategorii instrukcji x86 w 2021}
+            \end{center}
+        \end{column}
+        \begin{column}{.7\textwidth}
+            \obrazek{.4}{/home/hakiergrzonzo/Desktop/polibuda/notatki II/LTK/procesor/x87.jpg}
+            \begin{center}
+                \tiny{Koprocesor 8087 do operacji na floatach}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Czym jest RISC?}
+\begin{frame}
+    \begin{columns}
+        \begin{column}{.3\textwidth}
+            \obrazek{.15}{/home/hakiergrzonzo/Desktop/polibuda/notatki II/LTK/procesor/riscV.jpg}
+        \end{column}
+        \begin{column}{.7\textwidth}
+            \obrazek{.25}{/home/hakiergrzonzo/Desktop/polibuda/notatki II/LTK/procesor/arm.png}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Jak mieć ciasto i zjeść ciasto naraz}
+\begin{frame}
+    \obrazek{.35}{/home/hakiergrzonzo/Desktop/polibuda/notatki II/LTK/procesor/microcode.png}
+\end{frame}
+
+\section{Herce, rdzenie, oraz pipelining}
+\subsection{O czym decyduje zegar?}
+\begin{frame}
+    \begin{columns}
+        \begin{column}{.7\textwidth}
+            \obrazek{.4}{boost.png}
+        \end{column}
+        \begin{column}{.3\textwidth}
+            Częstotliwość zależy od:
+            \begin{itemize}
+                \item Dostępnego chłodzenia i mocy
+                \item Danego zadania i instrukcji
+                \item Czasu (W procesorach intela)
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Czym jest pipeline, i skąd biorą się te exploity?}
+\begin{frame}
+    \begin{columns}
+        \begin{column}{.5\textwidth}
+            \obrazek{.4}{pipeline.png}
+        \end{column}
+        \begin{column}{.5\textwidth}
+            Dłuższy pipeline to wyższe zegary, ale długie pipeliny wymagają predykcji.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Wincyj rdzenióf}
+\begin{frame}
+    \begin{columns}
+        \begin{column}{.5\textwidth}
+            \obrazek{.3}{cores.jpg}
+        \end{column}
+        \begin{column}{.5\textwidth}
+            \begin{itemize}
+                \item Więcej rdzeni - większe chipy
+                \item Programowanie aplikacji wielowątkowych jest trudne
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\section{Obecne trendy}
+\subsection{big.Little}
+\begin{frame}
+    \frametitle{Czym jest big.LITTLE}
+    \begin{columns}
+        \begin{column}{.3\textwidth}
+            \obrazek{.23}{bigLittle.jpg}
+            \begin{center}
+                \tiny{4 duże rdzenie i 4 małe, zarządzane przez system.}
+            \end{center}
+        \end{column}
+        \begin{column}{.7\textwidth}
+            \obrazek{.12}{m1.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Rdzenie, TDP i zegary}
+\begin{frame}
+    \begin{columns}
+        \begin{column}{.6\textwidth}
+            \obrazek{.3}{steamhw.png}
+            \begin{center}
+                \tiny{Z danych Steam'a}
+            \end{center}
+        \end{column}
+        \begin{column}{.4\textwidth}
+            \begin{itemize}
+                \item Zegary ustabilizowane na około 4,5Ghz
+                \item Agresywny boost (nawet do 250W)
+                \item Koniec dominacji 4 rdzeni.
+                \item Duże ilości pamięci Cache
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+        \Large{Dziękujemy za uwagę!}
+    \end{center}
+\end{frame}
+
+\end{document}
