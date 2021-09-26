@@ -1,0 +1,161 @@
+% !TEX program = xelatex
+%Wzór dokumentu
+%tu zmień marginesy i rozmiar czcionki
+\documentclass[a4paper,12pt]{article}
+\usepackage{inputenc}[utf8]
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[polish]{babel}
+
+%Lepiej tego nie zmieniaj, jak co to dodawaj pakiety
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{tikz}
+	\usetikzlibrary{arrows}
+	\usetikzlibrary{patterns}
+	\usetikzlibrary{decorations.pathmorphing}
+\usepackage{pgf}
+\usepackage[section]{placeins}
+
+\usepackage{pict2e}
+
+\makeatletter
+\newcommand{\odpowiada}{\mathrel{\mathpalette\raising@circles@eq\relax}}
+\newcommand{\raising@circles@eq}[2]{%
+  \vphantom{#1+}%
+  \vbox{
+    \settowidth\unitlength{$#1\mspace{2mu}$}%
+    \offinterlineskip\m@th
+    \ialign{##\cr
+      \hfil\small@circle{#1}$#1\mspace{1.5mu}$\cr\noalign{\vskip0.5\unitlength}
+      $#1=$\cr\noalign{\post@vskip{+}{#1}}
+      $#1\mspace{1.5mu}$\small@circle{#1}\hfill\cr\noalign{\post@vskip{-}{#1}}
+    }%
+  }%
+}
+\newcommand{\small@circle}[1]{%
+  \smash{%
+    \begin{picture}(1,1)
+    \small@linethickness{#1}
+    \put(0.5,0.5){\circle{1}}
+    \end{picture}%
+  }%
+}
+\newcommand{\small@linethickness}[1]{%
+  \linethickness{%
+      \ifx#1\displaystyle 0.8\fontdimen8\textfont3\else
+      \ifx#1\textstyle 0.8\fontdimen8\textfont3\else
+      \ifx#1\scriptstyle0.8\fontdimen8\scriptfont3\else
+      1\fontdimen8\scriptscriptfont3\fi\fi\fi
+  }%
+}
+\newcommand{\post@vskip}[2]{%
+  \expandafter\vskip\expanded{%
+    #1\ifx#2\scriptscriptstyle0.9\else\ifx#2\scriptstyle0.6\else0.3\fi\fi\unitlength
+  }%
+}
+\makeatother
+
+
+%inny wygląd
+%\usepackage{tgbonum}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+%Zmienne, zmień je!
+\graphicspath{ {./ilustracje/} }
+\title{Zabawa kryptograficzna}
+\author{Grzegorz Koperwas}
+\date{\today}
+
+%lokalizacja polska (odkomentuj jak piszesz po polsku)
+
+\usepackage{polski}
+\usepackage[polish]{babel} 
+\usepackage{indentfirst}
+\usepackage{icomma} 
+
+\brokenpenalty=1000
+\clubpenalty=1000
+\widowpenalty=1000    
+
+%nie odkometowuj wszystkiego, użyj mózgu
+%\renewcommand\thechapter{\arabic{chapter}.}
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{subsubsection}.}
+
+%Makra
+
+\newcommand{\obrazek}[2]{
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=#1]{#2}
+\end{figure}
+}     
+
+\newcommand{\stopnie}{\ensuremath{^{\circ}}}
+
+\newcommand{\twierdzonko}[1]{
+    \begin{center}
+    \begin{mdframed}
+    #1
+    \end{mdframed}          
+    \end{center}
+} 
+
+\newcommand{\dwanajeden}[2]{
+\ensuremath \left( \begin{array}{c}
+    #1\\
+    #2
+\end{array} \right)
+}  
+
+%Stopka i head (sekcja której nie powinno się zmieniać)
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+
+%Zmieniaj od tego miejsca
+\rfoot{\thepage}
+\lfoot{}
+\lhead{}
+\rhead{Ostatnia edycja: \today}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\section*{Rozwiązanie}
+
+Dla \texttt{GK} otrzymujemy \texttt{BTŚ}.
+
+\section*{Klucz prywatny (taki bonus)}
+
+Wartość klucza prywatnego to 1057
+
+Co ciekawe, pisząc atak (znany tekst wejściowy, znany tekst zaszyfrowany), należy sprawdzać wiele przypadków, by uniknąć potencjalnych kluczy, które mają kolizję z tym kluczem którego szukamy. Na przykład dla pary znaków \texttt{DD} występuje kolizja z pseudokluczem\footnote{Może nie spełniać warunków} o wartości 45.
+
+\end{document}

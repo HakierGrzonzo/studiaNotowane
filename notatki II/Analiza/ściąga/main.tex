@@ -27,6 +27,44 @@
 \usepackage{pgf}
 \usepackage[section]{placeins}
 
+\usepackage{pict2e}
+
+\makeatletter
+\newcommand{\odpowiada}{\mathrel{\mathpalette\raising@circles@eq\relax}}
+\newcommand{\raising@circles@eq}[2]{%
+  \vphantom{#1+}%
+  \vbox{
+    \settowidth\unitlength{$#1\mspace{2mu}$}%
+    \offinterlineskip\m@th
+    \ialign{##\cr
+      \hfil\small@circle{#1}$#1\mspace{1.5mu}$\cr\noalign{\vskip0.5\unitlength}
+      $#1=$\cr\noalign{\post@vskip{+}{#1}}
+      $#1\mspace{1.5mu}$\small@circle{#1}\hfill\cr\noalign{\post@vskip{-}{#1}}
+    }%
+  }%
+}
+\newcommand{\small@circle}[1]{%
+  \smash{%
+    \begin{picture}(1,1)
+    \small@linethickness{#1}
+    \put(0.5,0.5){\circle{1}}
+    \end{picture}%
+  }%
+}
+\newcommand{\small@linethickness}[1]{%
+  \linethickness{%
+      \ifx#1\displaystyle 0.8\fontdimen8\textfont3\else
+      \ifx#1\textstyle 0.8\fontdimen8\textfont3\else
+      \ifx#1\scriptstyle0.8\fontdimen8\scriptfont3\else
+      1\fontdimen8\scriptscriptfont3\fi\fi\fi
+  }%
+}
+\newcommand{\post@vskip}[2]{%
+  \expandafter\vskip\expanded{%
+    #1\ifx#2\scriptscriptstyle0.9\else\ifx#2\scriptstyle0.6\else0.3\fi\fi\unitlength
+  }%
+}
+\makeatother
 
 
 %inny wygląd
@@ -107,6 +145,7 @@
 
 
 \begin{document}
+
 \begin{multicols}{2}
     \section{Pochodne}
     \begin{align*}
@@ -120,6 +159,9 @@
         f \left(g \left(x\right)\right) &\rightarrow f'\left(g\left(x\right)\right) \cdot g'\left(x\right)
     \end{align*}
     \section{Całki}
+
+    \begingroup
+    \allowdisplaybreaks
     \begin{align*}
         \int x^a\, dx &= \frac{x^{a + 1}}{a + 1} + c \\
         \int \frac{dx}{x} &= \ln \left| x \right| + c \\
@@ -138,6 +180,7 @@
         \int \frac{dx}{a^2 - x^2} &= \frac{1}{2a} \ln \left| \frac{a + x}{a - x} \right| + c \\
         \int \sqrt{a^2 - x^2}\, dx &= \frac{a^2}{2} \arc\sin \frac{x}{a} + \frac{x}{2}\sqrt{a^2 - x^2} + c
     \end{align*}
+    \endgroup
     \subsection*{Całkowanie przez części}
     \[
         \int f\left( x \right) \cdot g' \left( x \right)\, dx = f\left( x \right)\cdot g\left( x \right) - \int f' \left( x \right) \cdot g\left( x \right)\, dx
@@ -181,5 +224,179 @@
     Jeżeli $f^"_{x x}\left(P\right) > 0$ to maksimum.
 
     Jeżeli $f^"_{x x}\left(P\right) < 0$ to minimum.
+
+\section{Laplace}
+    \[
+        F\left(s\right) = \int \limits^\infty_0 f\left( t \right) e^{ - s t} \, dt
+    \]
+
+    \subsection*{Własności}
+
+    \begin{align*}
+        a f\left(t\right) + b g\left(t\right) &\odpowiada a F\left(s\right) + b G\left(s\right) \\
+        f \left(a t\right) &\odpowiada \frac{1}{a} F \left(\frac{s}{a}\right) \\
+        f \left(t - t_0 \right) H\left(t - t_0 \right) &\odpowiada e^{ - t_0 s} F\left(s\right), \quad t_0 > 0 \\
+        e^{s_0 t} f \left( t \right) &\odpowiada F\left( s - s_0 \right) \\
+    \end{align*}
+
+    \subsubsection*{Transformata pochodnej}
+
+    \begin{align*}
+        f' \left( t \right) &\odpowiada s F \left( s \right) - f\left( 0^+ \right) \\
+        f'' \left( t \right) &\odpowiada s^2 F\left(s \right) - sf \left( 0^+\right) - f'\left(0^+\right)
+    \end{align*}
+
+    \subsubsection*{Pochodna transformaty}
+
+    \[
+        t f \left( t \right) \odpowiada - F'\left(s\right)
+    \]
+
+    \subsubsection*{Transformata całki}
+
+    \[
+        \int \limits^t_0 f\left( u \right) \, du \odpowiada \frac{F \left( s \right)}{s}
+    \]
+
+    \subsubsection*{Całka transformaty} 
+
+    \[
+        \frac{f \left( t \right)}{t} \odpowiada \int \limits^\infty_s F\left(u\right) \, du
+    \]
+
+    \subsection*{Transformaty podstawowych funkcji}
+
+    \begingroup
+    \allowdisplaybreaks
+    \begin{align*}
+        1 &\odpowiada \frac{1}{s} \\
+        t &\odpowiada \frac{1}{s^2} \\
+        t^n &\odpowiada \frac{n!}{s^{n + 1}} \\
+% ok
+        e^{s_0 t} &\odpowiada \frac{1}{s - s_0} \\
+        t e^{s_0 t} &\odpowiada \frac{1}{\left( s - s_0\right)^2} \\
+        t^n e^{s_0 t} &\odpowiada \frac{n!}{\left( s - s_0\right)^{n + 1}} \\
+% ok
+        \sin \omega t &\odpowiada \frac{\omega}{s^2 + \omega^2} \\
+        \cos \omega t &\odpowiada \frac{s}{s^2 + \omega^2} \\
+% ok
+        t \sin \omega t &\odpowiada \frac{2 \omega s}{\left(s^2 + \omega^2\right)^2} \\
+        t \cos \omega t &\odpowiada \frac{s^2 - \omega^2}{\left(s^2 + \omega^2\right)^2} \\
+% ok
+        e^{s_0 t} \sin \omega t &\odpowiada \frac{\omega}{\left( s - s_0 \right)^2 + \omega^2} \\
+        e^{s_0 t} \cos \omega t &\odpowiada \frac{s - s_0}{\left( s - s_0 \right)^2 + \omega^2} \\
+    \end{align*}
+    \endgroup
+
+    \href{https://www.math.purdue.edu/~caiz/MA527-cai/lectures/Table%20of%20Laplace%20Transforms.pdf}{Dodatkowe wzorki tu}
+
+\section{Transformata odwrotna do Laplace'a}
+
+    \[
+        f\left(t\right) = \frac{1}{2 \pi i} \int \limits^{c + i\infty}_{c - i\infty} F \left( s \right) e^{s t} \, ds
+    \]
+
+\section{Sploty}
+
+    \[
+        f\left( t \right) * g\left( t \right) = \int \limits^t_0 f \left( u \right) g \left(t - u \right)\, du
+    \]
+
+    \subsection*{Twierdzenia}
+
+    \begin{align*}
+        f \left( t \right) * g \left( t \right) &\odpowiada F\left(s\right) \cdot G \left(s\right) \\
+        \mathcal{L}^{ - 1} \left[ F \left( s \right) \cdot G \left( s \right) \right] &= f \left( t \right) * g \left( t \right) \\
+        \left[ f \left(t\right) * g \left( t \right)\right]' &= f \left(t\right) * g' \left( t \right) + f \left( t \right) g \left( 0 \right) \\
+        \left[ f \left(t\right) * g \left( t \right)\right]' &\odpowiada s F\left( s \right) G \left( s \right) \\
+    \end{align*}
+
+\section{transformata $\mathcal{Z}$}
+
+\[
+    F \left( s \right) = \sum \limits^\infty_{n = 0} f \left(n\right) e^{ - s n}\, dt
+\]
+
+Przyjmujemy $z = e^s$, zatem:
+
+\[
+    F \left( s \right) = \sum \limits^\infty_{n = 0} f \left(n\right) z^{ - n}\, dt
+\]
+
+\subsection*{Własności}
+
+\begin{align*}
+    a f\left( n \right) + b g\left( n \right) &\odpowiada a F\left( z \right) + b G\left( z \right) \\
+    a^n f \left( n \right) &\odpowiada F\left(\frac{z}{a}\right) \\ 
+    f \left( n - k \right) &\odpowiada z^{ - k} F \left( z \right), \quad n \leq k \\
+    f \left(n + k \right) &\odpowiada z^k \cdot \left[F\left(z\right) - \sum \limits^{k - 1}_{i = 0} f\left(i\right) z^{ - i}\right]
+\end{align*}
+
+\subsubsection*{Transformata ciągu sum}
+
+Jeżeli $g\left(n\right) = \sum \limits^n_{i = 0} f \left(i\right)$, to:
+
+\[
+    g \left(n\right) \odpowiada \frac{z}{z - 1} F\left(z\right)
+\]
+
+\subsubsection*{Różniczkowanie transformaty}
+
+\[
+    n f \left( n \right) \odpowiada - z F' \left( z \right)
+\]
+
+\subsection*{Twierdzenia}
+
+\begin{align*}
+    \lim_{z \rightarrow \infty} F \left( z \right) &= f \left( 0 \right) \\
+    \lim_{z \rightarrow 1^+} \left(z - 1 \right) F \left( z \right) &= \lim_{n \rightarrow \infty} f \left(n\right)
+\end{align*}
+
+\subsection*{Transformaty podstawowych ciągofunkcji}
+    \begingroup
+    \allowdisplaybreaks
+    \begin{align*}
+        \mathcal{Z}\left[0\right] &= 0 \\
+        \mathcal{Z}\left[\delta\left(n\right)\right] &= 1\\
+            &\text{gdzie:} \quad \delta\left(n\right) = \left\{
+                \begin{array}{l}
+                    1, \quad n = 0 \\
+                    0, \quad n \not = 0
+                \end{array}
+            \right. \\
+        \mathcal{Z}\left[\delta \left(n - k\right)\right] &= z^{-k}, \quad n \leq k \\
+%
+        \mathcal{Z}\left[1\right] &= \frac{z}{z - 1}, \quad \left| z \right| > 1 \\
+        \mathcal{Z}\left[n\right] &= \frac{z}{\left(z - 1 \right)^2}\\
+        \mathcal{Z}\left[n^2\right] &= \frac{z \left(z + 1\right)}{\left(z - 1 \right)^3}\\
+        \mathcal{Z}\left[n^3\right] &= \frac{z \left(z^2 + 4z + 1\right)}{\left(z - 1 \right)^4}\\
+%
+        \mathcal{Z}\left[a^n\right] &= \frac{z}{z - a}, \quad \left| z \right| > \left| a \right| \\
+        \mathcal{Z}\left[\left(-a\right)^n\right] &= \frac{z}{z + a} \\
+        \mathcal{Z}\left[na^n\right] &= \frac{az}{\left(z - a\right)^2} \\
+        \mathcal{Z}\left[n^2 a^n\right] &= \frac{az\left(z+a\right)}{\left(z - a\right)^3} \\
+        \mathcal{Z}\left[\sin \omega n\right] &= \frac{z \sin \omega}{z^2 - 2z \cos \omega + 1} \\
+        \mathcal{Z}\left[\cos \omega n\right] &= \frac{z \cos \omega}{z^2 - 2z \cos \omega + 1} \\
+    \end{align*}
+    \endgroup
+
+\section{Transformata $\mathcal{Z}^{-1}$}
+
+\[
+    f \left(n\right) = \frac{1}{2 \pi i} \oint \limits_K F\left(z\right) z^{n - 1}\, dz
+\]
+
+\section{Splot ciągów} 
+
+\[
+    h \left( n \right) = f \left( n \right) * g \left( n \right) = \sum \limits^n_{i = 0} f \left(i\right) g \left( n - i\right)
+\]
+
+\subsection*{Twierdzenie}
+
+\[
+    f \left( n \right) * g \left( n \right) \odpowiada F \left(z\right) \cdot G \left( z \right)
+\]
 \end{multicols}
 \end{document}
