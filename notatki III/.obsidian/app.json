@@ -2,5 +2,9 @@
   "spellcheck": true,
   "foldHeading": true,
   "vimMode": true,
-  "promptDelete": false
+  "promptDelete": false,
+  "showLineNumber": true,
+  "spellcheckDictionary": [
+    "pobrać"
+  ]
 }

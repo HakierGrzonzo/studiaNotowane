@@ -4,11 +4,14 @@
     "type": "split",
     "children": [
       {
-        "id": "f8bafe75604ec585",
+        "id": "210009894743aaea",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "kompresja/1.md",
+            "mode": "source"
+          }
         }
       }
     ],
@@ -53,8 +56,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
@@ -74,6 +76,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "kompresja/1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -90,6 +93,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "kompresja/1.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -106,18 +110,19 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
     "width": 300
   },
-  "active": "f8bafe75604ec585",
+  "active": "210009894743aaea",
   "lastOpenFiles": [
-    "testowe/pierwszy test.md",
-    "testowe/inne.md",
-    "template.md",
     "Untitled.md",
+    "testowe/inne.md",
+    "testowe/pierwszy test.md",
+    "template.md",
     "Untitled 1.md",
     "pierwszy test.md"
   ]

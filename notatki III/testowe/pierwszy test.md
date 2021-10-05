@@ -37,5 +37,3 @@ A --> C
 [[testowe/inne]]
 
 #CamelCase
-
-
