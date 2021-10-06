@@ -1,10 +1,11 @@
 {
-  "spellcheck": true,
+  "spellcheck": false,
   "foldHeading": true,
   "vimMode": true,
   "promptDelete": false,
   "showLineNumber": true,
   "spellcheckDictionary": [
-    "pobrać"
+    "pobrać",
+    "matchematice"
   ]
 }
