@@ -1,3 +1,5 @@
+import math
+
 class Connection:
     def __init__(self, city1, city2) -> None:
         self.cities = (city1, city2)
@@ -6,9 +8,11 @@ class Connection:
 
     def __repr__(self) -> str:
         return "{} <-> {}".format(
-                self.cities[0].id,
-                self.cities[1].id)
-    def get_cities_with_distance(self, touched: list) -> dict:
+                self.cities[0].id + 1,
+                self.cities[1].id + 1)
+    def get_cities_with_distance(self, touched = None) -> dict:
+        if touched is None:
+            touched = list()
         res = {}
         new_touched = touched.copy()
         for city in self.cities:
@@ -26,7 +30,8 @@ class Connection:
                         )
                         for dest, distance in tmp.items():
                             # TODO(add closest destinations)
-                            pass
+                            distance += 1
+                            res[dest] = min(distance, res.get(dest, math.inf))
         return res
 
     def get_other(self, city):
@@ -37,3 +42,5 @@ class Connection:
         else:
             return self.cities[0]
 
+    def get_dot_string(self) -> str:
+        return f"{self.cities[0].id + 1} -- {self.cities[1].id + 1};"

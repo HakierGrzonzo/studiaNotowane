@@ -6,13 +6,28 @@
       {
         "id": "ce50d0663fe4c9a0",
         "type": "leaf",
+        "dimension": 51.89639222941721,
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Języki Skryptowe/1.md",
+            "file": "systemy operacyjne/w1.md",
             "mode": "source"
           }
-        }
+        },
+        "group": "b64987209e9c5d2e"
+      },
+      {
+        "id": "6ab40a5df185567f",
+        "type": "leaf",
+        "dimension": 48.1036077705828,
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "systemy operacyjne/w1.md",
+            "mode": "preview"
+          }
+        },
+        "group": "b64987209e9c5d2e"
       }
     ],
     "direction": "vertical"
@@ -76,7 +91,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Języki Skryptowe/1.md",
+                "file": "systemy operacyjne/w1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -93,7 +108,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Języki Skryptowe/1.md",
+                "file": "systemy operacyjne/w1.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -109,9 +124,17 @@
                 "useHierarchy": true
               }
             }
+          },
+          {
+            "id": "3067830641dbfbd5",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {}
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -119,15 +142,15 @@
   },
   "active": "ce50d0663fe4c9a0",
   "lastOpenFiles": [
+    "systemy operacyjne/w1.md",
+    "systemy operacyjne/Untitled.md",
+    "Metody Numeryczne/w1.md",
+    "Metody Numeryczne/Untitled.md",
+    "Języki Skryptowe/1.md",
     "Untitled.md",
     "Algorytmy/1.md",
     "Metody Numeryczne/1.md",
     "angielski/1.md",
-    "testowe/pierwszy test.md",
-    "testowe/inne.md",
-    "systemy operacyjne/1.md",
-    "programowanie/1.md",
-    "kompresja/1.md",
-    "template.md"
+    "testowe/pierwszy test.md"
   ]
 }
