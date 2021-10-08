@@ -1,3 +1,170 @@
-graph {
-    
+digraph {
+    subgraph cluster_max {
+        maxStart [
+            label = "Wczytaj listę";
+            shape = egg;
+        ];
+        maxFor [
+            label = "i < len(lista)";
+            shape = diamond;
+        ];
+        maxStart -> maxFor;
+        maxIsGT [
+            label = "max_num < lista[i]\nor max_num is None";
+            shape = diamond;
+        ];
+        maxFor -> maxIsGT[label="True"];
+        maxSwap [
+            label = "max_num = lista[i]",
+            shape = "rect"
+        ];
+        maxIsGT -> maxSwap[label="True"];
+        maxPP [
+            label = "i++",
+            shape = "rect"
+        ];
+        maxSwap -> maxPP;
+        maxIsGT -> maxPP[label="False"];
+        maxPP -> maxFor;
+        maxEnd [
+            label = "return max_num",
+            shape = egg
+        ];
+        maxFor -> maxEnd[label="False"];
+        label = "Maksymalna liczba"
+    }
+    subgraph cluster_infix2onp {
+        in2onp_start [
+            label = "text",
+            shape = egg
+        ];
+        in2onp_loop [
+            label = "i < len(text)",
+            shape = diamond
+        ];
+            in2onp_loop_end [
+                label="Czy stos jest pusty?",
+                shape=diamond
+            ];
+            in2onp_loop -> in2onp_loop_end [label="False"];
+                in2onp_stack_full [
+                    label="Dopisz element z stosu do wyniku",
+                    shape=rect
+                ];
+                in2onp_loop_end -> in2onp_stack_full [label="Nie"];
+                in2onp_stack_full -> in2onp_loop_end;
+            in2onp_end [
+                label="Koniec"
+                shape=egg
+            ];
+            in2onp_loop_end -> in2onp_end [label="Tak"];
+        in2onp_start -> in2onp_loop;
+        in2onp_ifPar [
+            label = "Czy text[i] to nawias?",
+            shape = diamond
+        ];
+        in2onp_ifop [
+            label = "Czy text[i] jest operatorem?",
+            shape = diamond
+        ];
+            in2onp_prioif [
+                label="Czy priorytet ostatniego elementu\nna stosie jest mniejszy od\ntext[i]?"
+                shape=diamond
+            ];
+            in2onp_ifop -> in2onp_prioif[label="Jest"];
+                in2onp_gt_prio [
+                    label="dodaj text[i] do stosu",
+                    shape=rect
+                ];
+                in2onp_prioif -> in2onp_gt_prio [label="Tak"];
+                in2onp_gt_prio -> in2onp_ipp;
+                in2onp_lt_prio [
+                    label="Priorytet ostatniego elementu z\nstosu jest większy lub równy text[i]",
+                    shape=diamond
+                ]
+                in2onp_prioif -> in2onp_lt_prio [label="Nie"];
+                    in2onp_pushStack [
+                        label="Dopisz ostatni element z\nstosu do wyniku",
+                        shape=rect
+                    ]
+                    in2onp_lt_prio -> in2onp_pushStack [label="Tak"];
+                    in2onp_pushStack -> in2onp_lt_prio;
+                    in2onp_lt_prio -> in2onp_gt_prio [label="Nie"];
+            in2onp_add2res [
+                label = "Dopisz text[i] do wyniku",
+                shape = rect
+            ];
+            in2onp_ifop -> in2onp_add2res [label="Nie jest"];
+            in2onp_add2res -> in2onp_ipp;
+        in2onp_ifPar -> in2onp_ifop [label = "Nie"]
+        in2onp_loop -> in2onp_ifPar[label="True"];
+        in2onp_ipp [
+            label = "i++",
+            shape = rect
+        ];
+        in2onp_ipp -> in2onp_loop;
+        in2onp_par_left [
+            label = "dodaj text[i] do stosu",
+            shape = rect
+        ];
+        in2onp_par_right [
+            label = "ostatni element stosu\nnie jest lewym nawiasem",
+            shape = diamond
+        ];
+        in2onp_ifPar -> in2onp_par_left [label="Tak, lewy"];
+        in2onp_par_left -> in2onp_ipp;
+        in2onp_ifPar -> in2onp_par_right [label="Tak, prawy"];
+        in2onp_par_right -> in2onp_ipp [label="False"];
+        in2onp_par_right_pop [
+            label = "do wyniku dodaj ostatni\nelement stosu",
+            shape = rect
+        ];
+        in2onp_par_right -> in2onp_par_right_pop [label="True"];
+        in2onp_par_right_pop -> in2onp_par_right;
+        label = "Notacja infixowa do\nONP"
+    }
+    subgraph cluster_onp2infix {
+        onp2in_input [
+            label ="Wczytaj text",
+            shape=egg
+        ];
+            onp2in_loop [
+                label="i < len(text)"
+                shape=diamond
+            ];
+                onp2in_end [
+                    label="Zwróć ostatni element z stosu"
+                    shape=egg
+                ]
+                onp2in_loop -> onp2in_end;
+            onp2in_ipp [
+                label="i++"
+                shape=rect
+            ]
+                onp2in_ipp -> onp2in_loop;
+            onp2in_input -> onp2in_loop;
+                onp2in_isOp [
+                    label="Czy text[i] jest operatorem?",
+                    shape=diamond
+                ]
+                onp2in_loop -> onp2in_isOp [label="True"];
+                    onp2in_noop [
+                        label="wrzuć element na stos",
+                        shape=rect
+                    ]
+                    onp2in_isOp -> onp2in_noop [label="Nie jest"];
+                    onp2in_noop -> onp2in_ipp;
+                    onp2in_op1 [
+                        label="pobierz ze stosu\nargumenty dla operatora",
+                        shape=rect
+                    ]
+                    onp2in_op2 [
+                        label="wrzuć na stos\ndziałanie w nawiasach",
+                        shape=rect
+                    ]
+                    onp2in_isOp -> onp2in_op1 [label="Jest"];
+                    onp2in_op1 -> onp2in_op2;
+                    onp2in_op2 -> onp2in_ipp;
+        label = "ONP do notacji infixowej"
+    }
 }

@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "systemy operacyjne/w1.md",
+            "file": "kompresja/w1.md",
             "mode": "source"
           }
         },
@@ -19,11 +19,11 @@
       {
         "id": "6ab40a5df185567f",
         "type": "leaf",
-        "dimension": 48.1036077705828,
+        "dimension": 48.10360777058279,
         "state": {
           "type": "markdown",
           "state": {
-            "file": "systemy operacyjne/w1.md",
+            "file": "kompresja/w1.md",
             "mode": "preview"
           }
         },
@@ -91,7 +91,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "systemy operacyjne/w1.md",
+                "file": "kompresja/w1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -108,7 +108,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "systemy operacyjne/w1.md",
+                "file": "kompresja/w1.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -142,15 +142,15 @@
   },
   "active": "ce50d0663fe4c9a0",
   "lastOpenFiles": [
+    "kompresja/w1.md",
     "systemy operacyjne/w1.md",
+    "testowe/pierwszy test.md",
+    "kompresja/Untitled.md",
     "systemy operacyjne/Untitled.md",
     "Metody Numeryczne/w1.md",
     "Metody Numeryczne/Untitled.md",
     "Języki Skryptowe/1.md",
     "Untitled.md",
-    "Algorytmy/1.md",
-    "Metody Numeryczne/1.md",
-    "angielski/1.md",
-    "testowe/pierwszy test.md"
+    "Algorytmy/1.md"
   ]
 }
