@@ -50,7 +50,7 @@ while len(really_done_cities) < len(done_cities):
 
 print(file=sys.stderr)
 hotels = set()
-for i, city in enumerate(really_done_cities):
+for i, city in enumerate(reversed(cities)):
     print(f"\33[2K{round((i + 1) / len(cities) * 100, 2)}%", len(hotels), i + 1, file=sys.stderr, end="\r")
     new_hotels = city.get_hotels()
     for new_hotel in new_hotels:
