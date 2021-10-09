@@ -51,22 +51,26 @@ class Miasto:
         self.distance2city = {}
         res = []
         for city, distance in self.city2distance.items():
-            array = self.distance2city.get(distance, list())
-            array.append(city)
-            self.distance2city[distance] = array
+            if city.id > self.id:
+                array = self.distance2city.get(distance, list())
+                array.append(city)
+                self.distance2city[distance] = array
         for distance, array in self.distance2city.items():
             if len(array) >= 2:
-                for city in array[:-1]:
+                for i, city in enumerate(array[:-1]):
                     if city is not self:
-                        for another_city in array:
+                        for another_city in array[i:]:
                             if (
                                     city.city2distance[another_city] == distance and 
                                     another_city is not self and
                                     city is not another_city):
-                                hotel = [self, city, another_city]
-                                hotel.sort(key = lambda x: x.id)
-                                if not hotel in res:
-                                    res.append(hotel)
+                                hotel = [self.id, city.id, another_city.id]
+                                hotel.sort()
+                                hotel_str = ""
+                                for x in hotel:
+                                    hotel_str += "-" + str(x)
+                                if not hotel_str in res:
+                                    res.append(hotel_str)
         return res
 
 

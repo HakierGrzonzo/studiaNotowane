@@ -28,7 +28,7 @@ while len(done_cities) != len(cities):
     print(len(done_cities), iteration, file=sys.stderr, end="\r")
 
 really_done_cities = list()
-iteration = 0
+iteration = 1
 print(file=sys.stderr)
 while len(really_done_cities) < len(done_cities):
     did_modify_something = False
@@ -49,18 +49,16 @@ while len(really_done_cities) < len(done_cities):
             city.get_connections(True)
 
 print(file=sys.stderr)
-hotels = []
+hotels = set()
 for i, city in enumerate(really_done_cities):
-    print(f"\33[2K{round(i / len(cities) * 100, 2)}%", len(hotels), file=sys.stderr, end="\r")
+    print(f"\33[2K{round((i + 1) / len(cities) * 100, 2)}%", len(hotels), i + 1, file=sys.stderr, end="\r")
     new_hotels = city.get_hotels()
     for new_hotel in new_hotels:
-        if new_hotel not in hotels:
-            hotels.append(new_hotel)
+        hotels.add(new_hotel)
 
 print(file=sys.stderr)
-
-print("Zajeło:", (datetime.now() - begin_time).total_seconds(), "s")
-print(hotels)
+print("Zajeło:", (datetime.now() - begin_time).total_seconds(), "s", file=sys.stderr)
+print(len(hotels))
 
 """
 with open("graph.dot", "w+") as f:
