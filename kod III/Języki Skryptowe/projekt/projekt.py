@@ -49,16 +49,18 @@ while len(really_done_cities) < len(done_cities):
             city.get_connections(True)
 
 print(file=sys.stderr)
-hotels = set()
-for i, city in enumerate(reversed(cities)):
-    print(f"\33[2K{round((i + 1) / len(cities) * 100, 2)}%", len(hotels), i + 1, file=sys.stderr, end="\r")
+"""
+hotels = 0
+for i, city in enumerate(cities):
+    print(f"\33[2K{round((i + 1) / len(cities) * 100, 2)}%", hotels, i + 1, file=sys.stderr, end="\r")
     new_hotels = city.get_hotels()
-    for new_hotel in new_hotels:
-        hotels.add(new_hotel)
+    hotels += len(new_hotels)
+"""
+hotels = sum([len(city.get_hotels()) for city in cities])
 
 print(file=sys.stderr)
 print("Zajeło:", (datetime.now() - begin_time).total_seconds(), "s", file=sys.stderr)
-print(len(hotels))
+print(hotels)
 
 """
 with open("graph.dot", "w+") as f:
