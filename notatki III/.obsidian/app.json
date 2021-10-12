@@ -13,6 +13,19 @@
     "binarny",
     "alfabet",
     "binarny",
-    "n-bitowych"
-  ]
+    "n-bitowych",
+    "5min",
+    "must",
+    "done",
+    "christmas",
+    "before",
+    "read",
+    "Knuth"
+  ],
+  "pdfExportSettings": {
+    "pageSize": "A4",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  }
 }

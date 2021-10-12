@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "kompresja/w1.md",
+            "file": "kompresja/2.md",
             "mode": "source"
           }
         },
@@ -23,7 +23,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "kompresja/w1.md",
+            "file": "kompresja/2.md",
             "mode": "preview"
           }
         },
@@ -54,7 +54,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#ToDo",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -91,7 +91,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "kompresja/w1.md",
+                "file": "kompresja/2.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -108,7 +108,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "kompresja/w1.md",
+                "file": "kompresja/2.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,23 +134,24 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "active": "ce50d0663fe4c9a0",
   "lastOpenFiles": [
+    "kompresja/2.md",
     "kompresja/w1.md",
-    "systemy operacyjne/w1.md",
     "testowe/pierwszy test.md",
     "kompresja/Untitled.md",
-    "systemy operacyjne/Untitled.md",
-    "Metody Numeryczne/w1.md",
-    "Metody Numeryczne/Untitled.md",
-    "Języki Skryptowe/1.md",
+    "angielski/2.md",
+    "angielski/1.md",
     "Untitled.md",
-    "Algorytmy/1.md"
+    "systemy operacyjne/2.md",
+    "systemy operacyjne/1.md",
+    "kompresja/1.md"
   ]
 }

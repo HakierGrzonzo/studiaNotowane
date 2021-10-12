@@ -49,7 +49,6 @@ class Main {
         System.out.println("B(x) = " + horner(B, x));
         System.out.println("A(x) = " + horner(A, x));
         */
-        
         System.out.print("Podaj r: ");
         float r = stdin.nextFloat();
         System.out.print("Podaj h: ");

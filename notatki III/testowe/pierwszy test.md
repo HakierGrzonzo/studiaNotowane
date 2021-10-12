@@ -35,5 +35,3 @@ C[Ktoś]
 A --> C
 ```
 [[testowe/inne]]
-
-#CamelCase
