@@ -1,0 +1,4 @@
+Polecenie lokalnie:
+write $User
+
+W innym przypadku raczej potrzebny serwer IRC

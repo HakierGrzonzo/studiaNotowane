@@ -174,7 +174,6 @@ class DoubleLinkedList:
     def __init__(self):
         self.first = None
         self.last = None
-        #TODO(hakiergrzonzo) ostatni element
 
     def getNode(self, index):
         i = 0
@@ -192,7 +191,7 @@ class DoubleLinkedList:
 
     def __delitem__(self, index):
         if index == 0:
-            newFirst = self.first.next
+            #newFirst = self.first.next
             self.first = self.first.next
         else:
             node = self.getNode(index)
@@ -203,11 +202,12 @@ class DoubleLinkedList:
     def append(self, item):
         if self.first is None:
             self.first = DoubleLinkedListNode(None, None, item)
+            self.last = self.first
         else:
-            node = self.first
-            while (next := node.next) is not None:
-                node = next
-            node.next = DoubleLinkedListNode(None, node, item)
+            prev = self.last
+            self.last = DoubleLinkedListNode(None, self.last, item)
+            prev.next = self.last
+
 
     def __repr__(self) -> str:
         data = []
@@ -219,3 +219,6 @@ class DoubleLinkedList:
             [str(x) for x in data]
         ))
 
+class CyclicList:
+    def __init__(self):
+        pass
