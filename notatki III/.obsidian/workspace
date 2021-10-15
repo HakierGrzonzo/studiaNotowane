@@ -4,30 +4,28 @@
     "type": "split",
     "children": [
       {
-        "id": "ce50d0663fe4c9a0",
+        "id": "8ff20c1b4199e15c",
         "type": "leaf",
-        "dimension": 51.89639222941721,
         "state": {
           "type": "markdown",
           "state": {
-            "file": "kompresja/2.md",
+            "file": "kompresja/w2.md",
             "mode": "source"
           }
         },
-        "group": "b64987209e9c5d2e"
+        "group": "9b62e22cf94dae2c"
       },
       {
-        "id": "6ab40a5df185567f",
+        "id": "4c2efd786fcf51b0",
         "type": "leaf",
-        "dimension": 48.10360777058279,
         "state": {
           "type": "markdown",
           "state": {
-            "file": "kompresja/2.md",
+            "file": "kompresja/w2.md",
             "mode": "preview"
           }
         },
-        "group": "b64987209e9c5d2e"
+        "group": "9b62e22cf94dae2c"
       }
     ],
     "direction": "vertical"
@@ -91,7 +89,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "kompresja/2.md",
+                "file": "kompresja/w2.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -108,7 +106,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "kompresja/2.md",
+                "file": "kompresja/w2.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -141,17 +139,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "ce50d0663fe4c9a0",
+  "active": "8ff20c1b4199e15c",
   "lastOpenFiles": [
+    "kompresja/w2.md",
     "kompresja/2.md",
+    "kompresja/1.md",
     "kompresja/w1.md",
-    "testowe/pierwszy test.md",
     "kompresja/Untitled.md",
-    "angielski/2.md",
-    "angielski/1.md",
+    "Metody Numeryczne/w2.md",
     "Untitled.md",
-    "systemy operacyjne/2.md",
-    "systemy operacyjne/1.md",
-    "kompresja/1.md"
+    "testowe/pierwszy test.md",
+    "angielski/2.md",
+    "angielski/1.md"
   ]
 }
