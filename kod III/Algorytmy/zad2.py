@@ -20,9 +20,9 @@ prioQueue.push(3)
 prioQueue.prio("dziekan")
 prioQueue.prio("premier")
 print(prioQueue)
-prioQueue.pop()
-prioQueue.pop()
-prioQueue.pop()
+print(prioQueue.pop())
+print(prioQueue.pop())
+print(prioQueue.pop())
 print(prioQueue)
 
 stack = Stack(20)
@@ -34,7 +34,7 @@ for i in range(5):
     print("Zabieram", stack.pop())
 print(stack)
 
-linkedList = DoubleLinkedList()
+linkedList = LinkedList(6)
 for i in range(6):
     linkedList.append(i)
 print(linkedList)
@@ -44,4 +44,13 @@ print("linkedList[2] to:", linkedList[2])
 del linkedList[2]
 print("linkedList[2] to:", linkedList[2])
 
+linkedList = DoubleLinkedList(6)
+for i in range(6):
+    linkedList.append(i)
+print(linkedList)
+print("linkedList[2] to:", linkedList[2])
+linkedList[2] = "wow"
+print("linkedList[2] to:", linkedList[2])
+del linkedList[2]
+print("linkedList[2] to:", linkedList[2])
 

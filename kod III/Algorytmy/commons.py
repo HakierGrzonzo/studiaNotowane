@@ -23,12 +23,11 @@ class RetardedList:
         self._list = [None] * size
         self._size = size
         self.end = 0
+        self.head = 0
 
     def prepend(self, data):
-        for i in reversed(range(0, self.end + 1)):
-            self._list[i + 1] = self._list[i]
-        self.end += 1
-        self._list[0] = data
+        self.head -= 1
+        self._list[self.head] = data
     
     def append(self, data):
         self._list[self.end] = data
@@ -36,19 +35,23 @@ class RetardedList:
         return data
 
     def pop(self, index):
-        data = self._list[index]
-        self.end -= 1
-        for i in range(index, self.end):
-            self._list[i] = self._list[i + 1]
+        data = self._list[index + self.head]
+        if index == 0:
+            self.head += 1
+            return data
+        else:
+            self.end -= 1
+            for i in range(self.head, self.end + 1):
+                self._list[i % (len(self) + 1)] = self._list[(i + 1) % (len(self) + 1)]
         return data
 
     def remove(self, index):
-        for j in range(index, self.end):
-            self._list[j] = self._list[j + 1]
+        for j in range(index, index + len(self)):
+            self._list[j % len(self)] = self._list[(j + 1) % len(self)]
         self.end -= 1
 
     def find(self, toFind):
-        for i in range(0, self.end + 1):
+        for i in range(self.head, self.end):
             if self._list[i] == toFind:
                 return i
         else:
@@ -57,12 +60,12 @@ class RetardedList:
     def __repr__(self) -> str:
         return "[{}]".format(
                 ", ".join(
-                    [str(x) for x in self._list[:self.end]]
+                    [str(x) for x in self._list[self.head:-1] + self._list[0:self.end]]
                 )
             )
 
     def __len__(self):
-        return self.end + 1
+        return self.end - self.head
         
 
 class Queue:
@@ -119,7 +122,8 @@ class LinkedListNode:
         self.data = data
 
 class LinkedList:
-    def __init__(self):
+    def __init__(self, size):
+        self.heap = RetardedList(size)
         self.first = None
 
     def getNode(self, index):
@@ -137,8 +141,8 @@ class LinkedList:
         self.getNode(index).data = data
 
     def __delitem__(self, index):
+        self.heap.remove(self.heap.find(self.getNode(index)))
         if index == 0:
-            newFirst = self.first.next
             self.first = self.first.next
         else:
             prev = self.getNode(index - 1)
@@ -146,12 +150,16 @@ class LinkedList:
 
     def append(self, item):
         if self.first is None:
-            self.first = LinkedListNode(None, item)
+            new_node = LinkedListNode(None, item)
+            self.heap.append(new_node)
+            self.first = new_node
         else:
             node = self.first
             while (next := node.next) is not None:
                 node = next
-            node.next = LinkedListNode(None, item)
+            new_node = LinkedListNode(None, item)
+            self.heap.append(new_node)
+            node.next = new_node
 
     def __repr__(self) -> str:
         data = []
@@ -171,9 +179,10 @@ class DoubleLinkedListNode:
         self.data = data
 
 class DoubleLinkedList:
-    def __init__(self):
+    def __init__(self, size):
         self.first = None
         self.last = None
+        self.heap = RetardedList(size)
 
     def getNode(self, index):
         i = 0
@@ -190,6 +199,7 @@ class DoubleLinkedList:
         self.getNode(index).data = data
 
     def __delitem__(self, index):
+        self.heap.remove(self.heap.find(self.getNode(index)))
         if index == 0:
             #newFirst = self.first.next
             self.first = self.first.next
@@ -201,13 +211,16 @@ class DoubleLinkedList:
 
     def append(self, item):
         if self.first is None:
-            self.first = DoubleLinkedListNode(None, None, item)
+            new_node = DoubleLinkedListNode(None, None, item)
+            self.heap.append(new_node)
+            self.first = new_node
             self.last = self.first
         else:
+            new_node = DoubleLinkedListNode(None, self.last, item)
+            self.heap.append(new_node)
             prev = self.last
-            self.last = DoubleLinkedListNode(None, self.last, item)
+            self.last = new_node
             prev.next = self.last
-
 
     def __repr__(self) -> str:
         data = []
@@ -219,6 +232,14 @@ class DoubleLinkedList:
             [str(x) for x in data]
         ))
 
+class CyclicListElement:
+    def __init__(self, data, next = None):
+        self.data = data
+        self.next = next
+
 class CyclicList:
-    def __init__(self):
-        pass
+    def __init__(self, size) -> None:
+        self.heap = RetardedList(size)
+
+
+            

@@ -1,0 +1,4 @@
+jakies_pliki.txt
+pliki_katalogi.txt
+z21.sh
+z22.sh
