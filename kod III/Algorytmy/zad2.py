@@ -1,4 +1,4 @@
-from commons import Queue, PrioQueue, Stack, LinkedList, DoubleLinkedList
+from commons import Queue, PrioQueue, Stack, LinkedList, DoubleLinkedList, CyclicList, WartownikowaLista
 
 queue = Queue(20)
 queue.push(1)
@@ -34,7 +34,7 @@ for i in range(5):
     print("Zabieram", stack.pop())
 print(stack)
 
-linkedList = LinkedList(6)
+linkedList = LinkedList()
 for i in range(6):
     linkedList.append(i)
 print(linkedList)
@@ -44,7 +44,7 @@ print("linkedList[2] to:", linkedList[2])
 del linkedList[2]
 print("linkedList[2] to:", linkedList[2])
 
-linkedList = DoubleLinkedList(6)
+linkedList = DoubleLinkedList()
 for i in range(6):
     linkedList.append(i)
 print(linkedList)
@@ -54,3 +54,19 @@ print("linkedList[2] to:", linkedList[2])
 del linkedList[2]
 print("linkedList[2] to:", linkedList[2])
 
+linkedList = CyclicList()
+for i in range(6):
+    linkedList.append(i)
+print(linkedList)
+print("linkedList[2] to:", linkedList[2])
+linkedList[2] = "wow"
+print("linkedList[2] to:", linkedList[2])
+del linkedList[2]
+print("linkedList[2] to:", linkedList[2])
+
+wartownik = WartownikowaLista(8)
+for i in range(6):
+    wartownik.append(i)
+print(wartownik)
+print(wartownik.find(2))
+print(wartownik)

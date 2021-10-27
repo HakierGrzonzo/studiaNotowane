@@ -46,21 +46,21 @@ class RetardedList:
         return data
 
     def remove(self, index):
-        for j in range(index, index + len(self)):
-            self._list[j % len(self)] = self._list[(j + 1) % len(self)]
+        for j in range(index + self.head, self.end):
+            self._list[j] = self._list[j + 1]
         self.end -= 1
 
     def find(self, toFind):
         for i in range(self.head, self.end):
             if self._list[i] == toFind:
-                return i
+                return i - self.head
         else:
             return None
 
     def __repr__(self) -> str:
         return "[{}]".format(
                 ", ".join(
-                    [str(x) for x in self._list[self.head:-1] + self._list[0:self.end]]
+                    [str(x) for x in (self._list[self.head:-1] if self.head < 0 else []) + (self._list[max(self.head, 0):self.end])]
                 )
             )
 
@@ -122,8 +122,7 @@ class LinkedListNode:
         self.data = data
 
 class LinkedList:
-    def __init__(self, size):
-        self.heap = RetardedList(size)
+    def __init__(self):
         self.first = None
 
     def getNode(self, index):
@@ -141,7 +140,6 @@ class LinkedList:
         self.getNode(index).data = data
 
     def __delitem__(self, index):
-        self.heap.remove(self.heap.find(self.getNode(index)))
         if index == 0:
             self.first = self.first.next
         else:
@@ -151,14 +149,12 @@ class LinkedList:
     def append(self, item):
         if self.first is None:
             new_node = LinkedListNode(None, item)
-            self.heap.append(new_node)
             self.first = new_node
         else:
             node = self.first
             while (next := node.next) is not None:
                 node = next
             new_node = LinkedListNode(None, item)
-            self.heap.append(new_node)
             node.next = new_node
 
     def __repr__(self) -> str:
@@ -179,10 +175,9 @@ class DoubleLinkedListNode:
         self.data = data
 
 class DoubleLinkedList:
-    def __init__(self, size):
+    def __init__(self):
         self.first = None
         self.last = None
-        self.heap = RetardedList(size)
 
     def getNode(self, index):
         i = 0
@@ -199,7 +194,6 @@ class DoubleLinkedList:
         self.getNode(index).data = data
 
     def __delitem__(self, index):
-        self.heap.remove(self.heap.find(self.getNode(index)))
         if index == 0:
             #newFirst = self.first.next
             self.first = self.first.next
@@ -212,12 +206,10 @@ class DoubleLinkedList:
     def append(self, item):
         if self.first is None:
             new_node = DoubleLinkedListNode(None, None, item)
-            self.heap.append(new_node)
             self.first = new_node
             self.last = self.first
         else:
             new_node = DoubleLinkedListNode(None, self.last, item)
-            self.heap.append(new_node)
             prev = self.last
             self.last = new_node
             prev.next = self.last
@@ -238,8 +230,71 @@ class CyclicListElement:
         self.next = next
 
 class CyclicList:
-    def __init__(self, size) -> None:
-        self.heap = RetardedList(size)
+    def __init__(self) -> None:
+        self.first = None
+
+    def append(self, data):
+        if self.first is None:
+            self.first = CyclicListElement(data)
+            self.first.next = self.first
+        else:
+            node = self.first
+            # find last node
+            while node.next is not self.first:
+                node = node.next
+            node.next = CyclicListElement(data, self.first)
+    
+    def _get_node(self, index):
+        node = self.first
+        while node.next is not self.first and index > 0:
+            node = node.next
+            index -= 1
+        if index > 0:
+            raise IndexError()
+        else:
+            return node
+    
+    def __len__(self):
+        if self.first is None:
+            return 0
+        else:
+            node = self.first
+            res = 1
+            while node.next is not self.first:
+                node = node.next
+                res += 1
+            return res
 
 
+    def __getitem__(self, index):
+        return self._get_node(index).data
+
+    def __setitem__(self, index, data):
+        self._get_node(index).data = data
+
+    def __delitem__(self, index):
+        if index == 0:
+            self.first = self.first.next
+            last = self._get_node(len(self) - 1)
+            last.next = self.first
+        elif 0 < index < len(self):
+            prev = self._get_node(index - 1)
+            prev.next = self._get_node(index + 1)
+        else:
+            raise IndexError()
+
+    def __repr__(self) -> str:
+        return "CyclicList: [" + ", ".join([str(self._get_node(x).data) for x in range(len(self))]) + "]"
+
+class WartownikowaLista(RetardedList):
+    def find(self, toFind):
+        self.append(toFind)
+        i = self.head
+        while self._list[i] != toFind:
+            i += 1
+        if i == self.end:
+            return None
+        else:
+            self.remove(self.end)
+            return i
             
