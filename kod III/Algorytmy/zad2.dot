@@ -1,0 +1,145 @@
+digraph {
+    subgraph cluster_rlist {
+        rlist_init [
+            label="__init__(size)"
+            shape="egg"
+        ]
+            rlist_init_alloc [
+                label="Zaalokuj tablicę"
+                shape="rect"
+            ]
+            rlist_init -> rlist_init_alloc;
+        label = "RetardedList"
+        subgraph cluster_rlist_prepend {
+            rlist_prepend [
+                label="prepend(data)"
+                shape="egg"
+            ]
+                rlist_prepend_min [
+                    label="odejmij 1 od head"
+                    shape="rect"
+                ]
+                rlist_prepend -> rlist_prepend_min;
+                    rlist_prepend_add [
+                        label="wpisz dane w pozycji head\n (modulo rozmiar)"
+                        shape="rect"
+                    ]
+                    rlist_prepend_min -> rlist_prepend_add;
+            label = "prepend(data)"
+        }
+
+        subgraph cluster_rlist_append {
+            rlist_append [
+                label="append(data)"
+                shape="egg"
+            ]
+                rlist_append_min [
+                    label="dodaj 1 do end"
+                    shape="rect"
+                ]
+                rlist_append -> rlist_append_min;
+                    rlist_append_add [
+                        label="wpisz dane w pozycji end\n (modulo rozmiar)"
+                        shape="rect"
+                    ]
+                    rlist_append_min -> rlist_append_add;
+            label="append(data)"
+        }
+
+        subgraph cluster_rlist_pop {
+            rlist_pop [
+                label="pop(index)"
+                shape="egg"
+            ]
+                rlist_pop_1 [
+                    label="pobierz element index + self.head\nz tablicy"
+                    shape="rect"
+                ]
+                rlist_pop -> rlist_pop_1;
+                    rlist_pop_2 [
+                        label="index == 0"
+                        shape="diamond"
+                    ]
+                    rlist_pop_1 -> rlist_pop_2;
+                        rlist_pop_3a [
+                            label="zwiększ head o 1"
+                            shape="rect"
+                        ]
+                            rlist_pop_2 -> rlist_pop_3a [label="True"];
+                        rlist_pop_3b [
+                            label="zmniejsz end o 1"
+                            shape="rect"
+                        ]
+                            rlist_pop_2 -> rlist_pop_3b [label="False"];
+                            rlist_pop_4b [
+                                label="Przesuń elementy o jedno miejsce"
+                                shape="rect"
+                            ]
+                                rlist_pop_3b -> rlist_pop_4b;
+                        rlist_pop_return [
+                            label="Zwróć pobrany z tablicy element"
+                            shape="egg"
+                        ]
+                            rlist_pop_3a -> rlist_pop_return;
+                            rlist_pop_4b -> rlist_pop_return;
+            label="pop(index)"
+        }
+
+        subgraph cluster_rlist_remove {
+            rlist_remove [
+                label="remove(index)"
+                shape="egg"
+            ]
+                rlist_remove1 [
+                    label="Przesuń elementy z\nindexem > index w lewo"
+                    shape="rect"
+                ]
+                    rlist_remove -> rlist_remove1;
+                    rlist_remove2 [
+                        label="Zmniejsz end o 1"
+                        shape="rect"
+                    ]
+                        rlist_remove1 -> rlist_remove2;
+            label="remove(index)"
+        }
+
+        subgraph cluster_rlist_find {
+            rlist_find [
+                label="find(value)"
+                shape="egg"
+            ]
+                rlist_find1 [
+                    label="Dla każdego elementu w tablicy:"
+                    shape="diamond"
+                ]
+                    rlist_find -> rlist_find1;
+                    rlist_find2 [
+                        label="Zwróć index - self.head"
+                        shape="egg"
+                    ]
+                        rlist_find1 -> rlist_find2 [
+                            label="element == value"
+                        ]
+                    rlist_find3 [
+                        label="Zwróć None"
+                        shape="egg"
+                    ]
+                        rlist_find1 -> rlist_find3 [
+                            label="else"
+                        ]
+            label="find(value)"
+        }
+    }
+
+    subgraph cluster_queue {
+        queue_init [
+            label="__init__(size)"
+            shape="egg"
+        ]
+            queue_init_2 [
+                label="Zaalokuj RetardedList()"
+            ]
+
+        label="Queue"
+    }
+}

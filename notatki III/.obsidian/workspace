@@ -4,26 +4,28 @@
     "type": "split",
     "children": [
       {
-        "id": "4c2efd786fcf51b0",
-        "type": "leaf",
-        "state": {
-          "type": "markdown",
-          "state": {
-            "file": "systemy operacyjne/z1.md",
-            "mode": "source"
-          }
-        }
-      },
-      {
         "id": "68fdff497cd87a97",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "systemy operacyjne/z1.md",
+            "file": "kompresja/w3.md",
+            "mode": "source"
+          }
+        },
+        "group": "c5df7ceca2b81d39"
+      },
+      {
+        "id": "74ef0757fb748060",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "kompresja/w3.md",
             "mode": "preview"
           }
-        }
+        },
+        "group": "c5df7ceca2b81d39"
       }
     ],
     "direction": "vertical"
@@ -87,7 +89,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "systemy operacyjne/z1.md",
+                "file": "kompresja/w3.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +106,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "systemy operacyjne/z1.md",
+                "file": "kompresja/w3.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +127,7 @@
             "id": "3067830641dbfbd5",
             "type": "leaf",
             "state": {
-              "type": "empty",
+              "type": "advanced-tables-toolbar",
               "state": {}
             }
           }
@@ -137,17 +139,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "4c2efd786fcf51b0",
+  "active": "68fdff497cd87a97",
   "lastOpenFiles": [
-    "systemy operacyjne/z1.md",
+    "kompresja/w3.md",
+    "Metody Numeryczne/w3.md",
+    "kompresja/4.md",
     "kompresja/w2.md",
-    "systemy operacyjne/Untitled.md",
-    "systemy operacyjne/3.md",
-    "kompresja/3.md",
-    "kompresja/Untitled.md",
+    "angielski/3.md",
     "angielski/2.md",
-    "systemy operacyjne/2.md",
-    "kompresja/2.md",
-    "kompresja/1.md"
+    "systemy operacyjne/4.md",
+    "kompresja/3.md",
+    "systemy operacyjne/3.md",
+    "systemy operacyjne/2.md"
   ]
 }

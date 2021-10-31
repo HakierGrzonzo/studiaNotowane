@@ -1,0 +1,170 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage[]{algorithm2e}
+\usepackage{listings}
+
+\usepackage{color}
+\usepackage{listings}
+
+\lstloadlanguages{% Check Dokumentation for further languages ...
+	C,
+	C++,
+	csh,
+	Java
+}
+
+\definecolor{red}{rgb}{0.6,0,0} % for strings
+\definecolor{blue}{rgb}{0,0,0.6}
+\definecolor{green}{rgb}{0,0.8,0}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+\lstset{
+	language=csh,
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	tabsize=2,
+	extendedchars=true,
+	breaklines=true,
+	frame=b,
+	stringstyle=\color{blue}\ttfamily,
+	showspaces=false,
+	showtabs=false,
+	xleftmargin=17pt,
+	framexleftmargin=17pt,
+	framexrightmargin=5pt,
+	framexbottommargin=4pt,
+	commentstyle=\color{green},
+	morecomment=[l]{//}, %use comment-line-style!
+	morecomment=[s]{/*}{*/}, %for multiline comments
+	showstringspaces=false,
+	morekeywords={ abstract, event, new, struct,
+		as, explicit, null, switch,
+		base, extern, object, this,
+		bool, false, operator, throw,
+		break, finally, out, true,
+		byte, fixed, override, try,
+		case, float, params, typeof,
+		catch, for, private, uint,
+		char, foreach, protected, ulong,
+		checked, goto, public, unchecked,
+		class, if, readonly, unsafe,
+		const, implicit, ref, ushort,
+		continue, in, return, using,
+		decimal, int, sbyte, virtual,
+		default, interface, sealed, volatile,
+		delegate, internal, short, void,
+		do, is, sizeof, while,
+		double, lock, stackalloc,
+		else, long, static,
+		enum, namespace, string},
+	keywordstyle=\color{cyan},
+	identifierstyle=\color{red},
+}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{blue}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+
+\addtolength{\hoffset}{-1.5cm}
+\addtolength{\marginparwidth}{-1.5cm}
+\addtolength{\textwidth}{3cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{2.5cm}
+\setlength{\topmargin}{0cm}
+\setlength{\headheight}{0cm}
+
+\begin{document}
+	
+	\title{Języki Skryptowe\\\small{dokumentacja projektu ,,Hotele''}}
+	\author{Grzegorz Koperwas}
+	\date{\today}
+
+	\maketitle
+	\newpage
+	\section*{Część I}
+	\subsection*{Opis programu}
+
+    W Bajtocji jest n miast połączonych zaledwie n − 1 drogami. Każda z dróg łączy bezpośrednio dwa miasta.
+    Wszystkie drogi mają taką samą długość i są dwukierunkowe. Wiadomo, że z każdego miasta da się dojechać
+    do każdego innego dokładnie jedną trasą, złożoną z jednej lub większej liczby dróg. Inaczej mówiąc, sieć dróg
+    tworzy drzewo.
+
+    Król Bajtocji, Bajtazar, chce wybudować trzy luksusowe hotele, które będą gościć turystów z całego świata.
+
+    Król chciałby, aby hotele znajdowały się w różnych miastach i były położone w tych samych odległościach od
+    siebie.
+
+    Pomóż królowi i napisz program, który obliczy, na ile sposobów można wybudować takie trzy hotele w Baj-
+    tocji.
+
+	\subsection*{Instrukcja obsługi}
+
+    Należy wykonać plik \texttt{./run.sh}, wygeneruje on automatycznie zestawy
+    danych testowych, wykona plik \texttt{./projekt.py} dla nich, oraz
+    wygeneruje skryptem \texttt{./raport.py} plik \texttt{./raport.html}.
+
+	\subsection*{Dodatkowe informacje}
+
+    Wymagania:
+
+    \begin{enumerate}
+            \item Biblioteka Jinja2
+            \item Python3 (sprawdzanie działanie na wersji 3.9.7, wcześniejsze mogą nie
+                działać)
+    \end{enumerate}
+
+	\newpage
+	\section*{Część II}
+	\subsection*{Opis działania} 
+	
+    Dane jest drzewo $n$ węzłów.
+
+    W pierwszej fazie, dla każdego węzła jest twożony jest słownik zwracający
+    dystans do dannego węzła (miasta), dla dannego węzła\footnote{W dalszej
+    części pracy będe stosował te wyrażenia wymiennie}.
+
+    W drugiej fazie, dla każdego miasta, twożony jest słownik zwracający listę
+    wszystkich miast, których odległość jest równa, dla danej odległości.
+
+    Następnie, dla każdej odległości\footnote{kluczy słownika}, jest zliczana
+    liczba miast spełniających warunek zadania\footnote{W wynniku optymalizacji
+    powtóżenia są eliminowane}.
+	
+	\subsection*{Algorytm}
+    
+    \subsubsection*{Generacja słownika Miasto $\rightarrow$ odległość}
+    
+    Niech dana jest funkcja $s$
+
+	\begin{algorithm}[H]
+		\caption{Algorytm drukowania informacji o liczbie parzystej/nieprarzystej.}
+	\end{algorithm}
+
+	\subsection*{Implementacja}
+	Opis, zasada i działanie programu ze względu na podział na pliki, nastepnie	funkcje programu wraz ze szczegółowym opisem działania (np.: formie pseudokodu, czy odniesienia do równania)
+	\begin{lstlisting}
+	Tutaj wklejamy fragment kodu, ktory chcemy opisac 
+	(bez polskich znakow).
+	\end{lstlisting}
+	\subsection*{Testy}
+	Tutaj powinna pojawić się analiza uzyskanych wyników oraz wykresy/pomiary.
+	
+	\subsection*{Eksperymenty}
+	Sekcję używamy gdy porównywaliśmy dwa lub więcej algorytmów, albo wykonywaliśmy jakies pomiery.
+	
+	Warto dodać jakies wykresy jako obraz, albo tabele z wynikami. 
+	
+	Wszyskie wyniki powinny być opisane/poddane komentarzowi i poddane analizie statystycznej.
+	\newpage
+	\section*{Pełen kod aplikacji}
+\begin{lstlisting}
+Tutaj wklejamy pelen kod. 
+\end{lstlisting}
+\end{document}
