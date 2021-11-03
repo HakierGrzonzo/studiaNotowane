@@ -1,0 +1,278 @@
+//
+// ZADANIE 1
+//
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+class Main {
+    public static void main(String[] args) {
+        try {
+            Pattern regex = Pattern.compile("(?<foo>[0-9]+(\\.[0-9]+)?)");
+            BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+            String text = stdin.readLine();
+            Matcher matcher = regex.matcher(text);
+            double r1;
+            double r2;
+            if (matcher.find()) {
+                r1 = Double.parseDouble(matcher.group("foo"));
+                if (matcher.find()) {
+                    r2 = Double.parseDouble(matcher.group("foo"));
+                    System.out.println(r1 + r2);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+//
+// ZADANIE 2
+//
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+class Main {
+    public static void main(String[] args) {
+        try {
+            Pattern regex = Pattern.compile("(?<foo>[0-9]+(\\.[0-9]+)?)");
+            BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+            String text = stdin.readLine();
+            Matcher matcher = regex.matcher(text);
+            double sum = 0;
+            while (matcher.find()) {
+                sum += Double.parseDouble(matcher.group("foo"));
+            }
+            System.out.println(sum);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+//
+// ZADANIE 3
+//
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+class Main {
+    public static void main(String[] args) {
+        try {
+            Pattern imię = Pattern.compile("Grze((gorz)|(siek))");
+            BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+            while (true) {
+                String text = stdin.readLine();
+                if (text == null) {
+                    // Jeśli tekst się skończył znakiem końca lini
+                    // np. <C-d> to zakońć program
+                    break;
+                }
+                Matcher matcher = imię.matcher(text);
+                if (matcher.find()) {
+                    System.out.println(text);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+//
+// ZADANIE 4
+//
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+class Main {
+    public static void main(String[] args) {
+        try {
+            Pattern regex = Pattern.compile("\\w+");
+            BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+            int sum = 0;
+            while (true) {
+                String text = stdin.readLine();
+                if (text == null) {
+                    // Jeśli tekst się skończył znakiem końca lini
+                    // np. <C-d> to zakońć program
+                    break;
+                }
+                Matcher matcher = regex.matcher(text);
+                while(matcher.find()) {
+                    sum++;
+                }
+            }
+            System.out.println(sum);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+//
+// ZADANIE 4
+//
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+class Main {
+    public static void main(String[] args) {
+        try {
+            Pattern regex = Pattern.compile("[0-3]?[0-9]-[0-1]?[0-9]-[0-9]+");
+            BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+            String text = stdin.readLine();
+            Matcher matcher = regex.matcher(text);
+            if (matcher.find()) {
+                System.out.println("Dobrze!");
+            } else {
+                System.out.println("Źle!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+//
+// ZADANIE 6 - z regexem
+//
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+class Main {
+    public static void main(String[] args) {
+        try {
+            Pattern imię = Pattern.compile("(\\W|^)" + args[0]+ "(\\W|$)");
+            BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+            while (true) {
+                String text = stdin.readLine();
+                if (text == null) {
+                    // Jeśli tekst się skończył znakiem końca lini
+                    // np. <C-d> to zakońć program
+                    break;
+                }
+                Matcher matcher = imię.matcher(text);
+                if (matcher.find()) {
+                    System.out.println(text);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+//
+// ZADANIE 6 - bez regexa
+//
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+class Main {
+    public static void main(String[] args) {
+        try {
+            BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+            while (true) {
+                String arg = args[0];
+                String text = stdin.readLine();
+                if (text == null) {
+                    // Jeśli tekst się skończył znakiem końca lini
+                    // np. <C-d> to zakońć program
+                    break;
+                }
+                int i = 0;
+                int word_index = 0;
+                boolean found = false;
+                while (i < text.length()) {
+                    char got = text.charAt(i);
+                    if (got == ' ' || i == 0) {
+                        if (got == ' ') {
+                            i++;
+                        }
+                        word_index = 0;
+                        while (text.charAt(i) == arg.charAt(word_index)) {
+                            word_index++;
+                            i++;
+                            if (word_index == arg.length() &&
+                                    i == text.length()) {
+                                found = true;
+                                break;
+                            }
+                            if (word_index == arg.length() &&
+                                    text.charAt(i) == ' ') {
+                                found = true;
+                                break;
+                            }
+                            if (word_index == arg.length()) {
+                                break;
+                            }
+                        }
+                        i++;
+                        if (found) {
+                            System.out.println(text);
+                            break;
+                        }
+                    } else {
+                        i++;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+//
+// ZADANIE 7 
+//
+class Main {
+    public static void main(String[] args) {
+        int found = 0;
+        for (int i = 0; i < 99; i++) {
+            double random = Math.random() * 100;
+            if (random < 20) {
+                found++;
+                System.out.println(random);
+            }
+            if (found == 10) {
+                break;
+            }
+        }
+    }
+}
+
+//
+// ZADANIE 8 
+//
+class Main {
+    public static void main(String[] args) {
+        int rozmiar = 1;
+        int liczba = 5;
+        for (int i = 0; i < 10; i++) {
+            System.out.print(2 * liczba);
+            liczba++;
+            for (int j = 1; j < rozmiar; j++) {
+                System.out.print('\t');
+                System.out.print(2 * liczba);
+                liczba++;
+            }
+            System.out.println();
+            rozmiar++;
+        }
+    }
+}

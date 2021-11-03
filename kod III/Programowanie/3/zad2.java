@@ -17,5 +17,6 @@ class Main {
             System.out.println(tmp);
             text = stdin.nextLine();
         } while (!text.equals("quit"));
+        stdin.close();
     }
 }
