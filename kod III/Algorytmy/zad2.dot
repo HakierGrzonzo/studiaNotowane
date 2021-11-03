@@ -1,8 +1,9 @@
 digraph {
+    compound=true;
     subgraph cluster_rlist {
         rlist_init [
             label="__init__(size)"
-            shape="egg"
+            shape="oval"
         ]
             rlist_init_alloc [
                 label="Zaalokuj tablicę"
@@ -13,7 +14,7 @@ digraph {
         subgraph cluster_rlist_prepend {
             rlist_prepend [
                 label="prepend(data)"
-                shape="egg"
+                shape="oval"
             ]
                 rlist_prepend_min [
                     label="odejmij 1 od head"
@@ -31,7 +32,7 @@ digraph {
         subgraph cluster_rlist_append {
             rlist_append [
                 label="append(data)"
-                shape="egg"
+                shape="oval"
             ]
                 rlist_append_min [
                     label="dodaj 1 do end"
@@ -49,7 +50,7 @@ digraph {
         subgraph cluster_rlist_pop {
             rlist_pop [
                 label="pop(index)"
-                shape="egg"
+                shape="oval"
             ]
                 rlist_pop_1 [
                     label="pobierz element index + self.head\nz tablicy"
@@ -78,7 +79,7 @@ digraph {
                                 rlist_pop_3b -> rlist_pop_4b;
                         rlist_pop_return [
                             label="Zwróć pobrany z tablicy element"
-                            shape="egg"
+                            shape="oval"
                         ]
                             rlist_pop_3a -> rlist_pop_return;
                             rlist_pop_4b -> rlist_pop_return;
@@ -88,7 +89,7 @@ digraph {
         subgraph cluster_rlist_remove {
             rlist_remove [
                 label="remove(index)"
-                shape="egg"
+                shape="oval"
             ]
                 rlist_remove1 [
                     label="Przesuń elementy z\nindexem > index w lewo"
@@ -106,7 +107,7 @@ digraph {
         subgraph cluster_rlist_find {
             rlist_find [
                 label="find(value)"
-                shape="egg"
+                shape="oval"
             ]
                 rlist_find1 [
                     label="Dla każdego elementu w tablicy:"
@@ -115,14 +116,14 @@ digraph {
                     rlist_find -> rlist_find1;
                     rlist_find2 [
                         label="Zwróć index - self.head"
-                        shape="egg"
+                        shape="oval"
                     ]
                         rlist_find1 -> rlist_find2 [
                             label="element == value"
                         ]
                     rlist_find3 [
                         label="Zwróć None"
-                        shape="egg"
+                        shape="oval"
                     ]
                         rlist_find1 -> rlist_find3 [
                             label="else"
@@ -134,12 +135,578 @@ digraph {
     subgraph cluster_queue {
         queue_init [
             label="__init__(size)"
-            shape="egg"
+            shape="oval"
         ]
             queue_init_2 [
-                label="Zaalokuj RetardedList()"
+                label="Zaalokuj RetardedList()\njako _queue"
+                shape="hexagon"
             ]
+            queue_init -> queue_init_2;
+        
+        subgraph cluster_queue_push {
+            queue_push [
+                label="push(data)"
+                shape="oval"
+            ]
+                queue_push_2 [
+                    label="_queue.append(data)"
+                    shape="hexagon"
+                ]
+                queue_push -> queue_push_2;
+            label="push(data)"
+        }
 
+        subgraph cluster_queue_pop {
+            queue_pop [
+                label="pop()"
+                shape="oval"
+            ]
+                queue_pop_2 [
+                    label="zwróć _queue.pop(0)"
+                    shape="oval"
+                ]
+                queue_pop -> queue_pop_2;
+            label="pop()"
+        }
+
+        subgraph cluster_queue_delete {
+            queue_delete [
+                label="delete(index)"
+                shape="oval"
+            ]
+                queue_delete_2 [
+                    label="_queue.remove(index)"
+                    shape="hexagon"
+                ]
+                queue_delete -> queue_delete_2;
+            label="delete(index)"
+        }
+
+        subgraph cluster_queue_find {
+            queue_find [
+                label="find(toFind)"
+                shape="oval"
+            ]
+                queue_find_2 [
+                    label="zwróć _queue.find(toFind)"
+                    shape="oval"
+                ]
+                queue_find -> queue_find_2;
+            label="find(toFind)"
+        }
         label="Queue"
     }
+
+    subgraph cluster_prioqueue {
+        prioqueue_init [
+            label="__init__(size)"
+            shape="oval"
+        ]
+            prioqueue_init_2 [
+                label="Queue(size)"
+                shape="hexagon"
+            ]
+            prioqueue_init -> prioqueue_init_2;
+        subgraph cluster_prioqueue_prio {
+            prioqueue_prio [
+                label="prio(data)"
+                shape="oval"
+            ]
+                prioqueue_prio_2 [
+                    label="_queue.prepend(data)"
+                    shape="hexagon"
+                ]
+                prioqueue_prio -> prioqueue_prio_2;
+            label="prio(data)"
+        }
+        label="PrioQueue(Queue)"
+    }
+
+    subgraph cluster_stack {
+        stack_init [
+            label="__init__(size)"
+            shape="oval"
+        ]
+            stack_init_2 [
+                label="Zaalokuj RetardedList()\njako _stack"
+                shape="hexagon"
+            ]
+            stack_init -> stack_init_2;
+        
+        subgraph cluster_stack_push {
+            stack_push [
+                label="push(data)"
+                shape="oval"
+            ]
+                stack_push_2 [
+                    label="_stack.prepend(data)"
+                    shape="hexagon"
+                ]
+                stack_push -> stack_push_2;
+            label="push(data)"
+        }
+
+        subgraph cluster_stack_pop {
+            stack_pop [
+                label="pop()"
+                shape="oval"
+            ]
+                stack_pop_2 [
+                    label="zwróć _stack.pop(0)"
+                    shape="oval"
+                ]
+                stack_pop -> stack_pop_2;
+            label="pop()"
+        }
+
+        subgraph cluster_stack_delete {
+            stack_delete [
+                label="delete(index)"
+                shape="oval"
+            ]
+                stack_delete_2 [
+                    label="_stack.remove(index)"
+                    shape="hexagon"
+                ]
+                stack_delete -> stack_delete_2;
+            label="delete(index)"
+        }
+
+        subgraph cluster_stack_find {
+            stack_find [
+                label="find(toFind)"
+                shape="oval"
+            ]
+                stack_find_2 [
+                    label="zwróć _stack.find(toFind)"
+                    shape="oval"
+                ]
+                stack_find -> stack_find_2;
+            label="find(toFind)"
+        }
+        label="stack"
+    }
+
+    subgraph cluster_linked {
+        linked_init [
+            label="__init__"
+            shape="oval"
+        ]
+            linked_init2 [
+                label="Ustaw self.first na None"
+                shape="rect"
+            ]
+            linked_init -> linked_init2;
+
+        subgraph cluster_linked_getnode {
+            linked_getnode [
+                label="getNode(index)"
+                shape="oval"
+            ]
+                linked_getnode2 [
+                    label="Ustaw i na 0\nUstaw node na self.first"
+                    shape="rect"
+                ]
+                linked_getnode -> linked_getnode2;
+                    linked_getnode3 [
+                        label="index > i"
+                        shape="diamond"
+                    ]
+                    linked_getnode2 -> linked_getnode3;
+                        linked_getnode4 [
+                            label="i++\nnode = node.next"
+                            shape="rect"
+                        ]
+                            linked_getnode3 -> linked_getnode4 [label="True"];
+                            linked_getnode4 -> linked_getnode3;
+                        linked_getnode5 [
+                            label="Zwróć node"
+                            shape="oval"
+                        ]
+                        linked_getnode3 -> linked_getnode5 [label="False"];
+            label="getNode(index)"
+        }
+
+        subgraph cluster_linked_getitem {
+            linked_getitem [
+                label="__getitem__(index)"
+                shape="oval"
+            ]
+                linked_getitem2 [
+                    label="Zwróć getNode(index).data"
+                    shape="oval"
+                ]
+                linked_getitem->linked_getitem2;
+            label="__getitem__(index)"
+        }
+
+        subgraph cluster_linked_setitem {
+            linked_setitem [
+                label="__setitem__(index, data)"
+                shape="oval"
+            ]
+                linked_setitem2 [
+                    label="Ustaw getNode(index).data = data"
+                    shape="oval"
+                ]
+                linked_setitem->linked_setitem2;
+            label="__setitem__(index, data)"
+        }
+
+        subgraph cluster_linked_delitem {
+            linked_delitem [
+                label="__delitem__(index)"
+                shape="oval"
+            ]
+                linked_delitem2 [
+                    label="index = 0"
+                    shape="diamond"
+                ]
+                    linked_delitem -> linked_delitem2;
+                    linked_delitem3a [
+                        label="self.first = self.first.next"
+                        shape="oval"
+                    ]
+                        linked_delitem2 -> linked_delitem3a [label="True"];
+                    linked_delitem3b [
+                        label="prev = self.getNode(index - 1)"
+                        shape="rect"
+                    ]
+                        linked_delitem2 -> linked_delitem3b [label="False"];
+                        linked_delitem4b [
+                            label="prev.next = prev.next.next"
+                            shape="oval"
+                        ]
+                            linked_delitem3b -> linked_delitem4b;
+            label="__delitem__(index)"
+        }
+
+        subgraph cluster_linked_append {
+            linked_append [
+                label="append(item)"
+                shape="oval"
+            ]
+                linked_append2 [
+                    label="self.first is None"
+                    shape="diamond"
+                ]
+                    linked_append -> linked_append2;
+                    linked_append3a [
+                        label="self.first = Node(item)"
+                        shape="oval"
+                    ]
+                        linked_append2 -> linked_append3a [label="True"]
+                    linked_append3b [
+                        label="node = self.first"
+                        shape="rect"
+                    ]
+                        linked_append2 -> linked_append3b [label="False"]
+                        linked_append4b [
+                            label="node.next is not None"
+                            shape="diamond"
+                        ]
+                            linked_append3b -> linked_append4b;
+                            linked_append5ba [
+                                label="node = node.next"
+                                shape="rect"
+                            ]
+                                linked_append4b -> linked_append5ba [label=True]
+                                linked_append5ba -> linked_append4b;
+                            linked_append5b [
+                                label="node.next = Node(item)"
+                                shape="oval"
+                            ]
+                                linked_append4b -> linked_append5b [label=False]
+            label="append(item)"
+        }
+        label="LinkedList"
+    }
+
+    subgraph cluster_doublelinked {
+        doublelinked_init [
+            label="__init__"
+            shape="oval"
+        ]
+            doublelinked_init2 [
+                label="Ustaw self.first na None\nUstaw self.last na None"
+                shape="oval"
+            ]
+            doublelinked_init -> doublelinked_init2;
+
+        subgraph cluster_doublelinked_getnode {
+            doublelinked_getnode [
+                label="getNode(index)"
+                shape="oval"
+            ]
+                doublelinked_getnode2 [
+                    label="Ustaw i na 0\nUstaw node na self.first"
+                    shape="rect"
+                ]
+                doublelinked_getnode -> doublelinked_getnode2;
+                    doublelinked_getnode3 [
+                        label="index > i"
+                        shape="diamond"
+                    ]
+                    doublelinked_getnode2 -> doublelinked_getnode3;
+                        doublelinked_getnode4 [
+                            label="i++\nnode = node.next"
+                            shape="rect"
+                        ]
+                            doublelinked_getnode3 -> doublelinked_getnode4 [label="True"];
+                            doublelinked_getnode4 -> doublelinked_getnode3;
+                        doublelinked_getnode5 [
+                            label="Zwróć node"
+                            shape="oval"
+                        ]
+                        doublelinked_getnode3 -> doublelinked_getnode5 [label="False"];
+            label="getNode(index)"
+        }
+
+        subgraph cluster_doublelinked_getitem {
+            doublelinked_getitem [
+                label="__getitem__(index)"
+                shape="oval"
+            ]
+                doublelinked_getitem2 [
+                    label="Zwróć getNode(index).data"
+                    shape="oval"
+                ]
+                doublelinked_getitem->doublelinked_getitem2;
+            label="__getitem__(index)"
+        }
+
+        subgraph cluster_doublelinked_setitem {
+            doublelinked_setitem [
+                label="__setitem__(index, data)"
+                shape="oval"
+            ]
+                doublelinked_setitem2 [
+                    label="Ustaw getNode(index).data = data"
+                    shape="oval"
+                ]
+                doublelinked_setitem->doublelinked_setitem2;
+            label="__setitem__(index, data)"
+        }
+
+        subgraph cluster_doublelinked_delitem {
+            doublelinked_delitem [
+                label="__delitem__(index)"
+                shape="oval"
+            ]
+                doublelinked_delitem2 [
+                    label="index = 0"
+                    shape="diamond"
+                ]
+                    doublelinked_delitem -> doublelinked_delitem2;
+                    doublelinked_delitem3a [
+                        label="self.first = self.first.next\nself.last.next = self.first"
+                        shape="oval"
+                    ]
+                        doublelinked_delitem2 -> doublelinked_delitem3a [label="True"];
+                    doublelinked_delitem3b [
+                        label="node = self.getNode(index)"
+                        shape="rect"
+                    ]
+                        doublelinked_delitem2 -> doublelinked_delitem3b [label="False"];
+                        doublelinked_delitem4b [
+                            label="node.prev.next = node.next\nnode.next.prev = node.prev"
+                            shape="oval"
+                        ]
+                            doublelinked_delitem3b -> doublelinked_delitem4b;
+            label="__delitem__(index)"
+        }
+
+        subgraph cluster_doublelinked_append {
+            doublelinked_append [
+                label="append(item)"
+                shape="oval"
+            ]
+                doublelinked_append2 [
+                    label="self.first is None"
+                    shape="diamond"
+                ]
+                    doublelinked_append -> doublelinked_append2;
+                    doublelinked_append3a [
+                        label="self.first = Node(item)\nself.last = self.first"
+                        shape="oval"
+                    ]
+                        doublelinked_append2 -> doublelinked_append3a [label="True"]
+                    doublelinked_append3b [
+                        label="new_node = Node(item)]\nprev = self.last"
+                        shape="rect"
+                    ]   
+                        doublelinked_append2 -> doublelinked_append3b [label="False"]
+                        doublelinked_append4 [
+                            label="self.last = new_node\nprev.next = self.last"
+                            shape="oval"
+                        ]  
+                            doublelinked_append3b -> doublelinked_append4;
+            label="append(item)"
+        }
+        label="doublelinkedList"
+    }
+
+    subgraph cluster_cyclic {
+        cyclic_init [label="__init__()", shape="oval"]
+            cyclic_init2 [label="self.first = None", shape="oval"]
+                cyclic_init -> cyclic_init2;
+
+        subgraph cluster_cyclic_append {
+            cyclic_append [label="append(data)", shape="oval"]
+                cyclic_append2 [label="self.first is None", shape="diamond"]
+                    cyclic_append -> cyclic_append2;
+                    cyclic_append3a [
+                        label="self.first = Node(data)\nself.first.next = self.first"
+                        shape="oval"
+                    ]
+                        cyclic_append2 -> cyclic_append3a [label="True"]
+                    cyclic_append3b [
+                        label="node = self.first"
+                        shape="rect"
+                    ]  
+                        cyclic_append2 -> cyclic_append3b [label="False"]
+                        cyclic_append4 [
+                            label="node.next is not self.first"
+                            shape=diamond
+                        ]
+                            cyclic_append3b -> cyclic_append4;
+                            cyclic_append5a [
+                                label="node = node.next"
+                                shape=rect
+                            ]
+                                cyclic_append4 -> cyclic_append5a [label="True"]
+                                cyclic_append5a -> cyclic_append4;
+                            cyclic_append5 [
+                                label="node.next = Node(data)\nnode.next.next = self.first"
+                                shape=oval
+                            ]
+                                cyclic_append4 -> cyclic_append5 [label="False"]
+            label="append(data)"
+        }
+
+        subgraph cluster_cyclic_getnode {
+            cyclic_getnode [label="_get_node(index)", shape=oval]
+                cyclic_getnode2 [label="node = self.first", shape=rect]
+                    cyclic_getnode -> cyclic_getnode2;
+                    cyclic_getnode3 [
+                        label="node.next us not self.first\n  and index > 0"
+                        shape="diamond"
+                    ]
+                        cyclic_getnode2 -> cyclic_getnode3;
+                        cyclic_getnode4a [
+                            label="node = node.next\nindex--"
+                            shape=rect
+                        ]
+                            cyclic_getnode3 -> cyclic_getnode4a [label="True"]
+                            cyclic_getnode4a -> cyclic_getnode3;
+                        cyclic_getnode4 [
+                            label="index > 0"
+                            shape=diamond
+                        ]
+                            cyclic_getnode3 -> cyclic_getnode4 [label=False];
+                            cyclic_getnode5a [
+                                label="raise IndexError()"
+                                shape=oval
+                            ]   
+                                cyclic_getnode4 -> cyclic_getnode5a [label=True];
+                            cyclic_getnode5b [
+                                label="zwróć node"
+                                shape=oval
+                            ]   
+                                cyclic_getnode4 -> cyclic_getnode5b [label=False];
+            label="_get_node(index)"
+        }
+
+        subgraph cluster_cyclic_getitem {
+            cyclic_getitem [
+                label="__getitem__(index)"
+                shape="oval"
+            ]
+                cyclic_getitem2 [
+                    label="Zwróć _get_node(index).data"
+                    shape="oval"
+                ]
+                cyclic_getitem->cyclic_getitem2;
+            label="__getitem__(index)"
+        }
+
+        subgraph cluster_cyclic_setitem {
+            cyclic_setitem [
+                label="__setitem__(index, data)"
+                shape="oval"
+            ]
+                cyclic_setitem2 [
+                    label="Ustaw _get_node(index).data = data"
+                    shape="oval"
+                ]
+                cyclic_setitem->cyclic_setitem2;
+            label="__setitem__(index, data)"
+        }
+        
+        subgraph cluster_cyclic_delitem {
+            cyclic_delitem [label="__delitem__(index)", shape=oval]
+                cyclic_delitem1 [label="index = 0", shape=diamond]
+                    cyclic_delitem -> cyclic_delitem1;
+                    cyclic_delitem2a [
+                        label="self.first = self.first.next"
+                        shape=rect
+                    ]
+                        cyclic_delitem1 -> cyclic_delitem2a [label=True] 
+                        cyclic_delitem3a [
+                            label="last = _get_node(len(self) - 1)"
+                            shape=hexagon
+                        ]
+                            cyclic_delitem2a -> cyclic_delitem3a
+                            cyclic_delitem4a [
+                                label="last.next = self.first"
+                                shape=oval
+                            ]
+                                cyclic_delitem3a -> cyclic_delitem4a;
+                    cyclic_delitem2b [
+                        label="prev = _get_node(index - 1)" 
+                        shape=hexagon
+                    ]
+                        cyclic_delitem1 -> cyclic_delitem2b [label=False]
+                        cyclic_delitem3b [
+                            label="prev.next = prev.next.next"
+                            shape=oval
+                        ]
+                            cyclic_delitem2b -> cyclic_delitem3b;
+            label="__delitem__(index)"
+        }
+
+        label="CyclicList"
+    }
+
+    subgraph cluster_wart {
+        subgraph cluster_wart_find {
+            wart_find [label="find(toFind)", shape=oval]
+                wart_find2 [label="append(toFind)", shape=hexagon]
+                    wart_find -> wart_find2;
+                    wart_find3 [label="i = self.head", shape=rect]
+                        wart_find2 -> wart_find3;
+                        wart_find4 [label="self._list[i] != toFind", shape=diamond]
+                            wart_find3 -> wart_find4;
+                            wart_find5a [label="i++", shape=rect]
+                                wart_find4 -> wart_find5a [label=True]
+                                wart_find5a -> wart_find4;
+                            wart_find5 [label="remove(self.end)", shape=hexagon]
+                                wart_find4 -> wart_find5 [label=False]
+                                wart_find6 [label="i = self.end", shape=diamond]
+                                    wart_find5 -> wart_find6
+                                    wart_find7a [
+                                        label="zwróć None"
+                                        shape=oval
+                                    ]   
+                                        wart_find6 -> wart_find7a [label=True]
+                                    wart_find7b [
+                                        label="zwróć i"
+                                        shape=oval
+                                    ]   
+                                        wart_find6 -> wart_find7b [label=False]
+            label="find(toFind)"
+        }
+        label="WartownikowaLista(RetardedList)"
+    }
+    label="Schematy blokowe do zadania drugiego, według klas i ich metod\nGrzegorz Koperwas, licencja GPLv2"
 }
