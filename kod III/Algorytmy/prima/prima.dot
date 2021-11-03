@@ -1,0 +1,175 @@
+digraph {
+    compound=true;
+    subgraph cluster_prima {
+        prima1 [
+            label="prima(nodes: list[Node])"
+            shape=oval
+        ]
+        prima2 [
+            label="Zaalokuj słownik pred oraz k"
+            shape=rect
+        ]
+            prima1 -> prima2;
+        subgraph cluster_prima3 {
+            prima3a [
+                label="pred[node] = None\nk[node] = infinity"
+                shape=rect
+            ]
+            label="for node in nodes"
+        }
+            prima2 -> prima3a [lhead=cluster_prima3]
+        prima4 [
+            label="k[nodes[0]] = 0"
+            shape=rect
+        ]
+            prima3a -> prima4 [ltail=cluster_prima3]
+        prima5 [
+            label="len(nodes) > 0"
+            shape=diamond
+        ]
+            prima4 -> prima5;
+            prima6a [
+                label="Pobierz z nodes węzeł o\nnajniższej wartości w k"
+                shape=hexagon
+            ]
+                prima5 -> prima6a [label=True];
+            prima7a [
+                label="Usuń pobrany węzeł z nodes"
+                shape=rect
+            ]
+                prima6a -> prima7a;
+            subgraph cluster_prima8 {
+                prima8a [
+                    label="other_node = connection.get_other(node)"
+                    shape=hexagon
+                ]
+                prima8b [
+                    label="if other_node in nodes"
+                    shape=diamond
+                ]
+                    prima8a -> prima8b;
+                prima8c1 [
+                    label="k[other_node] > connection.cost"
+                    shape=diamond
+                ]
+                    prima8b -> prima8c1 [label=True]
+                    prima8d [
+                        label="k[other_node] = connection.cost"
+                        shape=rect
+                    ]
+                        prima8c1 -> prima8d [label=True];
+                    prima8e [
+                        label="pred[other_node] = node"
+                        shape=oval
+                    ]   
+                        prima8d -> prima8e;
+                prima8c2 [
+                    label="continue"
+                    shape=oval
+                ]
+                    prima8b -> prima8c2 [label=False]
+                    prima8c1 -> prima8c2 [label=False]
+                label="for connection in node.connections"
+            }
+                prima7a -> prima8a [lhead=cluster_prima8]
+        subgraph cluster_prima9 {
+                prima9_a [
+                    label="if pred[node] is not None"
+                    shape=diamond
+                ]
+                prima9_b [
+                    label="dopisz do wyniku Połączenie\nnode <-> pred[node]"
+                    shape=rect
+                ]
+                    prima9_a -> prima9_b [label="True"]
+                prima9_c [
+                    label="continue"
+                    shape=oval
+                ]   
+                    prima9_b -> prima9_c;
+                    prima9_a -> prima9_c [label="False"]
+                label="for node in pred.keys()"
+            }
+            prima8e -> prima9_a [lhead=cluster_prima9, ltail=cluster_prima8]
+        label="Algorytm Prima"
+    }
+    subgraph cluster_djikstra {
+        djikstra1 [
+            label="djikstra(start: Node, nodes: list[Node])"
+            shape=oval
+        ]
+        djikstra2 [
+            label="Zaalokuj słownik pred oraz k"
+            shape=rect
+        ]
+            djikstra1 -> djikstra2;
+        subgraph cluster_djikstra3 {
+            djikstra3a [
+                label="pred[node] = None\nk[node] = infinity"
+                shape=rect
+            ]
+            label="for node in nodes"
+        }
+            djikstra2 -> djikstra3a [lhead=cluster_djikstra3]
+        djikstra4 [
+            label="k[start] = 0"
+            shape=rect
+        ]
+            djikstra3a -> djikstra4 [ltail=cluster_djikstra3]
+        djikstra5 [
+            label="len(nodes) > 0"
+            shape=diamond
+        ]
+            djikstra4 -> djikstra5;
+            djikstra6a [
+                label="Pobierz z nodes węzeł o\nnajniższej wartości w k"
+                shape=hexagon
+            ]
+                djikstra5 -> djikstra6a [label=True];
+            djikstra7a [
+                label="Usuń pobrany węzeł z nodes"
+                shape=rect
+            ]
+                djikstra6a -> djikstra7a;
+            subgraph cluster_djikstra8 {
+                djikstra8a [
+                    label="other_node = connection.get_other(node)"
+                    shape=hexagon
+                ]
+                djikstra8b [
+                    label="if other_node in nodes"
+                    shape=diamond
+                ]
+                    djikstra8a -> djikstra8b;
+                djikstra8c1 [
+                    label="k[other_node] > connection.cost + k[node]"
+                    shape=diamond
+                ]
+                    djikstra8b -> djikstra8c1 [label=True]
+                    djikstra8d [
+                        label="k[other_node] = connection.cost + k[node]"
+                        shape=rect
+                    ]
+                        djikstra8c1 -> djikstra8d [label=True];
+                    djikstra8e [
+                        label="pred[other_node] = node"
+                        shape=oval
+                    ]   
+                        djikstra8d -> djikstra8e;
+                djikstra8c2 [
+                    label="continue"
+                    shape=oval
+                ]
+                    djikstra8b -> djikstra8c2 [label=False]
+                    djikstra8c1 -> djikstra8c2 [label=False]
+                label="for connection in node.connections"
+            }
+                djikstra7a -> djikstra8a [lhead=cluster_djikstra8]
+        djikstra9 [
+            label="zwróć k"
+            shape=oval
+        ]
+        djikstra8e -> djikstra9 [ltail=cluster_djikstra8];
+        label="Algorytm djikstry"
+    }
+}
