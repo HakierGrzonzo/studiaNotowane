@@ -1,0 +1,223 @@
+//
+// ZADANIE 1
+//
+
+class Main {
+    public static void main(String[] args) {
+        for (int i = 1; i <= 9999; i++) {
+            System.out.println(i);
+        }
+    }
+}
+//
+// ZADANIE 2
+//
+
+class Main {
+    public static void main(String[] args) {
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                System.out.println(i + " * " + j + " = " + (i * j));
+            }
+        }
+    }
+}
+//
+// ZADANIE 3
+//
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        System.out.print("Podaj n: ");
+        int n = stdin.nextInt();
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = stdin.nextInt();
+        }
+        Arrays.sort(nums);
+        System.out.println("Maksymalna liczba: " + nums[n-1]);
+        System.out.println("Minimalna liczba: " + nums[0]);
+        stdin.close();
+    }
+}
+//
+// Zadanie 5
+//
+import java.util.Scanner;
+
+class Main {
+    public static void main(String[] args) {
+        int[] some_nums = {1, 2, 4, -5};
+        Algorytm algorytm = new Algorytm(some_nums);
+        System.out.println("min: " + some_nums[algorytm.indeks_min()]);
+        System.out.println("Średnia: " + algorytm.mean());
+    }
+}
+class Algorytm {
+    int[] nums;
+    public Algorytm(int[] nums_) {
+        nums = nums_;
+    }
+    public int indeks_min() {
+        int res = nums[0];
+        int indeks = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (res > nums[i]) {
+                indeks = i;
+                res = nums[i];
+            }
+        }
+        return indeks;
+    }
+    public float mean() {
+        float sum = 0; // Wynik ma być nie zaokrąglony
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+        }
+        return sum / nums.length;
+    }
+}
+
+//
+// ZADANIE 6
+//
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        System.out.print("Podaj n: ");
+        int n = stdin.nextInt();
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = stdin.nextInt();
+        }
+        stdin.close();
+        Arrays.sort(nums);
+        for (int i = 0; i < n; i++) {
+            System.out.println(nums[i]);
+        }
+    }
+}
+//
+// ZADANIE 7
+//
+import java.util.Scanner;
+import java.util.Arrays;
+class Main {
+    public static int[] sort(int[] nums) {
+        int[] res = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            res[i] = nums[i];
+        }
+        Arrays.sort(res);
+        for (int i = 0; i < nums.length / 2; i++) {
+            int tmp = res[i];
+            res[i] = res[nums.length - i - 1];
+            res[nums.length - 1 - i] = tmp;
+        }
+        return res;
+    }
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        System.out.print("Podaj n: ");
+        int n = stdin.nextInt();
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = stdin.nextInt();
+        }
+        stdin.close();
+        nums = sort(nums);
+        for (int i = 0; i < n; i++) {
+            System.out.println(nums[i]);
+        }
+    }
+}
+//
+// ZADANIE 8
+//
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.io.File;
+class Main {
+    public static int[] sort(int[] nums) {
+        int[] res = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            res[i] = nums[i];
+        }
+        Arrays.sort(res);
+        for (int i = 0; i < nums.length / 2; i++) {
+            int tmp = res[i];
+            res[i] = res[nums.length - i - 1];
+            res[nums.length - 1 - i] = tmp;
+        }
+        return res;
+    }
+    public static void main(String[] args) {
+        File file = new File("dane.txt");
+        var nums = new ArrayList<Integer>();
+        try {
+            Scanner stdin = new Scanner(file);
+            while (true) {
+                nums.add(stdin.nextInt());
+            }
+        } catch(Exception e) {
+        }
+        int[] numz = sort(nums.stream().mapToInt(i->i).toArray());
+        for (int i = 0; i < numz.length; i++) {
+            System.out.println(numz[i]);
+        }
+    }
+}
+//
+// Zadanie 8
+//
+import java.util.Scanner;
+
+class Main {
+    public static void main(String[] args) {
+        int[] some_nums = {1, 2, 4, -5};
+        Algorytm algorytm = new Algorytm(some_nums);
+        System.out.println("min: " + some_nums[algorytm.indeks_max(0, 2)]);
+        System.out.println("Średnia: " + algorytm.mean());
+    }
+}
+
+class Algorytm {
+    int[] nums;
+    public Algorytm(int[] nums_) {
+        nums = nums_;
+    }
+    public int indeks_max(int imin, int imax) {
+        int res = nums[imin];
+        int indeks = 0;
+        for (int i = imin; i <= imax; i++) {
+            if (res < nums[i]) {
+                indeks = i;
+                res = nums[i];
+            }
+        }
+        return indeks;
+    }
+    public int indeks_min() {
+        int res = nums[0];
+        int indeks = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (res > nums[i]) {
+                indeks = i;
+                res = nums[i];
+            }
+        }
+        return indeks;
+    }
+    public float mean() {
+        float sum = 0; // Wynik ma być nie zaokrąglony
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+        }
+        return sum / nums.length;
+    }
+}

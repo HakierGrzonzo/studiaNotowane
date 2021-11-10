@@ -21,6 +21,16 @@ class Node:
 
     def __repr__(self):
         return f"Node: {self.id}"
+
+    def get_others(self):
+        return [x.get_other(self) for x in self.connections]
+
+    def get_connection(self, other):
+        for connection in self.connections:
+            if connection.get_other(self) is other:
+                return connection
+        else:
+            raise Exception()
   
 def dijkstra(start: Node, nodes: list[Node]):
     pred = dict()
@@ -65,6 +75,66 @@ def prima(nodes: list[Node]):
             res.append(Connection(node, pred[node], k[node]))
     return res
 
+def a_star(nodes: list[Node], start: Node, stop: Node):
+    h = dict()
+    g = dict()
+    f = lambda node: h[node] + g[node]
+    pred = dict()
+    open = [start]
+    closed = list()
+    for node in nodes:
+        h[node] = abs(node.id - stop.id)
+        g[node] = float("inf")
+    g[start] = 0
+    while len(open) > 0:
+        node = sorted(open, key=f)[0]
+        for connection in node.connections:
+            other_node = connection.get_other(node)
+            if g[other_node] > g[node] + connection.cost:
+                g[other_node] = g[node] + connection.cost
+                pred[other_node] = node
+            if other_node not in open and other_node not in closed:
+                open.append(other_node)
+        open.remove(node)
+        closed.append(node)
+    res = []
+    node = stop
+    while (prev := pred.get(node)) is not None:
+        res.append(node)
+        node = prev
+    res.reverse()
+    return [start] + res
+
+def floyd_warshall(nodes: list[Node]):
+    d = dict()
+    p = dict()
+    for node in nodes:
+        d[node] = dict()
+        p[node] = dict()
+        for other_node in nodes:
+            if other_node in node.get_others():
+                d[node][other_node] = node.get_connection(other_node).cost
+                p[node][other_node] = node
+            elif other_node is node:
+                d[node][other_node] = 0
+                p[node][other_node] = node
+            else:
+                d[node][other_node] = float("inf")
+                p[node][other_node] = None
+
+    for u in nodes:
+        for v in nodes:
+            if v is u:
+                continue
+            for w in nodes:
+                if w is v or w is u:
+                    continue
+                l = d[v][u] + d[u][w]
+                if l < d[v][w]:
+                    d[v][w] = l
+                    p[v][w] = p[u][w]
+    return d, p
+
 def main():
     # krawędzie w formie:
     # skąd dokąd kost
@@ -87,6 +157,8 @@ def main():
     print(connections)
     print(prima(nodes.copy()))
     print(dijkstra(nodes[0] ,nodes.copy()))
+    print(a_star(nodes.copy(), nodes[0], nodes[2]))
+    print(floyd_warshall(nodes.copy()))
 
 
 
