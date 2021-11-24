@@ -1,0 +1,4 @@
+lista_plikow_.txt
+lista_plikow_1.txt
+lista_plikow_2.txt
+miesiąc.txt

@@ -1,0 +1,4 @@
+encrypt.sh
+zad1.sh
+zad2.sh
+zad3.sh
