@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+/home/hakiergrzonzo/Desktop/polibuda/kod III/Programowanie/workspace/.metadata/.plugins/org.eclipse.jdt.core
+1597067313.index
+1865797976.index
+3842426239.index

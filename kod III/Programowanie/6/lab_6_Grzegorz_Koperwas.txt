@@ -1,0 +1,266 @@
+//
+// ZADANIE 1
+//
+
+import java.util.ArrayList;
+class Main {
+    public static void main(String[] args) {
+        Telefon telefon = new Telefon();
+        telefon.addContact(new Dane("112", "Numer alarmowy"));
+        telefon.addContact(new Dane("997", "Policja"));
+        telefon.addContact(new Dane("#*4", "Stan Konta"));
+        System.out.println(telefon);
+    }
+}
+
+class Dane {
+    String numer;
+    String name;
+    public Dane(String numer_, String name_) {
+        numer = numer_;
+        name = name_;
+    }
+    public String toString() {
+        return "<Dane: "+ name + "; " + numer + ">";
+    }
+}
+
+class Telefon {
+    ArrayList<Dane> kontakty = new ArrayList<Dane>();
+    public void addContact(Dane kontakt) {
+        kontakty.add(kontakt);
+    }
+    public String toString() {
+        String res = "<Telefon: [";
+        for (Dane kontakt : kontakty) {
+            res += kontakt.toString() + ", ";
+        }
+        return res + "]>";
+    }
+}
+//
+// ZADANIE 2
+//
+import java.text.Collator;
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        Telefon telefon = new Telefon();
+        telefon.addContact(new Dane("112", "Numer alarmowy"));
+        telefon.addContact(new Dane("997", "Policja"));
+        telefon.addContact(new Dane("#*4", "Stan Konta"));
+        telefon.addContact(new Dane("384 286 107", "Alicja"));
+        telefon.sort();
+        System.out.println(telefon);
+    }
+}
+
+class Dane implements Comparable {
+    private String numer;
+    private String name;
+    private Collator collator;
+    public Dane(String numer_, String name_) {
+        numer = numer_;
+        name = name_;
+        collator = Collator.getInstance(new Locale("pl", "PL"));
+    }
+
+    public String toString() {
+        return "<Dane: "+ name + "; " + numer + ">";
+    }
+
+    public String getName() {
+        return name;
+    }
+    
+    @Override()
+    public int compareTo(Object other) {
+        Dane other_obj = (Dane) other;
+        return collator.compare(name, other_obj.getName());
+    }
+}
+
+class Telefon {
+    ArrayList<Dane> kontakty = new ArrayList<Dane>();
+    public void addContact(Dane kontakt) {
+        kontakty.add(kontakt);
+    }
+    public String toString() {
+        String res = "<Telefon: [";
+        for (Dane kontakt : kontakty) {
+            res += kontakt.toString() + ", ";
+        }
+        return res + "]>";
+    }
+    public void sort() {
+        Collections.sort(kontakty);
+    }
+}
+//
+// ZADANIE 3
+//
+import java.text.Collator;
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        Telefon telefon = new Telefon();
+        telefon.addContact(new Dane("112", "Numer alarmowy"));
+        telefon.addContact(new Dane("997", "Policja"));
+        telefon.addContact(new Dane("#*4", "Stan Konta"));
+        telefon.addContact(new Dane("384 286 107", "Alicja"));
+        telefon.reverse();
+        System.out.println(telefon);
+    }
+}
+
+class Dane implements Comparable {
+    private String numer;
+    private String name;
+    private Collator collator;
+    public Dane(String numer_, String name_) {
+        numer = numer_;
+        name = name_;
+        collator = Collator.getInstance(new Locale("pl", "PL"));
+    }
+
+    public String toString() {
+        return "<Dane: "+ name + "; " + numer + ">";
+    }
+
+    public String getName() {
+        return name;
+    }
+    
+    @Override()
+    public int compareTo(Object other) {
+        if (this.getClass() == other.getClass()) {
+            Dane other_obj = (Dane) other;
+            return collator.compare(name, other_obj.getName());
+        } else {
+            return 0;
+        }
+    }
+}
+
+class Telefon {
+    ArrayList<Dane> kontakty = new ArrayList<Dane>();
+    public void addContact(Dane kontakt) {
+        kontakty.add(kontakt);
+    }
+    public String toString() {
+        String res = "<Telefon: [";
+        for (Dane kontakt : kontakty) {
+            res += kontakt.toString() + ", ";
+        }
+        return res + "]>";
+    }
+    public void sort() {
+        Collections.sort(kontakty);
+    }
+    public void reverse() {
+        Collections.sort(kontakty, Collections.reverseOrder());
+    }
+}
+
+//
+// ZADANIE 4
+//
+import java.text.Collator;
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        var pracownicy = new ArrayList<Pracownik>();
+        pracownicy.add(new Pracownik(0, "Adam", "Hanik", "dev"));
+        pracownicy.add(new Pracownik(0, "John", "Addams", "dev"));
+        pracownicy.add(new Pracownik(0, "Bill", "Bonks", "ceo"));
+        pracownicy.add(new Pracownik(0, "Will", "Smith", "azure"));
+        Collections.sort(pracownicy);
+        System.out.println(pracownicy);
+    }
+}
+
+class Pracownik implements Comparable {
+    private int id;
+    private String name;
+    private String surname;
+    private String position;
+    private Collator collator;
+    public Pracownik(int id, String name, String surname, String position) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.position = position;
+        collator = Collator.getInstance(new Locale("pl", "PL"));
+    }
+
+    public String toString() {
+        return "<Pracownik " + id + ": "+ position + "; " + surname + " " + name + ">";
+    }
+
+    public String getName() {
+        return surname;
+    }
+    
+    @Override()
+    public int compareTo(Object other) {
+        if (this.getClass() == other.getClass()) {
+            Pracownik other_obj = (Pracownik) other;
+            int res = collator.compare(this.position, other_obj.position);
+            if (res == 0) {
+                res = collator.compare(this.surname, other_obj.surname);
+            }
+            return res;
+        } else {
+            return 0;
+        }
+    }
+}
+
+//
+// ZADANIE 5/6
+//
+import java.text.Collator;
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        var books = new ArrayList<Book>();
+        books.add(new Book(0, "book_a", "xyz"));
+        books.add(new Book(1, "book_b", "xyz"));
+        books.add(new Book(2, "book_a", "abc"));
+        books.add(new Book(3, "book_b", "abc"));
+        Collections.sort(books);
+        System.out.println(books);
+    }
+}
+
+class Book implements Comparable {
+    private int id;
+    private String title;
+    private String author;
+    private Collator collator;
+    public Book(int id, String title, String author) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        collator = Collator.getInstance(new Locale("pl", "PL"));
+    }
+
+    public String toString() {
+        return "<Książka " + id + ": "+ title + "; " + author + ">";
+    }
+
+    @Override()
+    public int compareTo(Object other) {
+        if (this.getClass() == other.getClass()) {
+            Book other_obj = (Book) other;
+            int res = collator.compare(this.author, other_obj.author);
+            if (res == 0) {
+                res = collator.compare(this.title, other_obj.title);
+            }
+            return res;
+        } else {
+            return 0;
+        }
+    }
+}
+

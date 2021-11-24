@@ -172,4 +172,211 @@ digraph {
         djikstra8e -> djikstra9 [ltail=cluster_djikstra8];
         label="Algorytm djikstry"
     }
+    subgraph cluster_a {
+        a1 [
+            label="a_star(nodes: list[Node], start: Node, stop: Node)"
+            shape=oval
+        ]
+        a2 [
+            label="Zaalokuj słowniki h, g, pred\noraz listy open oraz closed"
+            shape=rect
+        ]
+            a1 -> a2;
+        subgraph cluster_a3 {
+            a3a [
+                label="h[node] = abs(node.id - stop.id)\ng[node] = infinity"
+                shape=rect
+            ]
+            label="for node in nodes"
+        }
+            a2 -> a3a [lhead=cluster_a3]
+        a4 [
+            label="Dodaj start do open\ng[start] = 0"
+            shape=rect
+        ]
+            a3a -> a4 [ltail=cluster_a3]
+        a5 [
+            label="len(open) > 0"
+            shape=diamond
+        ]
+            a4 -> a5;
+            a6a [
+                label="Pobierz z open węzeł o\nnajniższej sumie w h i g"
+                shape=hexagon
+            ]
+                a5 -> a6a [label=True];
+            a7a [
+                label="Usuń pobrany węzeł z nodes"
+                shape=rect
+            ]
+                a6a -> a7a;
+            subgraph cluster_a8 {
+                a8a [
+                    label="other_node = connection.get_other(node)"
+                    shape=hexagon
+                ]
+                a8c1 [
+                    label="g[other_node] > g[node] + connection.cost"
+                    shape=diamond
+                ]
+                    a8a -> a8c1 [label=True]
+                    a8d [
+                        label="g[other_node] = g[node] + connection.cost"
+                        shape=rect
+                    ]
+                        a8c1 -> a8d [label=True];
+                    a8e [
+                        label="pred[other_node] = node"
+                        shape=rect
+                    ]   
+                        a8d -> a8e;
+                a8c2 [
+                    label="other_node not in (open + closed)"
+                    shape=diamond
+                ]
+                    a8c1 -> a8c2 [label=False]
+                    a8e -> a8c2 
+                    a8g [
+                        label="open.append(other_node)"
+                        shape=rect
+                    ]
+                        a8c2 -> a8g [label=True]
+                    a8z [
+                        label="continue"
+                        shape=oval
+                    ]
+                        a8c2 -> a8z [label=False]
+                        a8g -> a8z
+                label="for connection in node.connections"
+            }
+                a7a -> a8a [lhead=cluster_a8]
+            a9 [
+                label="Zaalokuj listę res\nustaw node na stop"
+                shape=rect
+            ]   
+                a8z -> a9 [ltail=cluster_a8];
+            a10 [
+                label="(prev := pred.get(node)) is not None"
+                shape=diamond
+            ]
+                a9 -> a10
+                a10a [
+                    label="res.append(prev)\nnode = prev"
+                    shape=rect
+                ]
+                    a10 -> a10a [label=True]
+                    a10a -> a10
+            a11 [
+                label="Zwróć [start] + res"
+                shape=oval
+            ]   
+                a10 -> a11 [label=False]
+        label="Algorytm A*"
+    }
+    subgraph cluster_floyd {
+        f1 [
+            label="floyd_warshall(nodes: list[Node])"
+            shape=oval
+        ]
+        f2 [
+            label="Zaalokuj słowniki d i p"
+            shape=rect
+        ]
+            f1 -> f2;
+        subgraph cluster_f3 {
+            f3a [
+                label="Zaalokuj słowniki w d[node] oraz p[node]"
+                shape=rect
+            ]
+            subgraph cluster_f3b {
+                f3b1 [
+                    label="other_node in node.get_others()"
+                    shape=diamond
+                ]
+                f3b1a [
+                    label="d[node][other_node] = node.get_connection(other_node).cost\np[node][other_node] = node"
+                    shape=rect
+                ]
+                    f3b1 -> f3b1a [label=True]
+                f3b2 [
+                    label="other_node in node.get_others()"
+                    shape=diamond
+                ]
+                    f3b1 -> f3b2 [label=False]
+                f3b2a [
+                    label="d[node][other_node] = 0\np[node][other_node] = node"
+                    shape=rect
+                ]
+                    f3b2 -> f3b2a [label=True]
+                f3b2b [
+                    label="d[node][other_node] = infinity\np[node][other_node] = None"
+                    shape=rect
+                ]
+                    f3b2 -> f3b2b [label=False]
+                f3f [
+                    label="continue"
+                    shape="oval"
+                ]
+                {f3b1a f3b2a f3b2b} -> f3f;
+                label="for other_node in nodes"
+            }
+                f3a -> f3b1 [lhead="cluster_f3b"]
+            label="for node in nodes"
+        }
+            f2 -> f3a [lhead="cluster_f3"]
+            f6 [
+                label="return d, p"
+                shape="oval"
+            ]
+        subgraph cluster_f4 {
+            subgraph cluster_f4a {
+                f41 [
+                    label="v is u"
+                    shape=diamond
+                ]
+                    f41a [
+                        label="continue"
+                        shape=oval
+                    ]
+                    f41 -> f41a [label=True]
+                subgraph cluster_f5 {
+                    f51 [
+                        label="w is v or w is u"
+                        shape=diamond
+                    ]
+                        f51a [
+                            label="continue"
+                            shape=oval
+                        ]
+                        f51 -> f51a [label=True]
+                        f52 [
+                            label="l = d[v][u] + d[u][w]"
+                            shape=rect
+                        ]
+                        f51 -> f52 [label=False]
+                        f53 [
+                            label="if l < d[v][w]"
+                            shape=diamond
+                        ]
+                            f52 -> f53;
+                            f53a [
+                                label="d[v][w] = l\np[v][w]=p[u][w]"
+                                shape=rect
+                            ]
+                            f53 -> f53a [label=True]
+                            f53 -> f51a [label=False]
+                            f53a -> f51a
+                    label="for w in nodes"
+                }
+                f41 -> f51 [lhead="cluster_f5" label=False]
+                f51a -> f41a [ltail="cluster_f5"]
+                label="for v in nodes"
+            }
+            label="for u in nodes"
+        }
+        f3f -> f41 [ltail="cluster_f3" lhead="cluster_f4"]
+        f41a -> f6 [ltail="cluster_f4"]
+        label="Algorytm Floyd'a Warshalla"
+    }
+    label="Algorytmy Grafowe\nGrzegorz Koperwas"
 }
