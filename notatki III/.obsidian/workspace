@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "kompresja/w3.md",
+            "file": "systemy operacyjne/5.md",
             "mode": "source"
           }
         },
@@ -21,7 +21,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "kompresja/w3.md",
+            "file": "systemy operacyjne/5.md",
             "mode": "preview"
           }
         },
@@ -89,7 +89,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "kompresja/w3.md",
+                "file": "systemy operacyjne/5.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -106,7 +106,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "kompresja/w3.md",
+                "file": "systemy operacyjne/5.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -141,15 +141,15 @@
   },
   "active": "8d55b2770d0746a0",
   "lastOpenFiles": [
+    "systemy operacyjne/5.md",
+    "systemy operacyjne/z2.md",
+    "systemy operacyjne/z1.md",
+    "systemy operacyjne/w1.md",
     "kompresja/w3.md",
     "kompresja/w4.md",
     "kompresja/5.md",
     "angielski/3.md",
-    "systemy operacyjne/5.md",
     "systemy operacyjne/4.md",
-    "systemy operacyjne/z2.md",
-    "Metody Numeryczne/w5.md",
-    "Metody Numeryczne/w4.md",
-    "kompresja/w2.md"
+    "Metody Numeryczne/w5.md"
   ]
 }
