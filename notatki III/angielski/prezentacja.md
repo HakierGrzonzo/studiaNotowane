@@ -5,7 +5,16 @@
 # Old techniques
 
 - Plain textures
+	- very old
+	- very cheap
+	- looks flat
 - PBR
+	- normal maps
+	- good looking at simple materials
+- poly count++
+	- VERY EXPENSIVE
+	- very good
+
 
 # New technique
 
