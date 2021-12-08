@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>jdt.ls-java-project</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src/zad1.java</name>
+			<type>1</type>
+			<location>//home/hakiergrzonzo/Desktop/polibuda/kod III/Programowanie/9/zad1.java</location>
+		</link>
+		<link>
+			<name>src/zad1b.java</name>
+			<type>1</type>
+			<location>//home/hakiergrzonzo/Desktop/polibuda/kod III/Programowanie/9/zad1b.java</location>
+		</link>
+		<link>
+			<name>src/zad2.java</name>
+			<type>1</type>
+			<location>//home/hakiergrzonzo/Desktop/polibuda/kod III/Programowanie/9/zad2.java</location>
+		</link>
+		<link>
+			<name>src/zad3.java</name>
+			<type>1</type>
+			<location>//home/hakiergrzonzo/Desktop/polibuda/kod III/Programowanie/9/zad3.java</location>
+		</link>
+		<link>
+			<name>src/zad3b.java</name>
+			<type>1</type>
+			<location>//home/hakiergrzonzo/Desktop/polibuda/kod III/Programowanie/9/zad3b.java</location>
+		</link>
+		<link>
+			<name>src/zad4.java</name>
+			<type>1</type>
+			<location>//home/hakiergrzonzo/Desktop/polibuda/kod III/Programowanie/9/zad4.java</location>
+		</link>
+		<link>
+			<name>src/zad4b.java</name>
+			<type>1</type>
+			<location>//home/hakiergrzonzo/Desktop/polibuda/kod III/Programowanie/9/zad4b.java</location>
+		</link>
+	</linkedResources>
+</projectDescription>
