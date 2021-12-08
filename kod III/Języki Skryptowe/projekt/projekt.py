@@ -49,13 +49,6 @@ while len(really_done_cities) < len(done_cities):
             city.get_connections(True)
 
 print(file=sys.stderr)
-"""
-hotels = 0
-for i, city in enumerate(cities):
-    print(f"\33[2K{round((i + 1) / len(cities) * 100, 2)}%", hotels, i + 1, file=sys.stderr, end="\r")
-    new_hotels = city.get_hotels()
-    hotels += len(new_hotels)
-"""
 hotels = sum([len(city.get_hotels()) for city in cities])
 
 print(file=sys.stderr)

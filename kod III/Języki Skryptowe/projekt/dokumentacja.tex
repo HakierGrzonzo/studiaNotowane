@@ -1,75 +1,32 @@
+% !TEX program = xelatex
 \documentclass[12pt,a4paper]{article}
-\usepackage[polish]{babel}
-\usepackage[T1]{fontenc}
-\usepackage[utf8x]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage{inputenc}[utf8]
+
 \usepackage{hyperref}
 \usepackage{url}
-\usepackage[]{algorithm2e}
-\usepackage{listings}
 
 \usepackage{color}
-\usepackage{listings}
 
-\lstloadlanguages{% Check Dokumentation for further languages ...
-	C,
-	C++,
-	csh,
-	Java
-}
+\usepackage{polski}
+\usepackage[polish]{babel} 
+\usepackage{indentfirst}
+\usepackage{icomma}
+\usepackage{algorithm2e}
 
+\brokenpenalty=1000
+\clubpenalty=1000
+\widowpenalty=1000    
+
+%nie odkometowuj wszystkiego, użyj mózgu
+%\renewcommand\thechapter{\arabic{chapter}.}
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{subsubsection}.}
 \definecolor{red}{rgb}{0.6,0,0} % for strings
 \definecolor{blue}{rgb}{0,0,0.6}
 \definecolor{green}{rgb}{0,0.8,0}
 \definecolor{cyan}{rgb}{0.0,0.6,0.6}
-
-\lstset{
-	language=csh,
-	basicstyle=\footnotesize\ttfamily,
-	numbers=left,
-	numberstyle=\tiny,
-	numbersep=5pt,
-	tabsize=2,
-	extendedchars=true,
-	breaklines=true,
-	frame=b,
-	stringstyle=\color{blue}\ttfamily,
-	showspaces=false,
-	showtabs=false,
-	xleftmargin=17pt,
-	framexleftmargin=17pt,
-	framexrightmargin=5pt,
-	framexbottommargin=4pt,
-	commentstyle=\color{green},
-	morecomment=[l]{//}, %use comment-line-style!
-	morecomment=[s]{/*}{*/}, %for multiline comments
-	showstringspaces=false,
-	morekeywords={ abstract, event, new, struct,
-		as, explicit, null, switch,
-		base, extern, object, this,
-		bool, false, operator, throw,
-		break, finally, out, true,
-		byte, fixed, override, try,
-		case, float, params, typeof,
-		catch, for, private, uint,
-		char, foreach, protected, ulong,
-		checked, goto, public, unchecked,
-		class, if, readonly, unsafe,
-		const, implicit, ref, ushort,
-		continue, in, return, using,
-		decimal, int, sbyte, virtual,
-		default, interface, sealed, volatile,
-		delegate, internal, short, void,
-		do, is, sizeof, while,
-		double, lock, stackalloc,
-		else, long, static,
-		enum, namespace, string},
-	keywordstyle=\color{cyan},
-	identifierstyle=\color{red},
-}
-\usepackage{caption}
-\DeclareCaptionFont{white}{\color{white}}
-\DeclareCaptionFormat{listing}{\colorbox{blue}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
-\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
 
 
 \addtolength{\hoffset}{-1.5cm}
@@ -137,22 +94,138 @@
     liczba miast spełniających warunek zadania\footnote{W wynniku optymalizacji
     powtóżenia są eliminowane}.
 	
-	\subsection*{Algorytm}
+	\subsection*{Algorytmy}
     
     \subsubsection*{Generacja słownika Miasto $\rightarrow$ odległość}
-    
-    Niech dana jest funkcja $s$
 
-	\begin{algorithm}[H]
-		\caption{Algorytm drukowania informacji o liczbie parzystej/nieprarzystej.}
+	Zrealizowany jest głównie w metodzie \texttt{get\_connections} w klasie \texttt{Miasto}.
+
+	Każde ,,Miasto'' jest węzłem w drzewie, zawiera ono domyślnie pusty słownik \texttt{city2distace}\footnote{Zwany równierz słownikiem Miasto $\rightarrow$ odległość}, flagę trybu szybkiego, puste polę na bramę trybu szybkiego oraz listę połączeń z innymi miastami.
+
+	\textbf{Tryb szybki} jest uruchamiany jeżeli napotkamy na sytuację, gdzie występuje \emph{dokładnie jeden} węzeł łączący dane miasto (brama) z resztą drzewa. Wtedy zamiast ,,chodzić'' po drzewie, możemy przepisać słownik z \emph{bramy trybu szybkiego}.
+    
+	\begin{algorithm}[h]
+		\SetKwFunction{Fcon}{GetConnections}
+		\SetKwProg{Fn}{funkcja}{:}{}
+		\Fn{\Fcon{$miasto$, $force\_slow$}}{
+			\If{miasto jest w trybie szybkim i nie ma ustawionej flagi force\_slow}{
+				\tcc{W trybie szybkim dopisujemy nowe miasta z ,,bramy''}
+				\For{miasto w city2distace w bramie}{
+					\If{miasto nie jest w city2distace}{
+						city2distace[ miasto ] = dystans do bramy + dystans z bramy do miasta
+					}
+				}
+			}
+			\ElseIf{dict city2distance jest pusty}{
+				\For{połączenie w miasto}{
+					city2distace[ miasto z połączenia ] = 1
+				}
+				\tcc{Sprawdź czy możemy wejść w tryb szybki}
+				\If{miasto ma jednego sąsiada}{
+					wejdź w tryb szybki i ustaw bramę na znalezione miasto
+				}
+			}
+			\Else{
+				tmp = dict()\;
+				\For{miasto w city2distace}{
+					\If{miasto jest najbardziej oddalonym miastem}{
+						\For{dla sąsiadów miasta}{
+							\If{sąsiad nie jest w city2distace}{
+								tmp[ sąsiad ] = dystans do miasta + 1
+							}
+						}
+					}
+				}
+				\If{w tmp jest tylko jedno miasto}{
+					wejdź w tryb szybki
+				}
+				dopisz elementy z tmp do city2distance
+			}
+			\Return{czy jestem w trybie szybkim}
+		}
+		\caption{Metoda pomocnicza do obliczania dystansu}
+	\end{algorithm}
+	\begin{algorithm}[h]
+		\SetKwFunction{Fmain}{main}
+		\SetKwProg{Fn}{funkcja}{:}{}
+		\Fn{\Fmain{$miasta$}}{
+			skończoneMiasta = []
+			\While{len(skończoneMiasta) != len(miasta)}{
+				\For{miasto w miasta}{
+					\If{miasto w skończoneMiasta}{
+						continue
+					}
+					\ElseIf{miasto ma odległość do wszystkich innych miast}{
+						dodaj miasto do skończoneMiasta
+					}
+					\Else{
+						GetConnections(miasto)
+						\If{miasto jest w trybie szybkim}{
+							dodaj miasto do skończoneMiasta
+						}
+					}
+				}
+			}
+			fin = []
+			\tcc{Dokończ miasta w trybie szybkim}
+			\While{len(fin) != len(skończoneMiasta)}{
+				\For{miasto w skończoneMiasta}{
+					\If{miasto w fin}{
+						continue
+					}
+					\ElseIf{Miasto ma odległość do wszystkich innych miast}{
+						dodaj miasto do fin
+					}
+					\Else{
+						GetConnections(miasto)
+					}
+				}
+				\If{nie było zmian w fin}{
+					\tcc{wymuś tryb powolny w miastach}
+					\For{miasto w skończoneMiasta}{
+						\If{miasto w fin}{
+							continue
+						}
+						\Else{
+							GetConnections(miasto, true)
+						}
+					}
+				}
+			}
+			\Return{fin}
+		}
+		\caption{Obliczanie dystansu dla wszystkich miast}
+	\end{algorithm}
+
+	\subsubsection*{Algorytm wyznaczania ilości hoteli.}
+	
+	Każde miasto posiada unikalne id. Zatem w celu wyeliminowania powtórzeń tych samych konfiguracji hoteli, każde miasto wyznacza możliwe konfiguracje hoteli, gdzie jego ,,partnerzy'' posiadają większe id.
+
+	\begin{algorithm}[h]
+		\KwIn{miasto}
+		\KwOut{res}
+		distance2city = \{\} \tcc{odwrócenie słownika city2distace}
+		\For{miasto w city2distace}{
+			\If{id miasta > id miasta rozważanego}{
+				dodaj miasto do distance2city
+			}
+		}
+		\For{miasta w distance2city}{
+			\If{conajmniej 2 miasta dla danego dystansu}{
+				\For{miasto poza pierwszym dla danego dystansu}{
+					\For{miasta po rozważanym miastem}{
+						\If{Dystans między miastami jest równy}{
+							dodaj hotele do res
+						}
+					}
+				}
+			}
+		}
+		\caption{Wyznaczanie ilości hoteli w jednym mieście}
 	\end{algorithm}
 
 	\subsection*{Implementacja}
 	Opis, zasada i działanie programu ze względu na podział na pliki, nastepnie	funkcje programu wraz ze szczegółowym opisem działania (np.: formie pseudokodu, czy odniesienia do równania)
-	\begin{lstlisting}
-	Tutaj wklejamy fragment kodu, ktory chcemy opisac 
-	(bez polskich znakow).
-	\end{lstlisting}
 	\subsection*{Testy}
 	Tutaj powinna pojawić się analiza uzyskanych wyników oraz wykresy/pomiary.
 	
@@ -164,7 +237,4 @@
 	Wszyskie wyniki powinny być opisane/poddane komentarzowi i poddane analizie statystycznej.
 	\newpage
 	\section*{Pełen kod aplikacji}
-\begin{lstlisting}
-Tutaj wklejamy pelen kod. 
-\end{lstlisting}
 \end{document}
