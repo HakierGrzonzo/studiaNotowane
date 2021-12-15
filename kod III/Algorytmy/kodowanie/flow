@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-15T15:00:07.556Z" agent="5.0 (X11)" etag="t9xLnAa66iaeB_gwQIV7" version="15.9.6" type="github">
+<mxfile host="app.diagrams.net" modified="2021-12-15T15:07:29.563Z" agent="5.0 (X11)" etag="JHeOote6f7fOm2SafLdL" version="15.9.6" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="1410" dy="784" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -138,6 +138,39 @@
         </mxCell>
         <mxCell id="-a_BLp8il-2D-87DSCrO-44" value="zwróć res" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="1045" y="840" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-a_BLp8il-2D-87DSCrO-46" value="Kod Huffmana" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1230" width="420" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="-a_BLp8il-2D-87DSCrO-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="-a_BLp8il-2D-87DSCrO-47" target="-a_BLp8il-2D-87DSCrO-49">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-a_BLp8il-2D-87DSCrO-47" value="huffman(string)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1380" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-a_BLp8il-2D-87DSCrO-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="-a_BLp8il-2D-87DSCrO-49" target="-a_BLp8il-2D-87DSCrO-52">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-a_BLp8il-2D-87DSCrO-49" value="&lt;div&gt;Zbuduj listę znaków i prawdopodobieństw i zapisz ją w &lt;br&gt;&lt;/div&gt;&lt;div&gt;zmiennej nodes&lt;br&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1330" y="140" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-a_BLp8il-2D-87DSCrO-55" value="False" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="-a_BLp8il-2D-87DSCrO-52" target="-a_BLp8il-2D-87DSCrO-54">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-a_BLp8il-2D-87DSCrO-57" value="True" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="-a_BLp8il-2D-87DSCrO-52" target="-a_BLp8il-2D-87DSCrO-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-a_BLp8il-2D-87DSCrO-52" value="len(nodes) &amp;gt; 1" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1380" y="230" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="-a_BLp8il-2D-87DSCrO-54" value="Zwróć reprezentacje drzewa znaków jako dict" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1241" y="350" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-a_BLp8il-2D-87DSCrO-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="-a_BLp8il-2D-87DSCrO-56" target="-a_BLp8il-2D-87DSCrO-52">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-a_BLp8il-2D-87DSCrO-56" value="Połącz dwa węzły z najmniejszą wagą w jeden" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1510" y="350" width="120" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
