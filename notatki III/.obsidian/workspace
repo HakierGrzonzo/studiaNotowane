@@ -93,7 +93,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "systemy operacyjne/6.md",
+                "file": "kompresja/prezentacja.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -134,9 +134,15 @@
     "kompresja/w4.md",
     "kompresja/w2.md",
     "kompresja/5.md",
+    "kompresja/prezentacja.md",
     "angielski/prezentacja.md",
     "angielski/3.md",
     "Języki Skryptowe/1.md",
     "Metody Numeryczne/w6.md"
+    "Metody Numeryczne/w6.md",
+    "systemy operacyjne/z2.md",
+    "systemy operacyjne/z1.md",
+    "systemy operacyjne/w1.md",
+    "kompresja/w3.md"
   ]
 }
