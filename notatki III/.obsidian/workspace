@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "angielski/prezentacja.md",
+            "file": "kompresja/prezentacja.md",
             "mode": "source"
           }
         },
@@ -21,7 +21,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "angielski/prezentacja.md",
+            "file": "kompresja/prezentacja.md",
             "mode": "preview"
           }
         },
@@ -89,7 +89,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "angielski/prezentacja.md",
+                "file": "kompresja/prezentacja.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -106,7 +106,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "angielski/prezentacja.md",
+                "file": "kompresja/prezentacja.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -140,6 +140,7 @@
   },
   "active": "8fc9f989f7e7c04a",
   "lastOpenFiles": [
+    "kompresja/prezentacja.md",
     "angielski/prezentacja.md",
     "angielski/3.md",
     "systemy operacyjne/5.md",
@@ -148,7 +149,6 @@
     "systemy operacyjne/z2.md",
     "systemy operacyjne/z1.md",
     "systemy operacyjne/w1.md",
-    "kompresja/w3.md",
-    "kompresja/w4.md"
+    "kompresja/w3.md"
   ]
 }
