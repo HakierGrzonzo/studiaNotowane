@@ -1,16 +1,17 @@
 {
   "main": {
-    "id": "9e72ef86de09755a",
+    "id": "ddb6943d929172dd",
     "type": "split",
     "children": [
       {
-        "id": "ffa1885fc9790de3",
+        "id": "ac0eb3bc0fea24e2",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "systemy operacyjne/6.md",
-            "mode": "source"
+            "file": "angielski/review.md",
+            "mode": "source",
+            "source": false
           }
         }
       }
@@ -18,15 +19,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "0849a4ad446467ff",
+    "id": "f253c985ecd70f39",
     "type": "split",
     "children": [
       {
-        "id": "f7de829470a259a6",
+        "id": "99296ae38a93a8cf",
         "type": "tabs",
         "children": [
           {
-            "id": "de6f550ec870824b",
+            "id": "b245bb55ff1a855e",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -34,12 +35,12 @@
             }
           },
           {
-            "id": "711fa5eb6f6be74b",
+            "id": "aaadf4ab99311909",
             "type": "leaf",
             "state": {
               "type": "search",
               "state": {
-                "query": "H_m",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -49,7 +50,7 @@
             }
           },
           {
-            "id": "aa97125e71ae9718",
+            "id": "3c4ed457e7ab883b",
             "type": "leaf",
             "state": {
               "type": "starred",
@@ -63,20 +64,20 @@
     "width": 300
   },
   "right": {
-    "id": "0df248f2b4b9bdd5",
+    "id": "04503385281dd82c",
     "type": "split",
     "children": [
       {
-        "id": "0208a98a97e71197",
+        "id": "598f2b48c7e453e3",
         "type": "tabs",
         "children": [
           {
-            "id": "254b8f8b3b92e9e5",
+            "id": "44156a8c318c7d79",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "systemy operacyjne/6.md",
+                "file": "angielski/review.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,19 +89,19 @@
             }
           },
           {
-            "id": "3ff0cc1e00199a9f",
+            "id": "ab188adb7c44d8de",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "kompresja/prezentacja.md",
+                "file": "angielski/review.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
             }
           },
           {
-            "id": "3177d7728a48e63a",
+            "id": "c463488db84ee4e4",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -109,40 +110,19 @@
                 "useHierarchy": true
               }
             }
-          },
-          {
-            "id": "3067830641dbfbd5",
-            "type": "leaf",
-            "state": {
-              "type": "advanced-tables-toolbar",
-              "state": {}
-            }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "horizontal",
     "width": 300,
     "collapsed": true
   },
-  "active": "ffa1885fc9790de3",
+  "active": "ac0eb3bc0fea24e2",
   "lastOpenFiles": [
-    "systemy operacyjne/6.md",
+    "angielski/review.md",
+    "systemy operacyjne/7.md",
     "systemy operacyjne/5.md",
-    "kompresja/w3.md",
-    "kompresja/w4.md",
-    "kompresja/w2.md",
-    "kompresja/5.md",
-    "kompresja/prezentacja.md",
-    "angielski/prezentacja.md",
-    "angielski/3.md",
-    "Języki Skryptowe/1.md",
-    "Metody Numeryczne/w6.md"
-    "Metody Numeryczne/w6.md",
-    "systemy operacyjne/z2.md",
-    "systemy operacyjne/z1.md",
-    "systemy operacyjne/w1.md",
-    "kompresja/w3.md"
+    "systemy operacyjne/6.md"
   ]
 }
