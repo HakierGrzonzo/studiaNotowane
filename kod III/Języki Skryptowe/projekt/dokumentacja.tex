@@ -4,6 +4,7 @@
 \usepackage{inputenc}[utf8]
 
 \usepackage{hyperref}
+\usepackage{listings}
 \usepackage{url}
 
 \usepackage{color}
@@ -48,7 +49,7 @@
 	\section*{Część I}
 	\subsection*{Opis programu}
 
-    W Bajtocji jest n miast połączonych zaledwie n − 1 drogami. Każda z dróg łączy bezpośrednio dwa miasta.
+    W Bajtocji jest $n$ miast połączonych zaledwie $n - 1$ drogami. Każda z dróg łączy bezpośrednio dwa miasta.
     Wszystkie drogi mają taką samą długość i są dwukierunkowe. Wiadomo, że z każdego miasta da się dojechać
     do każdego innego dokładnie jedną trasą, złożoną z jednej lub większej liczby dróg. Inaczej mówiąc, sieć dróg
     tworzy drzewo.
@@ -58,8 +59,8 @@
     Król chciałby, aby hotele znajdowały się w różnych miastach i były położone w tych samych odległościach od
     siebie.
 
-    Pomóż królowi i napisz program, który obliczy, na ile sposobów można wybudować takie trzy hotele w Baj-
-    tocji.
+    Pomóż królowi i napisz program, który obliczy, na ile sposobów można
+    wybudować takie trzy hotele w Bajtocji.
 
 	\subsection*{Instrukcja obsługi}
 
@@ -67,14 +68,19 @@
     danych testowych, wykona plik \texttt{./projekt.py} dla nich, oraz
     wygeneruje skryptem \texttt{./raport.py} plik \texttt{./raport.html}.
 
+    Skrypt \texttt{./backup.sh} tworzy kopię plików wejściowych, wyjściowych
+    oraz raportu i zapisuje je w archiwum \texttt{\$\{data\}.tar.gz}.
+
+
 	\subsection*{Dodatkowe informacje}
 
     Wymagania:
 
     \begin{enumerate}
             \item Biblioteka Jinja2
-            \item Python3 (sprawdzanie działanie na wersji 3.9.7, wcześniejsze mogą nie
+            \item Python3 (gwarantowane działanie na wersji 3.9.7, wcześniejsze mogą nie
                 działać)
+            \item System zgodny z POSIX
     \end{enumerate}
 
 	\newpage
@@ -104,7 +110,7 @@
 
 	\textbf{Tryb szybki} jest uruchamiany jeżeli napotkamy na sytuację, gdzie występuje \emph{dokładnie jeden} węzeł łączący dane miasto (brama) z resztą drzewa. Wtedy zamiast ,,chodzić'' po drzewie, możemy przepisać słownik z \emph{bramy trybu szybkiego}.
     
-	\begin{algorithm}[h]
+	\begin{algorithm}[H]
 		\SetKwFunction{Fcon}{GetConnections}
 		\SetKwProg{Fn}{funkcja}{:}{}
 		\Fn{\Fcon{$miasto$, $force\_slow$}}{
@@ -145,7 +151,7 @@
 		}
 		\caption{Metoda pomocnicza do obliczania dystansu}
 	\end{algorithm}
-	\begin{algorithm}[h]
+	\begin{algorithm}[H]
 		\SetKwFunction{Fmain}{main}
 		\SetKwProg{Fn}{funkcja}{:}{}
 		\Fn{\Fmain{$miasta$}}{
@@ -201,7 +207,7 @@
 	
 	Każde miasto posiada unikalne id. Zatem w celu wyeliminowania powtórzeń tych samych konfiguracji hoteli, każde miasto wyznacza możliwe konfiguracje hoteli, gdzie jego ,,partnerzy'' posiadają większe id.
 
-	\begin{algorithm}[h]
+	\begin{algorithm}[H]
 		\KwIn{miasto}
 		\KwOut{res}
 		distance2city = \{\} \tcc{odwrócenie słownika city2distace}
@@ -225,16 +231,55 @@
 	\end{algorithm}
 
 	\subsection*{Implementacja}
-	Opis, zasada i działanie programu ze względu na podział na pliki, nastepnie	funkcje programu wraz ze szczegółowym opisem działania (np.: formie pseudokodu, czy odniesienia do równania)
+
+    Projekt posiada tradycyjną strukturę w formie jednej klasy na plik, plus 
+    plik spinający całość. Projekt nie posiada struktury modułu.
+
+    \begin{itemize}
+        \item Plik \texttt{projekt.py} zawiera główną część projektu.
+        
+        \item Plik \texttt{miasto.py} zawiera definicje klasy Miasto.
+
+        \item Plik \texttt{connection.py} zawiera definicje klasy Connection.
+
+        \item Plik \texttt{generate.py} zawiera prosty skrypt generujący
+            przypadki
+    \end{itemize}
+
 	\subsection*{Testy}
-	Tutaj powinna pojawić się analiza uzyskanych wyników oraz wykresy/pomiary.
+
+    Zgodność wyników była sprawdzana na manualnie określonych przypadkach.
+    Dodatkowo w celu testów na większych problemach powstał skrypt
+    \texttt{generate.py}.
+
+    Dodatkowo dla celów testowych była wprowadzona funkcjonalność eksportu
+    zparsowanych drzew do aplikacji graphviz, która radziła sobie z eksportem
+    drzew z tysiącami miast bez żadnych problemów.
 	
 	\subsection*{Eksperymenty}
-	Sekcję używamy gdy porównywaliśmy dwa lub więcej algorytmów, albo wykonywaliśmy jakies pomiery.
-	
-	Warto dodać jakies wykresy jako obraz, albo tabele z wynikami. 
-	
-	Wszyskie wyniki powinny być opisane/poddane komentarzowi i poddane analizie statystycznej.
-	\newpage
+
+    W trakcie tworzenia projektu najwięcej czasu spędziłem nad optymalizacją
+    rozwiązania. Próbowane były algorytmy wieloprocesorowe\footnote{Wielowątkowość
+    w języku \texttt{python} nie daje wzrostu wydajności ze względu na
+    \emph{Global Interpreter Lock}, tzw. GIL. Problem w zadaniu nie jest
+    ograniczany przez I/O, zatem wielowątkowość w tradycyjnym tego słowa
+    znaczeniu nie ma sensu}. Jednak ostatecznie rozwiązanie
+    oparte na porównywaniu \texttt{id} miast pozwoliło łatwo rozwiązać problem
+    powtarzających się trójek hoteli jak i zmniejszyło znacząco czas
+    wykonywania się programu dla większych drzew, jak i znacząco zmniejszyło
+    ilość pamięci potrzebnej do zapisywania wyników (z około 700mb dla
+    rozwiązania trzymającego wszystkie hotele w liście do pomijalnego dla
+    obiektu \texttt{int}). 
+
+    Dodatkowo problem wyznaczania słownika miasta do dystansu został
+    przyspieszony przez wprowadzenie \emph{trybu szybkiego}, który potrafi
+    odrzucić połowę miast w pierwszej iteracji.
+
+
+    \newpage
 	\section*{Pełen kod aplikacji}
+
+\lstinputlisting[language=python,frame=L,basicstyle=\ttfamily\footnotesize,numbers=left,caption=projekt.py]{./projekt.py}
+\lstinputlisting[language=python,frame=L,basicstyle=\ttfamily\footnotesize,numbers=left,caption=miasto.py]{./miasto.py}
+\lstinputlisting[language=python,frame=L,basicstyle=\ttfamily\footnotesize,numbers=left,caption=connection.py]{./connection.py}
 \end{document}
