@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "angielski/review.md",
+            "file": "kompresja/prezentacja.md",
             "mode": "source",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "angielski/review.md",
+                "file": "kompresja/prezentacja.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "angielski/review.md",
+                "file": "kompresja/prezentacja.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -115,11 +115,11 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "active": "ac0eb3bc0fea24e2",
   "lastOpenFiles": [
+    "kompresja/prezentacja.md",
     "angielski/review.md",
     "systemy operacyjne/7.md",
     "systemy operacyjne/5.md",
