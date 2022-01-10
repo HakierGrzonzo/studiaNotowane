@@ -1,0 +1,150 @@
+% Based on tutorial from and heavily modified to be in specific style:
+
+%Copyright (c) <2015> <John T. Foster>
+
+%Permission is hereby granted, free of charge, to any person obtaining a copy
+%of this software and associated documentation files (the "Software"), to deal
+%in the Software without restriction, including without limitation the rights
+%to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+%copies of the Software, and to permit persons to whom the Software is
+%furnished to do so, subject to the following conditions:
+
+%The above copyright notice and this permission notice shall be included in
+%all copies or substantial portions of the Software.
+
+%THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+%IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+%FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+%AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+%LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+%OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+%THE SOFTWARE.
+
+\mode<presentation>
+
+%Use correct fonts
+\usepackage{fontspec}
+  \setmainfont{Lato}
+
+%Requirements
+\RequirePackage{tikz}
+\graphicspath{{./figs/}}
+
+\RequirePackage{calc}
+
+%The base themes we inherit from
+\usetheme[headheight=1.0cm]{boxes}                 
+\usecolortheme{default}                 
+
+\definecolor{stxgreen}{RGB}{0, 182, 193}
+\definecolor{stxblack}{RGB}{33, 33, 33}
+\definecolor{stxwhite}{RGB}{255,255,255}
+\definecolor{stxgrey}{RGB}{74,74,74}
+
+\pgfdeclareimage[width=0.7\textwidth]{STXLogo}{./figs/stxlogo.}
+
+%The titlebar showing the STX Logo
+%\addheadbox{section in head/foot}{\raisebox{0.0em}{\includegraphics[width=1.0\textwidth]{\beamer@Cockrell@dept}}}
+
+%Theme settings
+%Title page
+%\setbeamerfont{title page}{series=\mdseries}
+\setbeamercolor{title page}{fg=stxblack}
+\setbeamerfont{title}{series=\bfseries}
+\setbeamercolor{title}{fg=stxgreen}
+\setbeamerfont{subtitle}{series=\small\mdseries}
+\setbeamercolor{subtitle}{fg=stxblack}
+\setbeamerfont{author}{series=\mdseries}
+\setbeamercolor{author}{fg=stxblack}
+%Color palette
+\setbeamercolor{structure}{fg=stxwhite}
+\setbeamercolor{section in head/foot}{fg=stxblack}
+\setbeamercolor*{palette primary}{use=structure, fg=stxgreen}
+\setbeamercolor*{palette secondary}{use=structure, fg=stxgreen}
+\setbeamercolor*{palette tertiary}{bg=stxgreen, fg=stxgreen}
+\setbeamercolor*{palette quaternary}{bg=white, fg=stxgreen}
+%Frames
+\setbeamercolor*{frametitle}{use=structure,fg=stxblack}
+\setbeamercolor*{framesubtitle}{fg=stxblack}
+%Blocks
+\setbeamertemplate{blocks}[default]
+\setbeamercolor{block body}{bg=stxgreen!10}
+\setbeamercolor*{block title}{fg=white, bg=stxgreen}
+%Text
+\setbeamercolor{normal text}{bg=white,fg=stxgrey}
+\setbeamercolor{alerted text}{fg=stxblack}
+\setbeamercolor{item projected}{use=item,fg=black,bg=item.fg!35}
+\setbeamertemplate{itemize subitem}{{\textendash}}
+\setbeamercolor{subitem}{fg=stxblack}
+%Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+%Note page settings
+\setbeamerfont{note page}{size=\scriptsize}
+\setbeamertemplate{note page}{\insertnote\par}
+%itemize
+\setbeamertemplate{itemize item}{\color{stxgreen}$-$}
+\setbeamertemplate{itemize subitem}{\color{stxgreen}$-$}
+
+
+\setbeamertemplate{background}{
+    \tikz[remember picture,overlay] \node[inner sep=0pt] at (current page.center){
+      \includegraphics[width=\paperwidth,height=\paperheight]{background}
+    };
+}
+
+%Setup title page
+\defbeamertemplate*{title page}{customized}[1][]{%
+  \setbeamertemplate{headline}{
+    \leavevmode%
+    \hbox{none}
+    \fbox{none}
+  }
+  \vspace{0.265\textheight} 
+
+  \usebeamerfont{title}\usebeamercolor[bg]{title}\inserttitle
+
+  \vspace{5mm}
+
+  \usebeamerfont{subtitle}\usebeamercolor[bg]{pallete primary}\insertsubtitle
+  \vfill
+}
+
+\setbeamertemplate{headline}{%
+  \vspace{3mm}\\
+  \hspace{5mm}\usebeamercolor[stxgreen]{}\MakeUppercase{\insertsection}\usebeamercolor[stxgrey]{}{ }|{ }\insertsubsection
+}
+
+
+
+
+
+%Create lastpage macro
+\newcommand{\lastframe}{%
+\setbeamercolor{background canvas}{bg=stxgreen}
+\setbeamertemplate{headline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=8.25ex,dp=3.5ex]{stxgreen}%
+  \end{beamercolorbox}%
+  }%
+}
+\begin{frame}
+    \vspace{1.5cm}
+    \begin{center}
+        \includegraphics[width=1\textwidth]{stxlogo}
+    \end{center}
+\end{frame}
+}
+
+\newcommand{\titleframe}{
+  \begin{frame}
+    \tikz[remember picture,overlay] \node[inner sep=0pt] at (current page.center){
+      \includegraphics[width=\paperwidth,height=\paperheight]{stxBackgroundTitle}
+    };
+    \titlepage
+  \end{frame}
+}
+
+
+\mode<all>
+

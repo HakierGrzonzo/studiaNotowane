@@ -1,9 +1,16 @@
-#ToDo write a software/hardware review
+Grzegorz Koperwas, 2C
+# Obsidian - Is it finally a rival to OneNote?
 
-# BTRFS, is it good eneugh to switch from ext4?
+Obsidian is a cross-platform, free as in beer, note-taking application. Though the field is crammed with many competitors in the markdown+ class of note-taking programs, is really worth it to make the switch, and does it deserve the attention it is getting from famous YouTubers such as CGP Gray and Randy?
 
-**BTRFS**, also known as *b-tree filesystem*, pronounced as *butter f s*, *b-tree f s* or just *better f s*, is an alternative the more common filesystems in the world of desktop linux. 
+On first startup you will be prompted with a question, on where would you like to store your files. You can opt in to an online storage with a subscription, but no one is preventing you from using `git` or any other solution to do this yourself. Obsidian, like many other editors, uses Markdown extended with extra features, one of them being a comprehensive linking and tagging system. It allows you to forgo a traditional hierarchical structure, in favor of tagging your notes with a hashtag based system. You can also insert a link to any another note just by typing `[a/path/to/it/that/is/autosuggested]` in square brackets.
 
-## How is it diffrent from ext4?
+The resulting **graph** view will show you your notes as points and any links and tags as edges. This is the main selling point of the app. I have yet to embrace it fully, but it is intuitive and unique in that regard.
 
-**BTRFS**, much like *ZFS* is a filesystem that does not have end on a single device, it can span multiple hard drives.
+Another great point of Obsidian is its extensibility and tweakablity. In the options you can find a setting that will allow you to activate `vim` style keybindings (the prompt that asks you to confirm your choice by asking you how to exit is touché!), but its true strength lays in many community made extensions. Anything from extra themes, improved tables, new keybinds and many more can be found there.
+
+One thing that was annoying me in my use of Obsidian, was its lack of support for any language beside English in terms of spelling correction. Luckily, I managed to find an extension that added support for some overkill `LanguageTool`, that manages to devour around 654 megabytes of ram (for spelling!), but it is a sacrifice I am willing to make in order to have enterprise-grade spelling and styling correction with language autodetection. But not every user is able to run docker services just to have something we take for granted. 
+
+Compared to OneNote, it lacks any drawing features, it is a markdown editor after all. However, it still manages to have features like $K_a t^e x$ support, and it runs on many platforms including Linux with no trouble, which cannot be said about its Microsoft competitor.
+
+In conclusion, Obsidian is a good note-taking program, but it is rather bare bones by default and has a slight learning curve, not due to poor design, but rather due to the unique system of organizing your notes you will have to adapt into. Its best feature for me is its extension management. For now, it will remain as my primary note-taking application, but the search for the ultimate application that marries markdown style notes with drawing tablet integration will go on, maybe someone will add an extension to Obsidian with that feature in the future?

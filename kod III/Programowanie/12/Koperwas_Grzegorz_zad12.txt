@@ -1,0 +1,212 @@
+// Zadanie 1
+public class zad1 {
+    public static int silnia(int n) {
+        int res = 1;
+        for (int i = 2; i <= n; i++) {
+            res *= i;
+        }
+        return res;
+    }
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i++) {
+            System.out.print(i + "\t->\t");
+            System.out.println(silnia(i));
+        }
+    }
+}
+// Zadanie 2
+public class zad2 {
+    public static int silnia(int n) {
+        if (n > 1) {
+            return silnia(n - 1) * n;
+        }
+        return 1;
+    }
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i++) {
+            System.out.print(i + "\t->\t");
+            System.out.println(silnia(i));
+        }
+    }
+}
+import java.util.ArrayList;
+import java.util.List;
+
+// Zadanie 3
+public class zad3 {
+    public static List<Integer> merge(List<Integer> a, List<Integer> b) {
+        var res = new ArrayList<Integer>();
+        int pointer_a = 0;
+        int pointer_b = 0;
+        while ((pointer_a < a.size()) && (pointer_b < b.size())) {
+            if (a.get(pointer_a) < b.get(pointer_b)) {
+                res.add(a.get(pointer_a));
+                pointer_a++;
+            } else {
+                res.add(b.get(pointer_b));
+                pointer_b++;
+            }
+        }
+        while (pointer_a < a.size()) {
+            res.add(a.get(pointer_a));
+            pointer_a++;
+        }
+        while (pointer_b < b.size()) {
+            res.add(b.get(pointer_b));
+            pointer_b++;
+        }
+        return res;
+    }
+    public static void main(String[] args) {
+        var a = new ArrayList<Integer>();
+        var b = new ArrayList<Integer>();
+        a.add(0);
+        a.add(1);
+        a.add(3);
+        a.add(4);
+        b.add(2);
+        b.add(5);
+        System.out.println(merge(a, b));
+    }
+}
+// Zadanie 4
+import java.util.ArrayList;
+import java.util.List;
+
+public class zad4 {
+    public static List<Integer> merge(List<Integer> a, List<Integer> b) {
+        var res = new ArrayList<Integer>();
+        int pointer_a = 0;
+        int pointer_b = 0;
+        while ((pointer_a < a.size()) && (pointer_b < b.size())) {
+            if (a.get(pointer_a) < b.get(pointer_b)) {
+                res.add(a.get(pointer_a));
+                pointer_a++;
+            } else {
+                res.add(b.get(pointer_b));
+                pointer_b++;
+            }
+        }
+        while (pointer_a < a.size()) {
+            res.add(a.get(pointer_a));
+            pointer_a++;
+        }
+        while (pointer_b < b.size()) {
+            res.add(b.get(pointer_b));
+            pointer_b++;
+        }
+        return res;
+    }
+    public static List<Integer> mergesort(List<Integer> src) {
+        if (src.size() < 2) {
+            return src;
+        } else if (src.size() == 2) {
+            var res = new ArrayList<Integer>();
+            if (src.get(0) < src.get(1)) {
+                res.add(src.get(0));
+                res.add(src.get(1));
+            } else {
+                res.add(src.get(1));
+                res.add(src.get(0));
+            }
+            return res;
+        } else {
+            int div = src.size() / 2;
+            var r1 = new ArrayList<Integer>();
+            for (int i = 0; i < div; i++) {
+                r1.add(src.get(i));
+            }
+            var r2 = new ArrayList<Integer>();
+            for (int i = div; i < src.size(); i++) {
+                r2.add(src.get(i));
+            }
+            return merge(mergesort(r1), mergesort(r2));
+        }
+    }
+    public static void main(String[] args) {
+        var a = new ArrayList<Integer>();
+        a.add(5);
+        a.add(18);
+        a.add(3);
+        a.add(17);
+        a.add(19);
+        a.add(2);
+        a.add(11);
+        a.add(8);
+        a.add(10);
+        a.add(12);
+        a.add(1);
+        a.add(15);
+        a.add(9);
+        a.add(4);
+        a.add(13);
+        a.add(20);
+        a.add(16);
+        a.add(7);
+        a.add(6);
+        a.add(14);
+        System.out.println(mergesort(a));
+    }
+}
+
+// Zadanie 5
+import java.util.ArrayList;
+import java.util.List;
+
+public class zad5 {
+    public static List<Integer> merge(List<Integer> a, List<Integer> b) {
+        var res = new ArrayList<Integer>();
+        for (int i = 0; i < a.size(); i++) {
+            res.add(a.get(i));
+        }
+        for (int i = 0; i < b.size(); i++) {
+            res.add(b.get(i));
+        }
+        return res;
+    }
+    public static List<Integer> fastsort(List<Integer> src) {
+        if (src.size() < 2) {
+            return src;
+        } else {
+            int div = src.get(src.size() - 1);
+            var rl = new ArrayList<Integer>();
+            var re = new ArrayList<Integer>();
+            var rg = new ArrayList<Integer>();
+            for (int i = 0; i < src.size(); i++) {
+                var n = src.get(i);
+                if (n > div) {
+                    rg.add(n);
+                } else if (n == div) {
+                    re.add(n);
+                } else {
+                    rl.add(n);
+                }
+            }
+            return merge(merge(fastsort(rl), fastsort(re)), fastsort(rg));
+        }
+    }
+    public static void main(String[] args) {
+        var a = new ArrayList<Integer>();
+        a.add(5);
+        a.add(18);
+        a.add(3);
+        a.add(17);
+        a.add(19);
+        a.add(2);
+        a.add(11);
+        a.add(8);
+        a.add(10);
+        a.add(12);
+        a.add(1);
+        a.add(15);
+        a.add(9);
+        a.add(4);
+        a.add(13);
+        a.add(20);
+        a.add(16);
+        a.add(7);
+        a.add(6);
+        a.add(14);
+        System.out.println(fastsort(a));
+    }
+}

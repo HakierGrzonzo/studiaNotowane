@@ -1,0 +1,145 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{polish}
+\usepackage{graphicx}
+
+\begin{document}
+\pagenumbering{gobble}
+\clearpage
+\begin{figure}[h]
+\centering
+\includegraphics{media/ps-logo.png}
+\end{figure}
+\hspace{3cm}
+\begin{center}Dokumentacja realizowanych zadań\end{center}
+\begin{center}2021/2022\end{center}
+\hspace{3cm}
+\begin{center}\large\textbf{Zarządzanie systemami informatycznymi}\end{center}
+\begin{center}\large\textit{Temat 2}\end{center}
+
+\hspace{7cm}
+\begin{flushright}Kierunek: Informatyka
+\end{flushright}
+\begin{flushright}Członkowie zespołu:
+\par
+\textit{Grzegorz Koperwas}
+\end{flushright}
+\vfill
+\begin{center}Gliwice, 2021/2022\end{center}
+
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+
+\newpage
+\section{Wprowadzenie}
+
+\subsection{Role w realizacji zadania}
+\ldots 
+
+\subsection{Cel realizacji zadania}
+\ldots 
+
+\newpage
+
+\section{Założenia realizacji zadania}
+
+\subsection{Założenia techniczne i nietechniczne}
+\ldots 
+
+\subsection{Stos technologiczny}
+Narzędzia i systemy informatyczne związne z projektem
+
+\subsection{Oczekiwane rezultaty realizacji zadania}
+\ldots 
+
+\newpage
+\section{Realizacja zadania}
+%Opis wszystkich etapów realizacji projektu
+
+\subsection{System operacyjny: konfiguracja i administracja}
+
+\begin{enumerate}
+    \item Identyfikacja najważniejszych zadań administracyjnych, które mogą być
+        realizowane w przedsiębiorstwie z wykorzystaniem ustawień systemu
+        operacyjnego.  \begin{enumerate}
+            \item Zarządzanie polityką haseł dla użytkowników
+            \item Zarządzanie uprawnieniami do zasobów współdzielonych
+            \item Konfiguracja systemu zgodna z procedurami ochrony sekretów 
+                przedsiębiorstwa.
+            \item Konfiguracja procedur kopii zapasowej.
+    \end{enumerate}
+    \item Omówienie trzech przykładowych zadań administracyjnych, które mogą
+        być realizowane z wiersza poleceń (CMD) \begin{enumerate}
+            \item Ustawianie w sposób zautomatyzowany domyślnych aplikacji dla 
+                dannych typów plików. (\texttt{assoc})
+            \item Resetowanie komputerów o określonym czasie z informacją dla 
+                użytkownika (\texttt{shutdown}).
+            \item Zarządzanie sterownikami użądzeń (\texttt{Driverquery})
+    \end{enumerate}
+    \item Omówienie trzech przykładowych poleceń, które pozwalają na realizację
+        zadań administracyjnych z wykorzystaniem PowerShell. \begin{enumerate}
+            \item Zmiana nazw plików (\texttt{Rename-item})
+            \item Przenoszenie plików (\texttt{Move-item})
+            \item Uruchamianie serwisów (\texttt{Start-service})
+    \end{enumerate}
+    \item Pokazanie na trzech przykładach, w jaki sposób narzędzia firm
+        trzecich (np. WSCC) pozwalają na realizację zadań administracyjnych.
+        \begin{enumerate}
+            \item \texttt{WSCC} - Zarządzanie oprogramowaniem na komputerach.
+            \item \texttt{samba} - Alternatywny kontroler domeny w Active
+                Directory
+            \item \texttt{Novel Netware} - Alternatywny system zarządzania
+                zasobami w sieci komputerowej, wywodzący się jescze z czasów
+                \texttt{MS/DOS}, ale posiadający klienta dla systemu
+                \texttt{Windows 10}
+        \end{enumerate}
+\end{enumerate}
+
+\subsection{Sieci komputerowe: zadania administracyjne}
+
+\begin{enumerate}
+    \item Przedstawienie katalogu przydatnych poleceń sieciowych dostępnych w
+        wierszu poleceń Microsoft Windows. \begin{enumerate}
+            \item \texttt{ping} - wysyłanie \texttt{ICMP ECHO\_REQUEST}.
+            \item \texttt{tracert} - wysyłanie \texttt{ICMP ECHO\_REQUEST} z
+                małymi \texttt{TTL} w celu mapowania trasy.
+            \item \texttt{NetStat} - Statystyki \texttt{tcp/ip}
+            \item \texttt{ipconfig} - Wyświetlanie konfiguracji \texttt{ip} oraz
+                \texttt{DNS}
+        \end{enumerate}
+    \item Omówienie procesu diagnostyki połączenia sieciowego (w ramach
+        systemu operacyjnego). \begin{enumerate}
+            \item \texttt{ipconfig} - sprawdzamy czy komputer ma adres ip, kabel
+                ethernet (w przypadku sieci przewodowej) lub zainstalowaną kartę 
+                sieciową. 
+            \item \texttt{ping/tracert} - sprawdzamy w którym miejscu sieci
+                występuje problem.
+            \item \texttt{route} - naprawiamy trasy tak by działały.
+        \end{enumerate}
+    \item Zaproponowanie zestawu trzech narzędzi (dostępnych przez Internet),
+        przydatnych w realizacji zadań związanych z administracją sieciami 
+        komputerowymi. \begin{enumerate}
+            \item \texttt{/www.isitdownrightnow.com} - Czy problem jest po
+                naszej stronie.
+            \item \texttt{www.whatismyip.com} - Sprawdzanie naszego zewnętrzengo
+                adresu \texttt{ip}.
+            \item \texttt{ipv6-test.com} - Sprawdzanie czy mamy poprawnie
+                skonfigurowane \texttt{ipv6} w sieci.
+        \end{enumerate}
+\end{enumerate}
+
+\newpage
+\section{Wnioski}
+
+\begin{itemize}
+\item \textit{Spostrzeżenia}
+\item \textit{Osiągnięcia}
+\item \textit{Potencjał rozwoju}
+\end{itemize}
+\end{document}

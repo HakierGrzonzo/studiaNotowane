@@ -1,0 +1,103 @@
+{
+  "main": {
+    "id": "ce090f831f2001ba",
+    "type": "split",
+    "children": [
+      {
+        "id": "70ce6e24f03d45e3",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "MD - grafy.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "13527349b1fb37bd",
+    "type": "split",
+    "children": [
+      {
+        "id": "e3e06b00a5fe5f82",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3e7763a3295a1343",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "0e460c2158be30fb",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "d8a70891d7929214",
+    "type": "split",
+    "children": [
+      {
+        "id": "8d172f0898ac9449",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0b589a4ac8044d08",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "MD - grafy.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "70ce6e24f03d45e3",
+  "lastOpenFiles": [
+    "MD - grafy.md",
+    "MD - Bool.md",
+    "ZSI - PBL.md",
+    "Untitled Diagram.drawio.svg",
+    "ZSI - hackathon.md",
+    "Zadanie X.svg",
+    "ZSI - wprowadzenie.md",
+    "ZSI - zadanie X.md",
+    "Pasted.md",
+    "PBL - Article.md"
+  ]
+}

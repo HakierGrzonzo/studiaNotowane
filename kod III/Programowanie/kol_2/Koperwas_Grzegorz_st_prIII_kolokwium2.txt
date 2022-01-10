@@ -1,0 +1,199 @@
+// zadanie 1
+import java.io.*;
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        var scanner = new Scanner(System.in);
+        // w1
+        double[] w1 = new double[2];
+        System.out.print("Podaj x1: ");
+        w1[0] = scanner.nextDouble();
+        System.out.print("Podaj y1: ");
+        w1[1] = scanner.nextDouble();
+        // w2
+        double[] w2 = new double[2];
+        System.out.print("Podaj x2: ");
+        w2[0] = scanner.nextDouble();
+        System.out.print("Podaj y2: ");
+        w2[1] = scanner.nextDouble();
+        var alg = new Algorytm();
+        var res = alg.iloczyn_skalarny(w1, w2);
+        System.out.println("Iloczyn skalarny to: " + res);
+        scanner.close();
+    }
+}
+
+class Algorytm {
+    public double iloczyn_skalarny(double[] w1, double[] w2) {
+        return w1[0] * w2[0] + w1[1] * w2[1];
+    }
+}
+// zadanie 2
+import java.io.*;
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        try {
+            var file = new File(args[0]);
+            try {
+                var scanner = new Scanner(file);
+                var list = new ArrayList<Double>();
+                try {
+                    while (true) {
+                        list.add(new Double(scanner.nextDouble()));
+                    }
+                } catch (Exception e) {}
+                var sorted = new Algorytm().sort(list);
+                System.out.println(list);
+                System.out.println(sorted);
+                scanner.close();
+            } catch (FileNotFoundException e) {
+                System.err.println("Plik nie istnieje!");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Nie podano pliku!");
+        }
+    }
+}
+
+class Algorytm {
+    public List<Double> sort(List<Double> nums) {
+        // Nie sortujemy in-place, tylko nasza metoda jest `pure function`
+        List<Double> tmp = new ArrayList<Double>(nums);
+        boolean has_swaped = true;
+        while (has_swaped) {
+            has_swaped = false;
+            for (int i = 0; i < tmp.size() - 1; i++) {
+                if (tmp.get(i) > tmp.get(i + 1)) {
+                    has_swaped = true;
+                    var t = tmp.get(i);
+                    tmp.set(i, tmp.get(i + 1));
+                    tmp.set(i + 1, t);
+                }
+            }
+        }
+        return tmp;
+    }
+}
+//Zadanie 3
+import javax.swing.*;
+import java.awt.*;
+class Main {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("test");
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(new Elipsis());
+        frame.pack();
+        frame.setVisible(true);
+    }
+}
+
+class Elipsis extends JPanel {
+    public Dimension getPreferrdSize() {
+        return new Dimension(200, 200);
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.RED);
+        g.fillRect(40, 60, 90, 50);
+        var hsb = Color.RGBtoHSB(0, 128, 128, new float[3]);
+        g.setColor(Color.getHSBColor(hsb[0], hsb[1], hsb[2]));
+        g.fillOval(40, 60, 90, 50);
+    }
+}
+// zadanie 4
+import java.io.*;
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        var p = new PracownikProjekt("foo", "bar", 10);
+    }
+}
+
+class Pracownik {
+    public double wynagrodzenie;
+    public Pracownik(double wynagrodzenie) {
+        this.wynagrodzenie = wynagrodzenie;
+    }
+}
+
+class PracownikProjekt extends Pracownik {
+    public String nazwaProjektu;
+    public String opisProjektu;
+    public PracownikProjekt(String nazwaProjektu, String opisProjektu, double wynagrodzenie) {
+        /* 
+         * W tym przypadku użycie konstuktora bazowego jest wymagane, ponieważ
+         * klasa bazowa `Pracownik` nie posiada konstuktora domyślnego.
+         *
+         * (openjdk 17.0.1 2021-10-19)
+         */
+        super(wynagrodzenie);
+        this.nazwaProjektu = nazwaProjektu;
+        this.opisProjektu = opisProjektu;
+    }
+}
+// zadanie 5
+import java.io.*;
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        System.out.println(new Punkt3DKolor(
+                    2, 1, 37, 
+                    new Kolor((byte) 1, (byte) 255, (byte) -1) // -1 zamieni się w 255
+                )
+            );
+    }
+}
+
+class Punkt2D {
+    public double x;
+    public double y;
+    public Punkt2D(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+class Punkt3D extends Punkt2D {
+    public double z;
+    public Punkt3D(double x, double y, double z) {
+        super(x, y);
+        this.z = z;
+    }
+    public String toString() {
+        return "<Punkt3D: " + x + "; " 
+            + y + "; "
+            + z + ">";
+    }
+}
+
+class Kolor {
+    public byte r;
+    public byte g;
+    public byte b;
+    public Kolor(byte r, byte g, byte b) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+    }
+    public String toString() {
+        return "<Kolor: " + Byte.toUnsignedInt(r) + ", " 
+            + Byte.toUnsignedInt(g) + ", "
+            + Byte.toUnsignedInt(b) + ">";
+    }
+}
+
+class Punkt3DKolor extends Punkt3D {
+    public Kolor kolor;
+    public Punkt3DKolor(double x, double y, double z, Kolor kolor) {
+        super(x, y, z);
+        this.kolor = kolor;
+    }
+    @Override
+    public String toString() {
+        return "<Punkt3DKolor: " + x + "; " 
+            + y + "; "
+            + z + ">\n\t" + kolor + "\n</Punkt3DKolor>";
+    }
+}

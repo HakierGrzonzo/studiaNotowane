@@ -1,0 +1,3 @@
+# Matematyka Dyskretna
+#MD #wprowadzenie 
+

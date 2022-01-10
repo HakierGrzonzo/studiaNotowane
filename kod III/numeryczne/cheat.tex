@@ -1,0 +1,348 @@
+% !TEX program = xelatex
+%Wzór dokumentu
+%tu zmień marginesy i rozmiar czcionki
+\documentclass[a5paper,10pt]{article}
+\usepackage{inputenc}[utf8]
+\usepackage[margin=1.2cm]{geometry}
+\usepackage[polish]{babel}
+
+%Lepiej tego nie zmieniaj, jak co to dodawaj pakiety
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{tikz}
+	\usetikzlibrary{arrows}
+	\usetikzlibrary{patterns}
+	\usetikzlibrary{decorations.pathmorphing}
+\usepackage{pgf}
+\usepackage[section]{placeins}
+
+\usepackage{pict2e}
+
+\makeatletter
+\newcommand{\odpowiada}{\mathrel{\mathpalette\raising@circles@eq\relax}}
+\newcommand{\raising@circles@eq}[2]{%
+  \vphantom{#1+}%
+  \vbox{
+    \settowidth\unitlength{$#1\mspace{2mu}$}%
+    \offinterlineskip\m@th
+    \ialign{##\cr
+      \hfil\small@circle{#1}$#1\mspace{1.5mu}$\cr\noalign{\vskip0.5\unitlength}
+      $#1=$\cr\noalign{\post@vskip{+}{#1}}
+      $#1\mspace{1.5mu}$\small@circle{#1}\hfill\cr\noalign{\post@vskip{-}{#1}}
+    }%
+  }%
+}
+\newcommand{\small@circle}[1]{%
+  \smash{%
+    \begin{picture}(1,1)
+    \small@linethickness{#1}
+    \put(0.5,0.5){\circle{1}}
+    \end{picture}%
+  }%
+}
+\newcommand{\small@linethickness}[1]{%
+  \linethickness{%
+      \ifx#1\displaystyle 0.8\fontdimen8\textfont3\else
+      \ifx#1\textstyle 0.8\fontdimen8\textfont3\else
+      \ifx#1\scriptstyle0.8\fontdimen8\scriptfont3\else
+      1\fontdimen8\scriptscriptfont3\fi\fi\fi
+  }%
+}
+\newcommand{\post@vskip}[2]{%
+  \expandafter\vskip\expanded{%
+    #1\ifx#2\scriptscriptstyle0.9\else\ifx#2\scriptstyle0.6\else0.3\fi\fi\unitlength
+  }%
+}
+\makeatother
+
+
+%inny wygląd
+%\usepackage{tgbonum}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+%Zmienne, zmień je!
+\graphicspath{ {./ilustracje/} }
+\title{Tworzenie i uruchamianie prostych kontenerów w środowisku  docker-compose}
+\author{Grzegorz Koperwas}
+\date{\today}
+
+%lokalizacja polska (odkomentuj jak piszesz po polsku)
+
+\usepackage{polski}
+\usepackage[polish]{babel} 
+\usepackage{indentfirst}
+\usepackage{icomma} 
+
+\brokenpenalty=1000
+\clubpenalty=1000
+\widowpenalty=1000    
+
+%nie odkometowuj wszystkiego, użyj mózgu
+%\renewcommand\thechapter{\arabic{chapter}.}
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{subsubsection}.}
+
+%Makra
+
+\newcommand{\obrazek}[2]{
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=#1]{#2}
+\end{figure}
+}     
+
+\newcommand{\stopnie}{\ensuremath{^{\circ}}}
+
+\newcommand{\twierdzonko}[1]{
+    \begin{center}
+    \begin{mdframed}
+    #1
+    \end{mdframed}          
+    \end{center}
+} 
+
+\newcommand{\dwanajeden}[2]{
+\ensuremath \left( \begin{array}{c}
+    #1\\
+    #2
+\end{array} \right)
+}  
+
+%Stopka i head (sekcja której nie powinno się zmieniać)
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+
+%Zmieniaj od tego miejsca
+\rfoot{\thepage}
+\lfoot{}
+\lhead{}
+\rhead{}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+
+
+\begin{document}
+
+\begin{multicols}{2}
+    \section{Pochodne}
+    \begin{align*}
+        \sqrt{x} &\rightarrow \frac{1}{2 \sqrt{x}}\\
+        \sin x &\rightarrow \cos x\\
+        \cos x &\rightarrow - \sin x\\
+        \tg x &\rightarrow \frac{1}{\cos^2 x}\\
+        ctg\, x &\rightarrow \frac{ -1}{\sin^2 x}\\
+        \ln x &\rightarrow \frac{1}{x}\\
+        \frac{1}{x} &\rightarrow \frac{ - 1}{x^2}\\
+        f \left(g \left(x\right)\right) &\rightarrow f'\left(g\left(x\right)\right) \cdot g'\left(x\right)
+    \end{align*}
+
+    \section{Macierze}
+    \begin{align*}
+        A &= \left[\begin{matrix}
+            a   & b     \\
+            c   & d     \\
+        \end{matrix}\right] = 
+        \left[ \begin{matrix}
+            a_{1,1} & a_{1,2} \\
+            a_{2,1} & a_{2,2}
+        \end{matrix} \right]\\
+        A^{-1} &= \frac{1}{ad - bc}\left[\begin{matrix}
+            d   & -b    \\
+            -c  & a     \\
+        \end{matrix}\right]\\
+        A \cdot B &= \left[\begin{matrix}
+            a_{1,1} b_{1,1} + a_{1,2} b_{2,1} + \dots & \cdots \\
+            a_{2,1} b_{1,1} + a_{2,2} b_{2,1} + \dots & \cdots \\
+            \vdots & \ddots
+        \end{matrix}\right]
+    \end{align*}
+    
+
+    \section{Równania}
+
+    \subsection{Falsi}
+
+    \[
+        x_n = x_{n-1} - \frac{f\left( x_{n-1} \right)}{f\left( x_0 \right) -
+        \left( x_{n-1} \right)} \left( x_0 - x_{n-1} \right)
+    \]
+
+    \subsection{stycznych}
+
+    \begin{align*}
+        x_{n+1} &= x_n - \frac{f\left( x_n \right)}{f'\left(x_n\right)}
+    \end{align*}
+
+    \subsection{Iteracji prostej}
+
+    \begin{align*}
+        x &= f\left( x \right) \\
+        x_n &= f\left( x_{n-1} \right) 
+    \end{align*}
+
+    \section{Układy równań}
+    \begin{itemize}
+        \item $D$ - macierz diagonalna, odwrotność to wszystkie elementy do
+            $x^{-1}$
+        \item $L + U$ - to co nie jest w diagonalnej
+        \item $b$ - wynik
+    \end{itemize}
+
+    \subsection{Newton}
+
+    \[
+        X_n = X_{n-1} - \underbrace{j\left( X_n-1
+        \right)^{-1}}_{\text{jakobian}} \cdot
+        \underbrace{F\left(X_{n-1}\right)}_{\text{f(x) = 0}}
+    \]
+
+    \subsection{Thomas}
+
+    $a, b, c$ to są te fikuśne wektorki, $d$ to rozwiązanie.
+
+    \[
+        \begin{matrix}
+            \beta_1 = - \frac{c_1}{b_1}     & \gamma_1 = \frac{a_1}{b_1} \\
+            \beta_i = - \frac{c_i}{\alpha_i \beta_{i-1} + b_i} & \gamma_i =
+            \frac{\alpha_i - \alpha_i \gamma_{i - 1}}{\alpha_i \beta_{i - 1} +
+            b_i}\\
+        \end{matrix}
+    \]
+    \[
+        x_n = \beta_n \underbrace{x_{n+1}}_{\text{lub 0}} + \gamma_n
+    \]
+
+    \subsection{Jacobi}
+
+    \[x^{i+1} = -D^{-1} \left(L + U\right) x^i + D^{-1} b \]
+
+
+    \subsection{Gauss Seidl}
+
+    \[
+        x_k^n = - \frac{1}{a_{kk}} \left(
+            \sum^{k-1}_{j=1} a_{kj} x^n_j + \sum^n_{j = k + 1} a_{kj} x_j^n -
+            b_k
+        \right)
+    \]
+
+    \section{Aproksymacje}
+
+    \subsection{Lagrange}
+
+    Sumujesz dla każdego punktu $\left(x_i, y_i\right)$, każdy inny punkt:
+
+    \begin{align*}
+        r &= \underbrace{\frac{x - x_k}{x_i - x_k}}_{\text{każdy k punkt}} \cdot
+        \dots \\
+        w &+= y_i \cdot r
+    \end{align*}
+
+    \subsection{Średniokwadratowa}
+
+    Bazy są w formie: 
+    \[
+        \begin{matrix}
+            \phi_0  & \phi_1 & \phi_n \\
+            1       & x      & x^{n}
+        \end{matrix}
+    \]
+    \begin{align*}
+        \bar{f}_k &= \sum^n_{j=0} w\left( x_j \right) \underbrace{f\left( x_j
+            \right)}_{y_j} \phi_k\left( x_j \right) \\
+            d_{ki} &= d_{ik} = \sum^n_{j=0} w\left( x_j \right) \phi_i\left( x_j
+            \right) \phi_k\left( x_j \right) \\
+            D \cdot b &= \bar{F} \quad \text{b to wynik}
+    \end{align*}
+
+
+    \section{różniczkowe}
+
+    Wynik to ma być $y'(x)$, za $y\left(x\right)$ podstawiasz wartość $y$.
+    $y_0$ to zawsze $y\left( x_0 \right)$ które ci dają. $h$ to długość
+    przedziału zadanego, $n$ to liczba przedziałów.
+
+    \subsection{euler}
+
+    \begin{align*}
+        y_n &= y_{n - 1} + h \cdot f\left( x, y \right) \\
+        x_n &= x_{n - 1} + h \\
+    \end{align*}
+
+    \subsection{Heun}
+
+    \begin{align*}
+        x_{n + 1} &= x_{n} + h \\
+        m_n &= f(x_n, y_n) \\
+        k_n &= f\left( x_n, y_n + hm_n \right)\\
+        y_{n+1} &= y_n + \frac{h}{2}\left( m_n + k_n \right)
+    \end{align*}
+    
+    \subsection{Zmodyfikowany Euler}
+
+    \begin{align*}
+        m_n &= f(x_n, y_n) \\
+        k_n &= f\left( x_n + \frac{h}{2}, y_n + \frac{h}{2}m_n \right)\\
+        y_n &= y_n + hk_n \\
+        x_{n + 1} &= x_{n} + h \\
+    \end{align*}
+
+    \subsection{Rungy-Kutty}
+
+    \begin{align*}
+        x_{n+1} &= x_n + h \\
+        k_1 &= f(x_n, y_n) \\
+        k_n &= f\left( x_n + \frac{h}{2}, y_n + \frac{hk_{n-1}}{2} \right)
+            \text{dla 2, 3} \\
+        k_4 &= f\left( x_{n+1}, y_n + hk_3 \right)\\
+        y_{n+1} &= y_n + \frac{h}{6}\left( k_1 + 2k_2 + 2k_3 + k_4 \right)
+    \end{align*}
+
+    \section{całki}
+
+    $f_i$ to wartość zadanej funkcji w przedziale, im większe $i$ tym większe
+    $x$ do funkcji, 0 to początek przedziału, max to koniec.
+
+    \subsection{Proste trapezy}
+
+    \[
+        I \approx \frac{h}{2}\left(f_0 + f_1 \right)
+    \]
+
+    \subsection{Proste simpsonowe parabole}
+    \[
+        I \approx \frac{h}{3}\left( f_0 + 4 f_1 + f_2 \right)
+    \]
+    
+    \subsection{trzech ósmych}
+    \[
+        I \approx \frac{3h}{8}\left(f_0 + 3f_1 + 3f_2 + f_3\right)
+    \]
+
+    Złożone wersje to dzielenie zadanego przedziału na $n$ wersji prostych i
+    dodawanie ich.
+\end{multicols}
+\end{document}

@@ -1,0 +1,8 @@
+{
+  "serverUrl": "http://localhost:8010",
+  "urlMode": "custom",
+  "glassBg": true,
+  "shouldAutoCheck": true,
+  "pickyMode": true,
+  "staticLanguage": "auto"
+}

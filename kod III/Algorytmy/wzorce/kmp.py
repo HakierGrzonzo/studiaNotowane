@@ -8,6 +8,7 @@ def pomocnicza_kmp(pattern: str):
             i += 1
             p[j] = i
     return p
+
 def knuth_morris_pratt(source: str, to_find: str) -> int:
     p = pomocnicza_kmp(to_find)
     i = 0

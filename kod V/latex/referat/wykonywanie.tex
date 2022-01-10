@@ -1,0 +1,34 @@
+\begin{figure}[h]
+  \begin{tikzpicture}
+    % Oś czasu
+    \draw[->] (0, 0) -- (11, 0) node [below] {\scriptsize Czas};
+    \foreach \i in {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+    {
+      \draw[thin] (\i, -0.1) -- (\i, 0);
+    }
+    % legenda 
+    \node[left] at (0, .75) {\scriptsize Program:};
+    \node[left] at (0, .25) {\scriptsize Procesor:};
+    % ładowanie
+    \fill [pattern = north east lines, pattern color=stxgreen, draw=none, fill] (1, 0) rectangle (1.1, .5);
+    \fill [pattern = north east lines, pattern color=stxgreen, draw=none, fill] (2.9, 0) rectangle (3, .5);
+    \draw (1, .5) rectangle (3, 1);
+    \node at (2, .75) {\scriptsize\texttt{getOneData()}};
+    % przetwarzanie
+    \fill [pattern = north east lines, pattern color=stxgreen, draw=none, fill] (3, 0) rectangle (5, .5);
+    \draw (3, .5) rectangle (5, 1);
+    \node at (4, .75) {\scriptsize\texttt{processData()}};
+    % user
+    \fill [pattern = north east lines, pattern color=stxgreen, draw=none, fill] (5, 0) rectangle (5.1, .5);
+    \fill [pattern = north east lines, pattern color=stxgreen, draw=none, fill] (9.9, 0) rectangle (10, .5);
+    \draw (5, .5) rectangle (10, 1);
+    \draw[->] (10, .75) -- (10.5, .75) -- (10.5, 1.5) -- (.5, 1.5) -- (.5, .75) -- (1, .75);
+    \draw[fill, color= white] (8.05, 0) rectangle (8.95, 1.6);
+    \node[right] at (5.1, .75) {\scriptsize\texttt{askUserForAction()}};
+    \foreach \i in {0, .5, 1, 1.5}
+    {
+      \draw[dashed] (8.10, \i) -- (8.95, \i);
+    }
+  \end{tikzpicture}
+  \centering
+\end{figure}

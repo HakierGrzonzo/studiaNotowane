@@ -1,0 +1,572 @@
+\documentclass[aspectratio=169]{beamer}
+\usepackage{polski}
+\usepackage{minted}
+\usepackage{tikz}
+	\usetikzlibrary{arrows}
+	\usetikzlibrary{patterns}
+	\usetikzlibrary{decorations.pathmorphing}
+
+\usemintedstyle{solarized-light}
+
+\usetheme{Stx}
+
+\title{GENERATORY ORAZ\\ ASYNCHRONICZNOŚĆ W PYTHONIE}
+
+\subtitle{Czym to jest i z czym się to je?}
+
+\author{Grzegorz Koperwas}
+
+\institute{STX Next}
+
+\date{\today}
+
+\begin{document}
+
+
+\titleframe
+
+\section{Generatory}
+\subsection{Po co one nam są?}
+\begin{frame}[fragile]{Przykładowy problem}
+
+  \begin{columns}
+    \begin{column}{0.4 \textwidth}
+
+      Załóżmy, że dostaliśmy zadanie, w którym musimy odczytać dużą ilość danych,
+      przetworzyć ją w jakiś sposób i kazać użytkownikowi podjąć jakąś decyzję
+      co do ich wartości. \\~\\
+
+      \only<2>{
+        Jednak po oddaniu programu, nasz użytkownik zwrócił nam uwagę że program
+        ładuje się bardzo długo...
+      }
+
+
+    \end{column}
+    \begin{column}{0.5 \textwidth}
+      
+      \scriptsize
+      \inputminted[linenos, stripall]{python}{./examples/naive.py}
+
+    \end{column}
+
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]{Jak możemy ten program przyspieszyć?}
+
+      \inputminted[linenos, stripall]{python}{./examples/naive.py}
+
+\end{frame}
+
+\begin{frame}[fragile]{Pierwsze podejście}
+
+  \begin{columns}
+    \begin{column}{0.5 \textwidth}
+
+      Spróbujmy pobierać dane po jednej wartości na raz.\\~\\
+
+      \visible<2->{Aplikacja działa, ale pojawia się nam jakiś dziwny 
+        \texttt{if} z warunkiem wyjścia z pętli
+      }\\~\\
+
+      \visible<3->{Czy da się ten kod napisać ładniej?}
+
+    \end{column}
+    \begin{column}{0.5 \textwidth}
+      \scriptsize
+      \inputminted[linenos]{python}{./examples/whilelooped.py}
+    \end{column}
+  \end{columns}
+  
+\end{frame}
+
+\subsection{Czym jest generator}
+\begin{frame}{Czym jest generator?}
+  Z dokumentacji \texttt{python}a dowiemy się że:
+
+  \pause
+
+  \begin{block}{Dokumentacja}
+    [Generator is] a function which returns a \textbf{generator iterator}. It 
+    looks like a \textbf{normal function} except that it contains
+    \mintinline{python}{yield}
+    expressions for producing a series of values usable in a for-loop or that 
+    can be retrieved one at a time with the \mintinline{python}{next()} function.
+  \end{block}
+
+  \pause
+
+  Co to oznacza po polsku?
+\end{frame}
+
+\begin{frame}[fragile]{Czym funkcjo-podobnym czymś jest generator?}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \scriptsize
+      \begin{minted}[linenos]{python}
+def generator():
+  # this will be a generator function
+      \end{minted}
+      \onslide<2->
+      \begin{minted}[linenos,firstnumber=3]{python}
+  yield "foo"
+      \end{minted}
+      \onslide<3->
+      \begin{minted}[linenos,firstnumber=4]{python}
+  yield "bar"
+      \end{minted}
+      \onslide<4->
+      \begin{minted}[linenos,firstnumber=5]{python}
+
+
+print(generator())
+      \end{minted}
+
+      \onslide<5->
+      \texttt{<generator object generator at 0x7fa85e944200>}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \onslide<4->
+      Spróbujmy uruchomić naszą ,,funkcje''\\~\\
+
+      \onslide<5->
+      Zamiast naszego tekstu dostaliśmy jakiś dziwny obiekt...
+      
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Powrót do dokumentacji}
+  \begin{columns}
+    \begin{column}{0.5 \textwidth}
+      Definicja mówiła coś o funkcji \mintinline{python}{next()}, spróbujmy jej
+      użyć.\\~\\
+
+      \onslide<2->
+      Otrzymaliśmy naszą wartość \texttt{foo}, spróbujmy jeszcze raz użyć 
+      \mintinline{python}{next()}.\\~\\
+
+      \onslide<3->
+      Pojawiło się nasze \texttt{bar}, co się stanie jeśli jeszcze raz użyjemy 
+      \mintinline{python}{next()}?
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \onslide<1->
+      \scriptsize
+      \inputminted[linenos]{python}{./examples/simpleGen.py}
+
+      \onslide<2->
+      \texttt{foo}
+
+      \onslide<3->
+      \begin{minted}[linenos, firstnumber=9]{python}
+print(next(wierd_obj))
+      \end{minted}
+      \texttt{bar}
+
+      \onslide<4->
+      \begin{minted}[linenos, firstnumber=10]{python}
+print(next(wierd_obj))
+      \end{minted}
+      \begin{minted}{text}
+Traceback (most recent call last):
+  File "simpleGen.py", line 10, in <module>
+    print(next(wierd_obj))
+StopIteration
+      \end{minted}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Generator jako iterator}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      Nasza \emph{,,funkcja''} zwraca nam jakiś iterator, który zwraca po kolei 
+      wszystkie wartości z wyrażeń \mintinline{python}{yield}, a po zakończeniu
+      wyrzuca jakieś \mintinline{python}{Exception}. Dodajmy parę
+      \texttt{print}ów by zobaczyć co się dzieje.
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \scriptsize
+      \begin{minted}[linenos]{python}
+def generator():
+  print("here")
+  yield "foo"
+  print("there")
+  yield "bar"
+  print("done")
+
+
+gen = generator()
+print(next(gen))
+      \end{minted}
+      
+      \onslide<2->
+      \begin{minted}{text}
+here
+foo
+      \end{minted}
+      
+      \onslide<3->
+      \begin{minted}[linenos, firstnumber=11]{python}
+print(next(gen))
+      \end{minted}
+      \begin{minted}{text}
+there
+bar
+      \end{minted}
+      \onslide<4->
+      \begin{minted}[linenos, firstnumber=12]{python}
+print(next(gen))
+      \end{minted}
+      \begin{minted}{text}
+done
+Traceback (most recent call last):
+[...]
+      \end{minted}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{To czym jest generator?}
+  \begin{itemize}
+    \item Nasza \emph{,,funkcja''} \texttt{generator} jest tak naprawdę
+      konstruktorem.
+    \pause
+    \item Nasz kod jest wykonywany dopiero wtedy, kiedy poprosimy o nową
+      wartość.
+    \pause
+    \item Czy możemy wykożystać naszą funkcje w pętli \texttt{for in}?
+  \end{itemize}
+\end{frame}
+
+\subsection{Generatory w praktyce}
+\begin{frame}[fragile]{Generator oraz pętle \texttt{for in}}
+  \begin{columns}
+    \begin{column}{0.5 \textwidth}
+      Skorzystajmy zatem z naszej \emph{,,funkcji''} w pętli:
+    \end{column}
+    \begin{column}{0.5 \textwidth}
+      \scriptsize
+      \inputminted[linenos]{python}{./examples/geninfor.py}
+      \pause
+      \begin{minted}{text}
+1
+2
+3
+      \end{minted}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{A co jeśli stworzymy nieskończony generator?}
+  \begin{columns}
+    \begin{column}{0.5 \textwidth}
+      \scriptsize
+      \inputminted[linenos]{python}{./examples/silnia.py}
+    \end{column}
+    \begin{column}{0.5 \textwidth}
+      \pause
+      \begin{minted}{text}
+1
+1
+2
+6
+24
+120
+720
+5040
+40320
+362880
+[...]
+      \end{minted}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Jak z generatora skorzystać w naszym programie}
+\begin{frame}[fragile]{Jak możemy poprawić nasz kod z użyciem generatorów?}
+  \begin{columns}
+    \begin{column}{0.5 \textwidth}
+      Możemy napisać generator zwracający przetworzone wartości, jedna po
+      drugiej.
+    \end{column}
+    \begin{column}{0.5 \textwidth}
+      \scriptsize
+      \inputminted[linenos]{python}{./examples/generator.py}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Jak możemy poprawić nasz kod z użyciem generatorów?}
+  \begin{columns}
+    \begin{column}{0.5 \textwidth}
+      Możemy również przepisać naszą pętle która prosi użytkownika o podjęcie 
+      decyzji na generator.
+    \end{column}
+    \begin{column}{0.5 \textwidth}
+      \scriptsize
+      \inputminted[linenos]{python}{./examples/moreGenerator.py}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Podsumowanie}
+\begin{frame}{Podsumowanie}
+  Generatory pozwalają nam pisać kod który generuje kolejne wartości dopiero
+  wtedy kiedy są potrzebne. Robi to przez przerywanie wykonywania programu i
+  zwracanie wartości za pomocą słowa kluczowego \mintinline{python}{yield}.
+\end{frame}
+
+\section{Asynchroniczność}
+\subsection{Nowy problem}
+\begin{frame}{Nowy problem}{Program jest nadal wolny, ale inaczej...}
+  Po oddaniu naszego programu przepisanego na nowo poznane generatory,
+  doszły do nas słuchy, że program może szybciej się ładuje na początku, ale 
+  użytkownicy muszą dłużej czekać na załadowanie się nowego przypadku.
+  \pause
+
+  Użycie superkomputera nie pomogło.
+\end{frame}
+
+\begin{frame}{Analiza problemu}
+  \input{./wykonywanie.tex}
+  \pause 
+  Wnioski: 
+  \begin{itemize}
+    \item Nasz program spędza dużą część swojego czasu na czekaniu.
+      \pause
+    \item Cały okres oczekiwania, który kiedyś był na początku programu, został
+      rozbity na mniejsze między akcjami dla użytkownika.
+      \pause
+    \item Czy możemy pobierać, przetwarzać, i pytać użytkownika o decyzje w tym 
+      samym czasie?
+  \end{itemize}
+\end{frame}
+
+\subsection{input-output}
+\begin{frame}{Na co nasz program czeka?}
+  Za każdym razem, kiedy nasz program chce czytać dane nie znajdujące się w
+  jego pamięci, to musi prosić system operacyjny o ich odczytanie.
+  W tym czasie wykonywanie naszego programu jest zablokowane.\\~\\
+  \pause
+
+  Nazywamy taki dostęp do danych \emph{synchronicznym}. \\~\\
+
+  \pause
+  Czy możemy uzyskiwać dostęp do naszych danych inaczej?
+\end{frame}
+
+\subsection{asyncio}
+\begin{frame}{Asynchroniczne I/O}
+  Gdy zapytamy wikipedię, czym jest asynchroniczne I/O, to otrzymamy taką
+  definicję:\\~\\
+
+  \begin{block}{Definicja}
+    \textbf{Asynchronous I/O} is a form of input/output processing that permits 
+    other processing to continue before the transmission has finished.
+  \end{block}
+  \pause
+
+  Czy możemy zatem użyć asynchronicznego I/O w naszym programie?
+\end{frame}
+
+\begin{frame}[fragile]{Asynchroniczne I/O w \texttt{python}ie}
+  \begin{columns}
+    \begin{column}{.48\textwidth}
+      Spróbujmy dopisać słówko \mintinline{python}{async} do funkcji i ją
+      uruchomić.\\~\\
+
+      \onslide<2->
+      Tym razem dostaliśmy dwa ostrzeżenia oraz dziwny obiekt. Co starają się
+      nam one przekazać i czym naprawdę jest nasza \emph{,,funkcja''}?
+    \end{column}
+    \begin{column}{.48\textwidth}
+      \scriptsize
+      \onslide<1->
+      \inputminted[linenos]{python}{./examples/async.py}
+
+      \onslide<2->
+      \begin{minted}{text}
+async.py:4: RuntimeWarning: coroutine 'main'
+was never awaited
+  print(main())
+RuntimeWarning: Enable tracemalloc to get 
+the object allocation traceback
+<coroutine object main at 0x7f3c9d240200>
+      \end{minted}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Asynchroniczne I/O w \texttt{python}ie}
+  \begin{columns}
+    \begin{column}{.48 \textwidth}
+      Zobaczmy co robi przykład w dokumentacji modułu \texttt{asyncio}.\\~\\
+      \onslide<3->
+      Mamy tu:
+      \begin{itemize}
+        \item Jakiś specjalny \mintinline{python}{sleep()}
+        \item Słowa kluczowe \mintinline{python}{async} oraz
+          \mintinline{python}{await}
+        \item Dziwne wywołanie funkcji za pomocą
+          \mintinline{python}{asyncio.run()}
+      \end{itemize}
+    \end{column}
+    
+    \begin{column}{.48 \textwidth}
+      \scriptsize
+      \onslide<2->
+      \inputminted[linenos]{python}{./examples/asyncHello.py}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Asynchroniczne I/O w \texttt{python}ie}
+  \begin{columns}
+    \begin{column}{.48 \textwidth}
+      Zobaczmy kolejny przykład.\\~\\
+      
+      \onslide<2->
+      Mamy to dwa razy \mintinline{python}{asyncio.sleep}, więc program powinien
+      się wykonywać 5 sekund.\\~\\
+
+    \end{column}
+    
+    \begin{column}{.48 \textwidth}
+      \scriptsize
+      \onslide<2->
+      \inputminted[linenos]{python}{./examples/asyncTasks.py}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Coś się wykonuje na raz...}{Spróbujmy to zepsuć}
+  \begin{columns}
+    \begin{column}{.48 \textwidth}
+      Zmodyfikujmy sobie nasz przykład.\\~\\
+      
+      \onslide<3->
+      Słówko \mintinline{python}{await} robi jakieś rzeczy podobne 
+      do \mintinline{python}{yield}. Wykonywanie programu się zatrzymuje w
+      środku \emph{,,funkcji''}, jednak tym razem nie widać co i gdzie
+      kontroluje nasz program.
+    \end{column}
+    
+    \begin{column}{.48 \textwidth}
+      \scriptsize
+      \onslide<2->
+      \inputminted[linenos]{python}{./examples/asyncTasks2.py}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Psucia ciąg dalszy}
+  \begin{columns}
+    \begin{column}{.48 \textwidth}
+      Czym jest ta linijka z \mintinline{python}{await asyncio.gather()}?
+      Spróbujmy się jej pozbyć...\\~\\
+
+      \onslide<2->
+      Co się tu dzieje?
+    \end{column}
+    
+    \begin{column}{.48 \textwidth}
+      \scriptsize
+      \onslide<1->
+      \inputminted[linenos]{python}{./examples/asyncTasks3.py}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Czym są te funkcje, że musimy je tak dziwnie uruchamiać?}
+  \begin{columns}
+    \begin{column}{.48 \textwidth}
+      Tym razem do czynienia mamy z korutynami, czyli funkcjami których działanie
+      może zostać przerwane. \\~\\
+
+      \onslide<2->
+      Wykonywanie jest przerywane kiedy używamy słówka
+      \mintinline{python}{await}, lecz nie jest to taka pełna magia. \\~\\
+      
+      \onslide<3->
+      Nie możemy poprostu napisać wszędzie w naszym programie
+      \mintinline{python}{async}/\mintinline{python}{await}, \texttt{asyncio}
+      musi mieć na co czekać...
+  
+
+    \end{column}
+    
+    \begin{column}{.48 \textwidth}
+      \scriptsize
+      \onslide<1->
+      \inputminted[linenos]{python}{./examples/asyncTasks.py}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Jak wykorzystać asyncio w naszym programie?}
+\begin{frame}{Jak możemy z asyncio skorzystać?}
+  Spójrzmy ponownie na analizę wykonywania naszego programu.
+  \input{./wykonywanie.tex}
+
+  Spróbujmy pobierać dane wtedy, kiedy czekamy na podjęcie decyzji przez
+  użytkownika.
+\end{frame}
+
+\begin{frame}[fragile]{Pierwsze przepisanie}
+  \scriptsize
+  \inputminted[linenos]{python}{./examples/asyncProgram.py}
+  \pause
+  Czy możemy użyć tutaj paru generatorów?
+\end{frame}
+
+\begin{frame}[fragile]{Generatory oraz asyncio}
+  \begin{columns}
+    \begin{column}{.48 \textwidth}
+      \texttt{Asyncio} pozwala nam pisać asynchroniczne generatory, lecz 
+      nie możemy ich użyć bezpośrednio. \\~\\
+
+      Możemy skorzystać z struktury kolejki zaimplementowanej przez
+      \texttt{asyncio} by buforować dane między generatorem pobierającym dane 
+      oraz generatorem pytającym się użytkownika o decyzję.
+    \end{column}
+
+    \begin{column}{.48 \textwidth}
+      \tiny
+      \vspace{-10mm}
+      \inputminted[linenos]{python}{./examples/asyncQueue.py}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{Podsumowanie}
+\begin{frame}{Podsumowanie}
+  Asyncio pozwala nam na przerywanie wykonywania się programu podczas operacji 
+  wejścia/wyjścia. \texttt{Event loop} zarządza wykonującym się kodem
+  asynchronicznym i wykonuje wtedy inne fragmenty programu.
+\end{frame}
+
+\begin{frame}
+
+  \vspace{3cm}
+
+  \begin{center}
+  Dziękuje za uwagę\\
+  \end{center}
+  
+  \vspace{3cm}
+
+  \begin{flushright}
+    \scriptsize{
+      \emph{Grzegorz \color{stxgreen}{Koperwas}}
+    }
+  \end{flushright}
+\end{frame}
+
+\lastframe
+
+\end{document}

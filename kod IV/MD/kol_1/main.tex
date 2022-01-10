@@ -1,0 +1,219 @@
+% !TEX program = xelatex
+%Wzór dokumentu
+%tu zmień marginesy i rozmiar czcionki
+\documentclass[a4paper,12pt]{article}
+\usepackage{inputenc}[utf8]
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[polish]{babel}
+
+%Lepiej tego nie zmieniaj, jak co to dodawaj pakiety
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{tikz}
+	\usetikzlibrary{arrows}
+	\usetikzlibrary{patterns}
+	\usetikzlibrary{decorations.pathmorphing}
+\usepackage{pgf}
+\usepackage[section]{placeins}
+
+\usepackage{pict2e}
+
+\makeatletter
+\newcommand{\odpowiada}{\mathrel{\mathpalette\raising@circles@eq\relax}}
+\newcommand{\raising@circles@eq}[2]{%
+  \vphantom{#1+}%
+  \vbox{
+    \settowidth\unitlength{$#1\mspace{2mu}$}%
+    \offinterlineskip\m@th
+    \ialign{##\cr
+      \hfil\small@circle{#1}$#1\mspace{1.5mu}$\cr\noalign{\vskip0.5\unitlength}
+      $#1=$\cr\noalign{\post@vskip{+}{#1}}
+      $#1\mspace{1.5mu}$\small@circle{#1}\hfill\cr\noalign{\post@vskip{-}{#1}}
+    }%
+  }%
+}
+\newcommand{\small@circle}[1]{%
+  \smash{%
+    \begin{picture}(1,1)
+    \small@linethickness{#1}
+    \put(0.5,0.5){\circle{1}}
+    \end{picture}%
+  }%
+}
+\newcommand{\small@linethickness}[1]{%
+  \linethickness{%
+      \ifx#1\displaystyle 0.8\fontdimen8\textfont3\else
+      \ifx#1\textstyle 0.8\fontdimen8\textfont3\else
+      \ifx#1\scriptstyle0.8\fontdimen8\scriptfont3\else
+      1\fontdimen8\scriptscriptfont3\fi\fi\fi
+  }%
+}
+\newcommand{\post@vskip}[2]{%
+  \expandafter\vskip\expanded{%
+    #1\ifx#2\scriptscriptstyle0.9\else\ifx#2\scriptstyle0.6\else0.3\fi\fi\unitlength
+  }%
+}
+\makeatother
+
+
+%inny wygląd
+%\usepackage{tgbonum}
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+%Zmienne, zmień je!
+\graphicspath{ {./ilustracje/} }
+\title{Ściąga na matematykę dyskretną}
+\author{Grzegorz Koperwas}
+\date{\today}
+
+%lokalizacja polska (odkomentuj jak piszesz po polsku)
+
+\usepackage{polski}
+\usepackage[polish]{babel} 
+\usepackage{indentfirst}
+\usepackage{icomma} 
+
+\brokenpenalty=1000
+\clubpenalty=1000
+\widowpenalty=1000    
+
+%nie odkometowuj wszystkiego, użyj mózgu
+%\renewcommand\thechapter{\arabic{chapter}.}
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{subsubsection}.}
+
+%Makra
+
+\newcommand{\obrazek}[2]{
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=#1]{#2}
+\end{figure}
+}     
+
+\newcommand{\stopnie}{\ensuremath{^{\circ}}}
+
+\newcommand{\twierdzonko}[1]{
+    \begin{center}
+    \begin{mdframed}
+    #1
+    \end{mdframed}          
+    \end{center}
+} 
+
+\newcommand{\dwanajeden}[2]{
+\ensuremath \left( \begin{array}{c}
+    #1\\
+    #2
+\end{array} \right)
+}  
+
+%Stopka i head (sekcja której nie powinno się zmieniać)
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+
+%Zmieniaj od tego miejsca
+\rfoot{\thepage}
+\lfoot{}
+\lhead{}
+\rhead{Ostatnia edycja: \today}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+
+
+\begin{document}
+
+\begin{multicols}{2}
+    
+    \section{Modulo}
+
+    \[
+        a \equiv b \mod m \Leftrightarrow m | a - b
+    \]
+
+    \section{Chińskie reszty}
+
+    Niech $m_1, \dots, m_n$ to liczby parami względnie pierwsze. $r_i \in Z$.
+    \[
+        NWD\left(m_i, m_{i+1}\right) = 1
+    \]
+    
+    Wtedy równanie:
+
+    \begin{equation*}
+        \left\{ 
+        \begin{matrix}
+            x \equiv_{m_1} r_1 \\
+            x \equiv_{m_2} r_2 \\ 
+            x \equiv_{m_n} r_n \\ 
+        \end{matrix}
+        \right.
+    \end{equation*}
+
+    Ma jedno rozwiązanie $\mod M = {\prod_{i=1}^{n} m_i}$ postaci:
+    \begin{align*}
+        x &= N_1 M_1 + \cdots + N_n M_n,\quad \text{gdzie:} \\
+        M_i &= \frac{M}{m_i} \\
+        M_i N_i &\equiv_{m_i} r_i \\
+    \end{align*}
+
+
+
+
+    \section{Algosy}
+
+    \subsection{Euklides NWD}
+    \[
+        a, b \in N, a > b 
+    \]
+    Dzielenie z resztą $a / b$, jeżeli reszta $r \not= 0$ to dzielimy z resztą $b /
+    r_1$. Ostatnia nie zerowa reszta to wynik.
+
+    \subsubsection{Równania liniowe}
+
+    \[
+        NWD\left(a, b, c\right) = NWD\left(NWD\left(a, b\right), c\right)
+    \]
+
+    \[
+        ax + by = c \Leftrightarrow NWD\left(a, b\right) | c
+    \]
+    \[
+        ax = b \text{ w } Z_m \Leftrightarrow NWD\left(a, m\right) | b
+    \]
+    \[ 
+        x_n = x_0 + \frac{bn}{NWD\left( a, b \right)}\quad
+        y_n = y_0 - \frac{an}{NWD\left( a, b \right)}
+    \]
+
+
+
+
+
+
+
+\end{multicols}
+\end{document}

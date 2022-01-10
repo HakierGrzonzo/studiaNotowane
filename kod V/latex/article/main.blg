@@ -1,0 +1,67 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/Arch Linux)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: unsrt.bst
+Database file #1: biblography.bib
+Warning--entry type for "Manville:2014" isn't style-file defined
+--line 98 of file biblography.bib
+Warning--empty journal in Schomer:2005
+Warning--empty journal in Brown:2010
+Warning--empty author in Directive:2002/49
+Warning--empty journal in Directive:2002/49
+Warning--empty journal in Booteldooren:2006
+Warning--empty journal in Weinstein:1980
+Warning--empty journal in Ozcevik:2008
+Warning--empty author in ISO:12913-1
+Warning--empty author in ISO:12913-2
+Warning--empty author in ISO:12913-3
+Warning--empty journal in Gaja:2003
+Warning--empty author in ISO:266
+Warning--empty author in ISO:9613-1
+Warning--empty journal in Lewandowski:2008
+Warning--empty year in Krishnamurthy:2018
+Warning--empty author in ITU-T:P800
+Warning--empty journal in Sandrock:2008
+Warning--empty author in ITU-T:P800-2
+You've used 21 entries,
+            1791 wiz_defined-function locations,
+            556 strings with 6754 characters,
+and the built_in function-call counts, 3081 in all, are:
+= -- 238
+> -- 156
+< -- 0
++ -- 63
+- -- 42
+* -- 160
+:= -- 525
+add.period$ -- 56
+call.type$ -- 21
+change.case$ -- 27
+chr.to.int$ -- 0
+cite$ -- 39
+duplicate$ -- 165
+empty$ -- 319
+format.name$ -- 42
+if$ -- 672
+int.to.chr$ -- 0
+int.to.str$ -- 21
+missing$ -- 14
+newline$ -- 99
+num.names$ -- 13
+pop$ -- 97
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 51
+stack$ -- 0
+substring$ -- 0
+swap$ -- 6
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 18
+while$ -- 13
+width$ -- 23
+write$ -- 200
+(There were 19 warnings)
