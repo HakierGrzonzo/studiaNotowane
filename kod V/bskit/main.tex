@@ -1,0 +1,128 @@
+\documentclass[12pt,a4paper]{article}
+
+%\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{polish}
+\usepackage{graphicx}
+\usepackage{biblatex}
+\usepackage{csquotes}
+\addbibresource{bib.bib}
+
+\begin{document}
+
+
+\nocite{*}
+
+\pagenumbering{gobble}
+\clearpage
+\begin{figure}[h]
+\centering
+\includegraphics{media/ps-logo.png}
+\end{figure}
+\hspace{3cm}
+\begin{center}Sprawozdanie z modułu nr 1\end{center}
+\begin{center}BSKiST 2022/2023\end{center}
+\hspace{3cm}
+\begin{center}\large\textbf{Bezpieczeństwo sieci komputerowych i systemów teleinformatycznych}\end{center}
+\hspace{7cm}
+\begin{flushright}Kierunek: Informatyka
+\end{flushright}
+\begin{flushright}Członkowie zespołu:
+\par
+\textit{Grzegorz Koperwas}
+\end{flushright}
+\vfill
+\begin{center}Gliwice, 2022/2023\end{center}
+
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+
+\newpage
+\section{Wprowadzenie}
+
+\subsection{Zespół projektowy}
+
+\begin{enumerate}
+    \item Grzegorz Koperwas :: Wszystko
+\end{enumerate}
+
+\newpage
+
+\subsection{Wprowadzenie}
+
+W internecie mamy do czynienia z wieloma rodzajami zagrożeń dla naszej
+infrastruktury teleinformatycznej, takimi jak:
+
+\begin{itemize}
+	\item Wirusy i malware
+	\item Ataki hakerskie
+	\item Włamania i nieautoryzowane dostępy
+	\item Phishing i oszustwa internetowe
+	\item Awarie i błędy systemowe
+\end{itemize}
+
+Jednak w celu ochrony przed wyżej wymienionymi zagrożeniami, możemy skorzystać 
+z wielu metod, oraz możemy oceniać stan infrastruktury ochronnej na wiele
+sposobów.
+
+\subsection{Rozwinięcie}
+
+\subsection{Rodzaje ochrony przed zagrożeniami.}
+
+Istnieje wiele różnych, dobrze ze sobą współpracujących metod zabezpieczania
+naszej infrastruktury, lub wykrywania nieautoryzowanego dostępu, kiedy takowy
+nastąpi. Niektórymi z nich są:
+
+\begin{enumerate}
+    \item \textbf{Ochrona oprogramowania oraz urządzeń przed wirusami i malware} -
+        Zapewnienie wykrywania nieautoryzowanego oprogramowania gdy już się
+        pojawi na komputerze jest jedną z podstawowych technik zabezpieczania
+        systemów teleinformatycznych. Nawet jeżeli oprogramowanie nie jest nie
+        bezpieczne dla naszego komputera, nadal konieczne jest jego wykrycie w
+        celu zapobiegnięcia dalszego rozprzestrzeniania się takiego
+        oprogramowania.
+
+        Taką sytuacją może być wirus przeznaczony dla systemów \texttt{windows}, 
+        który może być przesyłany dalej przez serwer plików \texttt{samba}
+        uruchomiony na systemie \texttt{GNU/Linux}. Programem mogącym zapobiegać
+        takim sytuacjom jest na przykład \texttt{clamav}.
+    \item \textbf{Zabezpieczenie dostępu i identyfikacji użytkowników} -
+        Odpowiednia konfiguracja oraz wykonanie systemu teleinformatycznego
+        uniemożliwia nieautoryzowany dostęp do naszego systemu
+        teleinformatycznego. Użycie autoryzacji opartej na hasłach jest
+        powszechnie przyjętym standardem, jednak posiada ono wiele wad
+        wynikających z problemów spowodowanych obecnością członka gatunku
+        \emph{homo sapiens} pomiędzy klawiaturą (lub innym urządzeniem
+        \texttt{HID}) a krzesłem bądź fotelem.
+        
+        Z powyższego powodu, istnieje wiele alternatywnych rozwiązać, które
+        wzmacniają tradycyjny proces autoryzacji hasłem przez dodanie nie
+        stałych danych które użytkownik musi podać, lub poprzez wymagania od
+        użytkownika posiadania określonych przedmiotów. Przykładami takich
+        rozwiązań są:
+        \begin{itemize}
+            \item Google authenticator
+            \item Autoryzacja przez kod przesyłany kanałem trzecim
+        \end{itemize}
+	\item Szyfrowanie danych i transmisji
+	\item Regularne aktualizacje
+	\item Monitoring i raportowanie incydentów bezpieczeństwa.
+\end{enumerate}
+
+
+\section{Podsumowanie i wnioski}
+
+\begin{itemize}
+\item \textit{Podsumowanie}
+\item \textit{Wnioski}
+\end{itemize}
+
+\newpage
+\section{Spis literatury}
+
+\printbibliography[heading=none] 
+
+\end{document}
