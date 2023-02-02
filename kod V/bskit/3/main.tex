@@ -1,0 +1,193 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{polish}
+\usepackage{graphicx}
+\usepackage{biblatex}
+\usepackage{csquotes}
+\usepackage{listings}
+\addbibresource{bib.bib}
+
+\lstdefinestyle{mystyle}{
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+
+
+\nocite{*}
+
+\pagenumbering{gobble}
+\clearpage
+\begin{figure}[h]
+\centering
+\includegraphics{media/ps-logo.png}
+\end{figure}
+\hspace{3cm}
+\begin{center}Dokumentacja projektowa\end{center}
+\begin{center}BSKiST 2022/2023\end{center}
+\hspace{3cm}
+\begin{center}\large\textbf{Bezpieczeństwo sieci komputerowych i systemów teleinformatycznych}\end{center}
+\hspace{7cm}
+\begin{flushright}Kierunek: Informatyka
+\end{flushright}
+\begin{flushright}Członkowie zespołu:
+\par
+\textit{Grzegorz Koperwas}
+\end{flushright}
+\vfill
+\begin{center}Gliwice, 2022/2023\end{center}
+
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+
+\newpage
+\section{Wprowadzenie}
+
+
+\subsection{Cel projektu}
+
+W trakcie realizowania projektu na przedmiot Inżynieria Oprogramowania, została
+zauważona potrzeba wystawienia na zewnątrz usługi \texttt{ssh}, w celu
+umożliwienia automatycznego aktualizowania środowiska produkcyjnego przez
+platformę \emph{Github Actions}.
+
+Jednak, mając wcześniejsze doświadczenia, gdzie nawet usługa \texttt{ssh}
+skonfigurowana na niestandardowym porcie 2137 oraz wymuszająca użycie kluczy
+nadal otrzymuje dużo uwagi z całego świata.
+
+Celem projektu jest wdrożenie systemu wykrywania intruzów dla serwera 
+\texttt{ssh} w systemie \texttt{Arch Linux}.
+
+\subsection{Zespół projektowy}
+Imię i nazwisko :: Rola w projekcie :: Zadania projektowe
+
+\newpage
+
+\section{Założenia projektowe}
+
+Usługa wdrażana w ramach projektu musiała spełniać następujące wymagania:
+
+\begin{itemize}
+  \item Niski koszt - By usługa mogła się zmieścić w budżecie projektu, jej
+    koszt musiał być zerowy.
+  \item Łatwość zintegrowania z platformą istniejącą - Serwer, na którm
+    rozwiązanie miało być wdrożone, był Dell PowerEdge R720, z zainstalowanym
+    systemem \texttt{Arch Linux}\footnote{Do dnia \today, wystąpił tylko jeden
+    incydent związany z charakterem tej dystrybucji.}.
+
+    Środowisko funkcjonuje głównie jako host wielu rozwiązań skonteneryzowanych, 
+    serwer plików oraz platforma do transkodowania wideo za pomocą
+    \texttt{NVENC}.
+
+    \begin{figure}[h]
+      \includegraphics[width=\textwidth]{media/serwer.jpg}
+      \centering
+      \caption{Środowisko, do którego zostało wdrożone rozwiązanie}
+    \end{figure}
+
+  \item Niskie wymagania systemowe - Mimo dużej mocy obliczeniowej i dużej
+    ilości dostępnej pamięci na serwerze, jako \texttt{root} jest używany dysk
+    ssd 60gb podpięty przez złącze \texttt{USB 2.0}. 
+    
+    Dodatkowo, na serwerze nie są zainstalowane żadne środowiska graficzne i
+    jest kładziony duży nacisk na jak największe możliwości zarządzania
+    zdalnego.
+\end{itemize}
+
+Biorąc pod uwagę powyższe założenia, został wybrany program \texttt{fail2ban},
+głównie ze względu na dobrą dokumentację skupiającą się na zabezpieczeniu usługi
+\texttt{ssh} właśnie.
+
+\newpage
+
+\section{Implementacja}
+
+Program \texttt{fail2ban} działa przez obserwowanie logów systemowych. Jeżeli
+zostanie przekroczona liczba nieudanych prób logowania z danego adresu ip w
+danym czasie, to ten adres jest dodawany do zapory \texttt{iptables} i
+połączenia nie będą odbierane z tego adresu.
+
+
+\begin{enumerate}
+  \item \textbf{Instalacja} - Program został zainstalowny z repozytorium komendą
+    \texttt{pacman -S fail2ban}.
+  \item \textbf{Konfiguracja} - Program konfigurujemy za pomocą dokumentacji na
+    wiki dystrybucji:
+
+    W pliku \texttt{/etc/fail2ban/jail.d/sshd.local} konfigurujemy
+    następująco \emph{więzienie}.
+    \begin{lstlisting}
+[sshd]
+enabled   = true
+filter    = sshd
+banaction = iptables
+backend   = systemd
+maxretry  = 5
+findtime  = 1d
+bantime   = 2w
+ignoreip  = 10.217.1.1/24      
+    \end{lstlisting}
+
+    Powyższa konfiguracja wykrywa nieudane próby logowania w przeciągu
+    jednego dnia (findtime), jeżeli będzie ich więcej niż 5 (maxretry), to 
+    ip zostanie dodane do zapory kernela i połączenia z tego adresu nie będą
+    odbierane przez usługę \texttt{ssh}.
+
+    Dodatkowo, lokalne adresy ip z sieci \texttt{10.217.1.1/24} są
+    ignorowane.
+
+  \item \textbf{Uruchamianie} - Za pomocą systemu init \texttt{systemd},
+    sprawiamy by \texttt{fail2ban} działał przy starcie komputera:
+
+    Uruchamiamy polecenie \texttt{systemctl enable --now fail2ban}.
+
+  \item \textbf{Weryfikacja} - Za pomocą polecenia \texttt{fail2ban-client
+    status}, weryfikujemy działanie usługi:
+    \begin{lstlisting}
+# fail2ban-client status
+Status
+|- Number of jail:	1
+`- Jail list:	sshd
+    \end{lstlisting}
+
+    Widzimy że nasze \emph{więzienie} dla usługi \texttt{ssh} jest aktywne.
+\end{enumerate}
+
+\section{Badania}
+
+W trakcie trwającego trochę powyżej miesiąca, \texttt{fail2ban} zbanował 1705
+różnych adresów ip. 
+
+\newpage
+
+\section{Podsumowanie i wnioski}
+
+\begin{itemize}
+  \item \textit{Podsumowanie} - Skonfigurowanie usługi \emph{fail2ban} pozwoliło 
+    znacząco zmniejszyć wolumen przychodzących prób zalogowania się na server.
+\item \textit{Wnioski} - Usługi tego typu mogą być używane do ochrony przed
+  atakami typu brute-force
+\end{itemize}
+
+\newpage
+\section{Spis literatury}
+
+\printbibliography[heading=none] 
+
+\end{document}

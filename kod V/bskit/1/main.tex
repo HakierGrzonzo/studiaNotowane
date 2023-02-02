@@ -1,0 +1,146 @@
+\documentclass[12pt,a4paper]{article}
+
+%\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{polish}
+\usepackage{graphicx}
+\usepackage{biblatex}
+\usepackage{csquotes}
+\addbibresource{bib.bib}
+
+\begin{document}
+
+
+\nocite{*}
+
+\pagenumbering{gobble}
+\clearpage
+\begin{figure}[h]
+\centering
+\includegraphics{media/ps-logo.png}
+\end{figure}
+\hspace{3cm}
+\begin{center}Sprawozdanie z modułu nr 1\end{center}
+\begin{center}BSKiST 2022/2023\end{center}
+\hspace{3cm}
+\begin{center}\large\textbf{Bezpieczeństwo sieci komputerowych i systemów teleinformatycznych}\end{center}
+\hspace{7cm}
+\begin{flushright}Kierunek: Informatyka
+\end{flushright}
+\begin{flushright}Członkowie zespołu:
+\par
+\textit{Grzegorz Koperwas}
+\end{flushright}
+\vfill
+\begin{center}Gliwice, 2022/2023\end{center}
+
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+
+\newpage
+\section{Wprowadzenie}
+
+\subsection{Zespół projektowy}
+
+\begin{enumerate}
+    \item Grzegorz Koperwas :: Wszystko
+\end{enumerate}
+
+\newpage
+
+\subsection{Wprowadzenie}
+
+W internecie mamy do czynienia z wieloma rodzajami zagrożeń dla naszej
+infrastruktury teleinformatycznej, takimi jak:
+
+\begin{itemize}
+	\item Wirusy i malware
+	\item Ataki hakerskie
+	\item Włamania i nieautoryzowane dostępy
+	\item Phishing i oszustwa internetowe
+	\item Awarie i błędy systemowe
+\end{itemize}
+
+Jednak w celu ochrony przed wyżej wymienionymi zagrożeniami, możemy skorzystać 
+z wielu metod, oraz możemy oceniać stan infrastruktury ochronnej na wiele
+sposobów.
+
+\section{Rozwinięcie}
+
+\subsection{Rodzaje ochrony przed zagrożeniami.}
+
+Istnieje wiele różnych, dobrze ze sobą współpracujących metod zabezpieczania
+naszej infrastruktury, lub wykrywania nieautoryzowanego dostępu, kiedy takowy
+nastąpi. Niektórymi z nich są:
+
+\begin{enumerate}
+    \item \textbf{Ochrona oprogramowania oraz urządzeń przed wirusami i malware} -
+        Zapewnienie wykrywania nieautoryzowanego oprogramowania gdy już się
+        pojawi na komputerze jest jedną z podstawowych technik zabezpieczania
+        systemów teleinformatycznych. Nawet jeżeli oprogramowanie nie jest nie
+        bezpieczne dla naszego komputera, nadal konieczne jest jego wykrycie w
+        celu zapobiegnięcia dalszego rozprzestrzeniania się takiego
+        oprogramowania.
+
+        Taką sytuacją może być wirus przeznaczony dla systemów \texttt{windows}, 
+        który może być przesyłany dalej przez serwer plików \texttt{samba}
+        uruchomiony na systemie \texttt{GNU/Linux}. Programem mogącym zapobiegać
+        takim sytuacjom jest na przykład \texttt{clamav}.
+    \item \textbf{Zabezpieczenie dostępu i identyfikacji użytkowników} -
+        Odpowiednia konfiguracja oraz wykonanie systemu teleinformatycznego
+        uniemożliwia nieautoryzowany dostęp do naszego systemu
+        teleinformatycznego. Użycie autoryzacji opartej na hasłach jest
+        powszechnie przyjętym standardem, jednak posiada ono wiele wad
+        wynikających z problemów spowodowanych obecnością członka gatunku
+        \emph{homo sapiens} pomiędzy klawiaturą (lub innym urządzeniem
+        \texttt{HID}) a krzesłem bądź fotelem.
+        
+        Z powyższego powodu, istnieje wiele alternatywnych rozwiązać, które
+        wzmacniają tradycyjny proces autoryzacji hasłem przez dodanie nie
+        stałych danych które użytkownik musi podać, lub poprzez wymagania od
+        użytkownika posiadania określonych przedmiotów. Przykładami takich
+        rozwiązań są:
+        \begin{itemize}
+            \item Google authenticator.
+            \item Autoryzacja przez kod przesyłany kanałem trzecim. Na przykład 
+              przez wiadomość SMS lub e-mail.
+        \end{itemize}
+
+        Inne rozwiązania skupiają się na obowiązku posiadania przez użytkownika 
+        jakiejś informacji lub klucza. Może to być odcisk palca (biometria) lub 
+        klucz na karcie inteligentnej.
+    \item \textbf{Szyfrowanie danych i transmisji} - Wszystkie informacje
+      wrażliwe powinny być przesyłane oraz przechowywane w sposób w który
+      podmioty nieautoryzowane nie mają do nich dostępu.
+    \item \textbf{Regularne aktualizacje} - Regularne instalowanie aktualizacji
+      bezpieczeństwa zabezpiecza nas przed znalezionymi lukami bezpieczeństwa.
+      Dodatkowo nowoczesne rozwiązania w zakresie wytwarzania oprogramowania
+      potrafią wyeliminować wiele błędów zanim zostaną dostarczone
+      użytkownikowi.
+    \item \textbf{Monitoring i raportowanie incydentów bezpieczeństwa} -
+      Monitorowanie naszej infrastruktury pozwala nam reagować jeśli nasze
+      rozwiązania skupione na prewencji nie są sobie poradzić z nowymi rodzajami
+      zagrożeń. Do tego celu mogą służyć różnego rodzaju zapory sieciowe nowego
+      rodzaju.
+\end{enumerate}
+
+\subsection{Normy i standardy związane z bezpieczeństwem teleinformatycznym:}
+
+Istnieje wiele standardów umożliwiających łatwą i częstą ocenę odporności danego
+systemu teleinformatycznego na ataki i nieautoryzowany dostęp. Dodatkowo
+istnieją różne regulacje prawne które zmuszają podmioty do stosowania
+określonego poziomu zabezpieczeń przy przechowywaniu określonych informacji.
+
+Niektórymi z nich są:
+
+\begin{enumerate}
+  \item ISO 27001 - System Zarządzania Bezpieczeństwem Informacji
+  \item NIST SP 800-53 - Standardy Bezpieczeństwa w Systemach Rządu Federalnego Stanów Zjednoczonych
+  \item ISO 27032 - Zarządzanie Bezpieczeństwem Informacji w Środowisku Cyfrowym
+  \item RODO - Rozporządzenie Parlamentu Europejskiego i Rady (UE) 2016/679
+\end{enumerate}
+
+\end{document}

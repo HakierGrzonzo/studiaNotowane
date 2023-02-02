@@ -1,0 +1,128 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\selectlanguage{polish}
+\usepackage{graphicx}
+\usepackage{biblatex}
+\usepackage{csquotes}
+\addbibresource{bib.bib}
+
+\begin{document}
+
+
+\nocite{*}
+
+\pagenumbering{gobble}
+\clearpage
+\begin{figure}[h]
+\centering
+\includegraphics{media/ps-logo.png}
+\end{figure}
+\hspace{3cm}
+\begin{center}Sprawozdanie z modułu nr 2\end{center}
+\begin{center}BSKiST 2022/2023\end{center}
+\hspace{3cm}
+\begin{center}\large\textbf{Bezpieczeństwo sieci komputerowych i systemów teleinformatycznych}\end{center}
+\hspace{7cm}
+\begin{flushright}Kierunek: Informatyka
+\end{flushright}
+\begin{flushright}Członkowie zespołu:
+\par
+\textit{Grzegorz Koperwas}
+\end{flushright}
+\vfill
+\begin{center}Gliwice, 2022/2023\end{center}
+
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+
+\newpage
+\section{Wprowadzenie}
+
+\subsection{Zespół projektowy}
+Grzegorz Koperwas :: Wszystko
+
+\newpage
+
+\subsection{Wprowadzenie}
+
+Omawianym w tej pracy rozwiązaniem dostarczającym usługi kryptograficzne będzie
+program \texttt{GnuPG}. Dodatkowo zostanie omówiony mechanizm uwierzytelniania
+użytkowników \texttt{PAM} w kernelu Linux'a.
+
+Oprócz tego zostanie omówione wdrażanie wirtualnej sieci prywatnej w oparciu o
+program \texttt{OpenVPN} na systemie \texttt{GNU/Linux}.
+
+
+
+\section{Rozwinięcie}
+
+\subsection{GnuPG}
+
+Program \texttt{GnuPG} jest dostępny w praktycznie każdej dystrybucji systemu
+\texttt{Gnu/Linux}, na przykład w dystrybucji \texttt{Arch} możemy zainstalować
+go za pomocy komendy \texttt{pacman -S gpg}.
+
+W celu korzystania z programu należy wygenerować lub dodać istniejący klucz
+prywatny. By wygenerować klucz należy użyć opcji \texttt{--full-generate-key}.
+Następnie należy wybrać algorytm do którego będzie służył klucz, jego wielkość
+oraz jak długo powinien obowiązywać.
+
+\texttt{GnuPG} pozwala nam dokonywać wszystkich powszechnych operacji
+kryptograficznych, takich jak:
+\begin{itemize}
+  \item Symetryczne szyfrowanie plików za pomocą hasła.
+  \item Szyfrowanie oraz podpisywanie asymetryczne, gdzie znając klucz publiczny
+    odbiorcy możemy wysłać mu wiadomość którą tylko on może otworzyć.
+  \item Zarządzanie prywatnymi oraz publicznymi kluczami - Możemy zarządzać oraz
+    używać kluczy prywatnych zapisanych na kartach inteligentnych
+    \texttt{OpenPGP} oraz zarządzać poziomem zaufania do zapisanych kluczy
+    publicznych innych użytkowników. 
+
+    \texttt{GnuPG} również implementuje rozwiązanie \emph{Web-of-trust}, które
+    jest realizowane poprzez gromadzenie podpisów kluczy publicznych danej osoby
+    przez innych użytkowników. Na przykład jeżeli ufamy osobie A, a osoba A ufa
+    osobie B, to nasz system automatycznie ufa osobie B.
+\end{itemize}
+
+\subsection{PAM}
+
+Kernel Linux'a zawiera wbudowany system zarządzania procesem autoryzacji
+użytkowników. \texttt{Linux Pluggable Authentication Modules} pozwala na
+zarządzanie jakie metody uwierzytelniania są wystarczające dla danych akcji.
+
+\texttt{PAM} jest częścią kernela, więc instalacja nie jest konieczna.
+
+Konfigurowanie \texttt{PAM} jest realizowane poprzez pliki umieszczone w
+katalogu \texttt{/etc/pam.d/}. Dla każdego programu, który wymaga autoryzacji
+użytkowników (np. Blokada ekranu \texttt{swaylock} czy polecenie \texttt{sudo})
+jest dostępny plik, który pozwala na konfigurację metod uwierzytelniania dla
+danego programu.
+
+Przykładowo dla programu \texttt{swaylock} możemy wymagać autoryzacji poprzez
+czytnik linii papilarnych, a dla deamona \texttt{sshd}, z powodu trudności z
+obsługą biometrii zdalnie, możemy wymagać hasła oraz kodu z aplikacji
+\emph{google authenticator}.
+
+\subsection{OpenVPN}
+
+
+OpenVPN jest oprogramowaniem VPN, które pozwala na bezpieczne połączenie z
+siecią prywatną poprzez publiczne połączenie internetowe. Można go skonfigurować
+w celu uzyskania dostępu do zasobów sieciowych i aplikacji, które normalnie są
+niedostępne poza siecią. OpenVPN jest elastyczny i można go skonfigurować do
+pracy z różnymi protokołami, takimi jak TCP i UDP, i jest w stanie pracować z
+różnymi systemami operacyjnymi, w tym Windows, macOS, iOS i Android.
+
+Możemy zainstalować zarówno serwer jak i klient OpenVPN komendą \texttt{pacman
+-S openvpn}. Konfigurację serwera openvpn najlepiej jest utworzyć na podstawie
+domyślnego, okomentowanego configu oraz umieścić ją w folderze
+\texttt{/etc/openvpn/server}.
+
+Odpowiednio skonfigurowany serwer uruchamiamy jako deamon za pomocą
+\texttt{systemd enable --now openvpn-server@<config>}.
+
+\end{document}
