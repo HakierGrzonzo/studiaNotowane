@@ -1,0 +1,222 @@
+% !TEX program = xelatex
+%Wzór dokumentu
+%tu zmień marginesy i rozmiar czcionki
+\documentclass[a4paper,12pt]{article}
+\usepackage{inputenc}[utf8]
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{multicol}
+\usepackage{graphics}
+\usepackage{float}
+\usepackage{amsmath,amssymb}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=false,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdfpagemode=FullScreen,
+    }
+	\usetikzlibrary{arrows}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+
+\rfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\usepackage{indentfirst}
+\usepackage{icomma} 
+
+\brokenpenalty=1000
+\clubpenalty=1000
+\widowpenalty=1000    
+
+
+\title{Documentation of the final project}
+\author{Grzegorz Koperwas \and Kamil Kowalczyk}
+
+\date{\today}
+
+\begin{document}
+
+\begin{flushright}
+Gliwice, \today
+\end{flushright}
+
+\vspace{1cm}
+
+\begin{large}
+\textbf{Fundamental Optimization procedures}
+
+\vspace{5mm}
+
+Documentation of the final project
+\end{large}
+
+\vspace{10mm}
+
+Title: Differential evolution
+
+\vspace{5mm}
+
+Author (Authors): Grzegorz Koperwas, Kamil Kowalczyk
+
+\vspace{5mm}
+
+Field of studies: Informatics (sem. V)
+
+\vspace{2cm}
+
+\section*{Theoretical description}
+
+\emph{Differential evolution} (or \emph{DE}) is a method that optimizes the
+problem by iteratively trying to improve the solutions. \emph{Differential evolution}
+is a \emph{Metaheuristic}, so it does guarantee that the optimal solution is 
+ever found. It was first described by Rainer Storn and Kenneth Price in 1997.
+
+\emph{Differential evolution} does not require the problem to be differentiable,
+as it does not rely on the gradient of the function.
+
+The implemented variant of \emph{DE}, works by having a population of
+candidate solutions, that are called \texttt{agents}. These agents are moved 
+around in the space using a simple mathematical formula combining values from 
+random other agents. If the new position is an improvement on the old one, it 
+replaces the old one.
+
+This process is repeated for every agent multiple times, where an optimal
+solution might be found after a number of iterations.
+
+\subsection*{Description of the algorithm}
+
+\subsubsection*{Initialization}
+
+Let:
+
+\begin{itemize}
+  \item $f: \mathbb{R} \rightarrow \mathbb{R}^n$ - function to be minimized.
+  \item $x \in \mathbb{R}$ - a candidate solution.
+\end{itemize}
+
+Choose parameters:
+
+\begin{itemize}
+  \item $NP \geq 4$ - Number of agents, usually it is equal to $10n$.
+  \item $CR \in [0, 1]$ - Crossover probability, will be used to decide if
+    additional values in the candidate position should be adjusted. Typically,
+    the value of $0.9$ is used.
+  \item $F \in [0, 2]$ - Differential weight, used to calculate new positions.
+    Typically, the value of $0.8$ is used.
+\end{itemize}
+
+The performance of the algorithm is highly dependent on these parameters. There
+is a lot of research into the optimal values of those.
+
+\vspace{5mm}
+
+Next, the initial positions of the agents $x$ in the given search space are
+chosen at random.
+
+\subsubsection*{Main loop}
+
+\begin{enumerate}
+  \item For each agent $x$ in the population:
+    \begin{enumerate}
+      \item Pick three other, distinct agents $a$, $b$ and $c$ from the
+        population\footnote{This is the reason why $NP \geq 4$}.
+      \item Pick a random index $R \in \{1, \dots, n\}$. The value under this
+        index in $x$ will be always changed.
+      \item Create a vector $r \in [0, 1]^n$ with random values.
+      \item Compute new candidate position $y \in \mathbb{R}^n$ where $y_i$ is:
+\[
+  y_i = \begin{cases}
+    a_i + F\left(b_i - c_i\right) & \text{if } r_i < CR \text{ or } i = R \\
+    x_i & \text{if } r_i \geq CR \text{ and } i \not = R
+  \end{cases}
+\]
+      \item If $f(y) \leq f(x)$, then replace $x$ in the population with $y$.
+    \end{enumerate}
+  \item If maximal number of iterations has not been reached, then repeat step
+    1.
+  \item The result is the agent, for which the function $f$ reaches the smallest 
+    value.
+\end{enumerate}
+
+\section*{Exemplary calculations}
+
+Let:
+
+\begin{itemize}
+  \item $f$ be defined as $f(x, y) = |x| + |y|$,
+  \item agents be a set of points: $\left\{ (1, 1), (-1, 1), (-0.5, 0), (0, 1)
+    \right\}$,
+  \item $CR = 0.5$,
+  \item $F = 1$,
+\end{itemize}
+
+Lets calculate one step in the algorithm, where we will consider point $x = (1, 1)$.
+
+\begin{enumerate}
+  \item Choose three distinct points $a$, $b$, $c$:
+    \begin{itemize}
+      \item $a = (-1, 1)$
+      \item $b = (0, 1)$
+      \item $c = (-0.5, 0)$
+    \end{itemize}
+  \item Pick a random index of $R = 1$.
+  \item Pick a random vector $r = (0.1, 0.3)$
+  \item Calculate new position $y$.
+    \begin{enumerate}
+      \item $y_1 = -1 + (0 + 0.5)$, as $R = 1$,
+      \item $y_2 = 1$, as $0.3 \not < CR$ and $R \not = 2$
+    \end{enumerate}
+  \item Compare the value of the functions for the new and old positions:
+    \begin{itemize}
+      \item $f(x) = 1 + 1 = 2$
+      \item $f(y) = |-0.5| + 1 = 1.5$
+    \end{itemize}
+  \item As $1.5 \leq 2$, we will set $x$ to $y$
+\end{enumerate}
+
+After this step, the list of agents will look like this:
+\[
+\left\{ (-0.5, 1), (-1, 1), (-0.5, 0), (0, 1) \right\}
+\]
+
+\section*{Supporting computer program}
+
+\subsection*{Inputs}
+
+\begin{itemize}
+  \item \texttt{function} - $n$-dimensional function to find the global minimum for.
+  \item \texttt{NP} - number of agents to use.
+  \item \texttt{CR} - Crossover probability.
+  \item \texttt{F} - Differential probability.
+  \item \texttt{domain} - Region to use when picking initial agents.
+  \item \texttt{iterations} - How many iterations to run.
+\end{itemize}
+
+\subsection*{Outputs}
+
+The program returns the point, in which the function reaches it's global
+minimum.
+
+\subsection*{Results discussion}
+
+The program returns results identical to builtin function \texttt{FindMinimum}
+for functions with only one local minimum.
+
+For functions with multiple local minima the program returns the correct global
+minimum. When viewing snapshots of the working state of the program, we can
+clearly see that the points converge on the global minimum with each iteration.
+
+\section*{Enclosures}
+
+The program is included in \texttt{Project\_Koperwas.nb}.
+
+
+
+
+\end{document}
