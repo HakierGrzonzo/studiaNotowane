@@ -1,0 +1,161 @@
+% !TEX program = xelatex
+\documentclass[12pt,a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage{tikz}
+	\usetikzlibrary{arrows}
+	\usetikzlibrary{patterns}
+
+\usepackage{polski}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage[backend=bibtex]{biblatex}
+\usepackage{csquotes}
+\addbibresource{bib.bib}
+
+\begin{document}
+
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+
+\pagenumbering{gobble}
+\clearpage
+\begin{figure}[h]
+\centering
+\includegraphics{media/ps-logo.png}
+\end{figure}
+\hspace{3cm}
+\begin{center}Sprawozdanie z modułu nr 2\end{center}
+\begin{center}WEBAPPSEC 2023/2024\end{center}
+\hspace{3cm}
+\begin{center}\large\textbf{Bezpieczeństwo webaplikacji}\end{center}
+\hspace{7cm}
+\begin{flushright}Kierunek: Informatyka
+\end{flushright}
+\begin{flushright}Członkowie zespołu:
+\par
+\textit{Grzegorz Koperwas}
+\end{flushright}
+\vfill
+\begin{center}Gliwice, 2023/2024\end{center}
+
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+
+\newpage
+
+\section{Wprowadzenie}
+
+W sprawozdaniu omówimy sposoby przeciwdziałania podatności \texttt{API4:2023
+Unrestricted Resource Consumption}. Będziemy omawiać je w kontekście aplikacji 
+wykorzystujących rozwiązania oparte na LLM.
+
+\subsection{Założenia dot. zadania laboratoryjnego}
+
+LLM, z racji ogromnej ilości parametrów, wymagają dużych ilości pamięci. Są
+również nie przewidywalne, podatne na ataki \emph{prompt injection}\cite{greshake2023youve} oraz są
+nowym trendem, przez co nie koniecznie mamy zawsze do czynienia z przemyślanym
+rozwiązaniem.
+
+Z tego powodu będziemy się skupiać na rozwiązaniach, które nie tylko ograniczają
+prawdopodobieństwo zablokowania się systemu, ale również ograniczających jego
+podatności na ataki \emph{prompt injection}.
+
+Będziemy ewaluowali rozwiązania w ramach ich przydatności do zabezpieczenia 
+przykładowej aplikacji realizującej \emph{Retrieval Augmented Generation}, w
+skrócie \texttt{RAG}. 
+
+Aplikacje te wykorzystują wektorowe bazy danych, gdzie przechowywane są dane. W
+ramach zapytania baza taka potrafi dobrać informacje, które pomagają
+odpowiedzieć \texttt{LLM} na zadane pytania. Korzystają one z wyspecjalizowanych
+sieci zwanych \emph{embeddings}, które zamieniają tekst na wektor. Mając nasz
+tekst w formie wektorowej, możemy łatwo porównywać dystans między różnymi
+elementami, czyli pośrednio ich podobieństwo.
+
+\newpage
+
+\section{Rozwinięcie}
+
+Podstawową linią obrony przeciwko zbyt dużemu zużyciu zasobów jest ograniczenie
+tego, ile pojedyncze zapytanie do systemu może wywoływać modele \texttt{LLM}.
+Innym czynnikiem, który musimy kontrolować, jest \emph{kontekst} oraz jego
+rozmiar. Modele \texttt{LLM} operują nie na nieskończonej ilości danych, tylko
+na pewnym wycinku tekstu, jaki jest im zadany jako argument.
+
+Te przysłowiowe okienko, przez które na problem spoglądają \texttt{LLM} nazywamy 
+kontekstem, nic poza nim nie ma wpływu na sieć. Jego rozmiar jest mierzony w
+\emph{tokenach}, które mniej-więcej odpowiadają słowom lub częściom słów. Każdy
+model ma określony rozmiar kontekstu, przykładowo dla modeli \texttt{LLama} mamy
+do czynienia z kontekstem wielkości 2048 tokenów\cite{touvron2023llama}, a niektóre z modeli
+\texttt{GPT} mają konteksty rozmiaru nawet 128 tysięcy tokenów, dla modelu
+\texttt{GPT-4 Turbo}.
+
+Jednak musimy pamiętać, że często koszt użycia modelu jest wyznaczany na
+podstawie ilości tokenów, które zostają przekazana jako kontekst, jak i ilości
+wygenerowanych tokenów.
+
+\subsection{Kontrola rozmiaru kontekstu}
+
+Podczas budowania naszej aplikacji wykorzystującej \texttt{RAG} możemy chcieć
+dać modelowi dostęp do całej naszej bazy danych. Jednak przekazanie w kontekście
+wszystkiego jak leci, nie zadziała z następujących powodów:
+
+\begin{itemize}
+  \item Będzie to kosztowne, ponieważ płacimy za każdy token\cite{openaiapi}.
+  \item Będzie to nieefektywne, ponieważ nasze dane nie zmieszczą się w
+    kontekście.
+\end{itemize}
+
+W celu rozwiązania tego problemu możemy skorzystać z biblioteki
+\emph{langchain}, która pomaga nam zarządzać kontekstem. 
+
+Możemy skorzystać z jej pomocy w celu integracji z wektorową bazą danych, na
+przykład \emph{chromadb}. Pozwoli nam to do naszego kontekstu wprowadzać tylko
+dokumenty (lub ich fragmenty) faktycznie związane z naszym problemem.
+
+Z użyciem takiej bazy wektorowej możemy ograniczyć przetwarzane informacje tylko
+do konkretnych dokumentów lub ich fragmentów, co pozwala nam używać mniejszych
+kontekstów, co ogranicza koszty pojedynczego zapytania.
+
+Dodatkowo możemy zastosować prosty limit ilości tokenów, które może model
+wygenerować. Inną opcją kontroli wyników modeli jest, na przykład w narzędziu
+\texttt{llama.cpp}\cite{llamacpp}, jest zadawanie gramatyki, jaką musi spełniać odpowiedź.
+
+Przykładowo, zamiast ograniczać ilość tokenów, możemy modelowi uniemożliwić
+wygenerowanie więcej niż dwóch zmian. Możemy również nakazać modelowi
+generowanie odpowiedzi w konkretnym formacie, na przykład \texttt{yaml}, zamiast
+opisywać mu w kontekście, jakie warunki ma spełniać jego odpowiedź.
+
+\subsection{Kontrola zapytań}
+
+Dodatkowo możemy stosować tradycyjne metody kontroli ilości zapytań, na
+przykład:
+
+\begin{itemize}
+  \item Ograniczenia ilości zapytań dla klienta.
+  \item Ograniczenia rozmiaru zapytania.
+\end{itemize}
+
+Jednak te metody nie są specyficzne dla modeli \texttt{LLM}, więc nie chcę ich
+szczegółowo omawiać w tym referacie.
+
+\newpage
+
+\section{Podsumowanie i wnioski}
+
+\begin{itemize}
+  \item \textit{Podsumowanie} - Modele \texttt{LLM} mogą korzystać zarówno z
+    tradycyjnych metod zabezpieczania \texttt{API}, jak i z innych technik
+    pozwalających optymalizować ich działanie.
+  \item \textit{Wnioski} - Koszt wykorzystania modeli \texttt{LLM} jest zależny
+    od rozmiaru kontekstu, dlatego musimy kontrolować jego rozmiar. Jest to
+    podobne do tego, czemu stosujemy paginację.
+\end{itemize}
+
+\newpage
+\section{Spis literatury}
+
+\printbibliography[heading=none] 
+
+\end{document}

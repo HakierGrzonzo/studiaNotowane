@@ -1,0 +1,85 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nty/global//global/global}
+  \entry{llamacpp}{online}{}
+    \name{author}{1}{}{%
+      {{hash=GG}{%
+         family={Gerganov},
+         familyi={G\bibinitperiod},
+         given={Georgi},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GG1}
+    \strng{fullhash}{GG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{title}{llama.cpp}
+    \verb{url}
+    \verb https://github.com/ggerganov/llama.cpp
+    \endverb
+    \field{year}{2023}
+    \field{urlday}{30}
+    \field{urlmonth}{11}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{liu2023improvedllava}{misc}{}
+    \name{author}{4}{}{%
+      {{hash=LH}{%
+         family={Liu},
+         familyi={L\bibinitperiod},
+         given={Haotian},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=LC}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Chunyuan},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=LY}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Yuheng},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=LYJ}{%
+         family={Lee},
+         familyi={L\bibinitperiod},
+         given={Yong\bibnamedelima Jae},
+         giveni={Y\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {arXiv:2310.03744}%
+    }
+    \strng{namehash}{LH+1}
+    \strng{fullhash}{LHLCLYLYJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{title}{Improved Baselines with Visual Instruction Tuning}
+    \field{year}{2023}
+  \endentry
+\enddatalist
+\endinput

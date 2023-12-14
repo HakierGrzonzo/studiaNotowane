@@ -1,0 +1,214 @@
+% !TEX program = xelatex
+\documentclass[12pt,a4paper]{article}
+\usepackage[polish]{babel}
+\usepackage{tikz}
+	\usetikzlibrary{arrows}
+	\usetikzlibrary{patterns}
+
+\usepackage{polski}
+\usepackage{lmodern}
+\usepackage{minted}
+\usepackage{graphicx}
+\usepackage[backend=bibtex]{biblatex}
+\usepackage{csquotes}
+\addbibresource{bib.bib}
+\addto\captionspolish{\renewcommand{\figurename}{Załącznik}}
+
+\begin{document}
+
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+
+\pagenumbering{gobble}
+\clearpage
+\begin{figure}[h]
+\centering
+\includegraphics{media/ps-logo.png}
+\end{figure}
+\hspace{3cm}
+\begin{center}Sprawozdanie z modułu nr 3\end{center}
+\begin{center}WEBAPPSEC 2023/2024\end{center}
+\hspace{3cm}
+\begin{center}\large\textbf{Bezpieczeństwo webaplikacji}\end{center}
+\hspace{7cm}
+\begin{flushright}Kierunek: Informatyka
+\end{flushright}
+\begin{flushright}Członkowie zespołu:
+\par
+\textit{Grzegorz Koperwas}
+\end{flushright}
+\vfill
+\begin{center}Gliwice, 2023/2024\end{center}
+
+\newpage
+\pagenumbering{arabic}
+\tableofcontents
+
+\newpage
+
+\section{Wprowadzenie}
+
+\subsection{Cel projektu}
+
+Celem projektu jest zabezpieczenie prostej aplikacji wykonanej w środowisku
+\texttt{FastAPI}, wykorzystującej model \texttt{LLava}
+\cite{liu2023improvedllava} poprzez narzędzie \texttt{llama.cpp}
+\cite{llamacpp}.
+
+Narzędzie oryginalnie powstało podczas hackathonu \emph{mhack} w Wrocławiu w tym
+roku.
+
+\subsubsection{Zespół projektowy}
+
+\begin{itemize}
+  \item Grzegorz Koperwas :: Wszystko :: Wszystko
+\end{itemize}
+
+\newpage
+
+\section{Założenia projektowe}
+
+W aplikacji będziemy zajmować się następującymi problemami, związanymi z
+\texttt{API4:2023 Unrestricted Resource Consumption}:
+
+\begin{itemize}
+  \item Podczas przetwarzania więcej niż dwóch zapytań aplikacja się zacina.
+  \item Aplikacja może zjeść całą pamięć RAM
+\end{itemize}
+
+Nie będziemy się zajmować następującymi podatnościami w aplikacji:
+
+\begin{itemize}
+  \item Długość promptu - Model \texttt{LLava} nie przejmuje się promptem
+    zbytnio, aplikacja była używana tylko jako wewnętrzne API ze stałym promptem.
+  \item Rozmiar załączników - Framework \texttt{FastAPI} nie ma dobrego
+    mechanizmu na ich ograniczenie, więc tutaj najlepszym sposobem byłoby robienie 
+    tego za pomocą serwera \emph{proxy}.
+
+    W przypadku tej aplikacji, była ona dostępna przez proxy Cloudflare z
+    limitem rozmiaru zapytania ustawionym na 100mb.
+\end{itemize}
+
+\subsection{Opis aplikacji}
+
+Aplikacja to prosty serwer \texttt{HTTP}, wykonany w technologii FastAPI w
+języku programowania \texttt{python}.
+Aplikacja przetwarza zapytania w sposób asynchroniczny, za pomocą wbudowanego w
+interpreter modułu \texttt{asyncio}.
+
+Interesująca nas część programu została przedstawiona na załączniku
+\ref{podatny}.
+
+\begin{figure}[p]
+\begin{minted}[frame=leftline,fontsize=\scriptsize,linenos]{python}
+@app.post("/image/do_stuff")
+async def do_stuff(file: UploadFile, prompt: str):
+    command = f"convert /dev/stdin  -scale 1024x1024^ bmp:- | llava -s 2137 [...]"
+    proc = await create_subprocess_shell(
+        command,
+        stdout=asyncio.subprocess.PIPE,
+        stdin=asyncio.subprocess.PIPE,
+    )
+    stdout, _ = await proc.communicate(await file.read())
+
+    if proc.returncode:
+        return PlainTextResponse(
+            content=f"Process died with exit code {proc.returncode}",
+            status_code=500,
+        )
+
+    _, not_garbage = stdout.decode().split("prompt:", maxsplit=1)
+    not_garbage = not_garbage.split("\n", maxsplit=1)[1]
+
+    not_garbage, _ = not_garbage.split("main:", maxsplit=1)
+
+    return Response(answer=not_garbage.strip())
+\end{minted}
+  \caption{Fragment kodu z podatnością.}\label{podatny}
+\end{figure}
+
+\newpage
+
+\section{Realizacja projektu}
+
+W celu zabezpieczenia naszego programu musimy:
+
+\begin{itemize}
+  \item Ograniczyć ile procesów \texttt{llava} może zostać naraz wywołanych.
+  \item Ograniczyć maksymalną ilość czasu, jaki może być przeznaczony na taki
+    proces.
+\end{itemize}
+
+W tym celu skorzystamy z mechanizmów udostępnionych przez wbudowany w
+interpreter moduł \texttt{asyncio}. Wykorzystamy strukturę \texttt{asyncio.Lock}
+oraz \texttt{asyncio.timeout}. 
+
+W asynchronicznym programie może dojść do sytuacji, gdzie dwa zapytania są
+przetwarzane w tym samym czasie. Musimy jednak ograniczyć ile niepowiązanych ze
+sobą zapytań, może naraz wywoływać model. Najprostsze rozwiązanie to wprowadzić
+semafor dla fragmentu kodu wywołującego nasz model.
+
+Co więcej, do zapytania dodamy logikę, która po przekroczeniu pewnego czasu
+podczas wykonywania modelu zabije wszystkie procesy związane z modelem.
+
+Poprawiony kod znajduje się na załączniku \ref{poprawiony}.
+
+\begin{figure}[p]
+\begin{minted}[frame=leftline,fontsize=\scriptsize,linenos]{python}
+llava_lock = asyncio.Lock()
+
+
+@app.post("/image/do_stuff")
+async def do_stuff(file: UploadFile, prompt: str):
+    command = f"convert /dev/stdin  -scale 1024x1024^ bmp:- | llava -s 2137 [...]"
+
+    async with llava_lock:
+        proc = await create_subprocess_shell(
+            command,
+            stdout=asyncio.subprocess.PIPE,
+            stdin=asyncio.subprocess.PIPE,
+        )
+        try:
+            async with asyncio.timeout(20):
+                stdout, _ = await proc.communicate(await file.read())
+        except TimeoutError:
+            terminate_process_with_children(proc.pid)
+            return PlainTextResponse(
+                content=f"Timeout",
+                status_code=500,
+            )
+
+    if proc.returncode:
+        return PlainTextResponse(
+            content=f"Process died with exit code {proc.returncode}",
+            status_code=500,
+        )
+
+    _, not_garbage = stdout.decode().split("prompt:", maxsplit=1)
+    not_garbage = not_garbage.split("\n", maxsplit=1)[1]
+
+    not_garbage, _ = not_garbage.split("main:", maxsplit=1)
+
+    return Response(answer=not_garbage.strip())
+\end{minted}
+  \caption{Poprawiony program.}\label{poprawiony}
+\end{figure}
+\newpage
+
+\section{Podsumowanie i wnioski}
+
+\begin{itemize}
+  \item \textit{Podsumowanie} - Ograniczenie maksymalnej ilości instancji modelu
+    gwarantuje nam pewien maksymalny poziom zużycia pamięci
+  \item \textit{Wnioski} - Podczas używania rozwiązań opartych o LLM musimy
+    zdawać sobie sprawę, że czas oczekiwania na odpowiedź od takiego modelu może
+    być długi
+\end{itemize}
+
+\newpage
+\section{Spis literatury}
+
+\printbibliography[heading=none] 
+
+\end{document}

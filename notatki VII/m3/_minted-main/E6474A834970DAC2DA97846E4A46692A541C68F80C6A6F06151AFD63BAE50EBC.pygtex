@@ -1,0 +1,24 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nd}{@app}\PYG{o}{.}\PYG{n}{post}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}/image/do\PYGZus{}stuff\PYGZdq{}}\PYG{p}{)}
+\PYG{k}{async} \PYG{k}{def} \PYG{n+nf}{do\PYGZus{}stuff}\PYG{p}{(}\PYG{n}{file}\PYG{p}{:} \PYG{n}{UploadFile}\PYG{p}{,} \PYG{n}{prompt}\PYG{p}{:} \PYG{n+nb}{str}\PYG{p}{):}
+    \PYG{n}{command} \PYG{o}{=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}convert /dev/stdin  \PYGZhy{}scale 1024x1024\PYGZca{} bmp:\PYGZhy{} | llava \PYGZhy{}s 2137 [...]\PYGZdq{}}
+    \PYG{n}{proc} \PYG{o}{=} \PYG{k}{await} \PYG{n}{create\PYGZus{}subprocess\PYGZus{}shell}\PYG{p}{(}
+        \PYG{n}{command}\PYG{p}{,}
+        \PYG{n}{stdout}\PYG{o}{=}\PYG{n}{asyncio}\PYG{o}{.}\PYG{n}{subprocess}\PYG{o}{.}\PYG{n}{PIPE}\PYG{p}{,}
+        \PYG{n}{stdin}\PYG{o}{=}\PYG{n}{asyncio}\PYG{o}{.}\PYG{n}{subprocess}\PYG{o}{.}\PYG{n}{PIPE}\PYG{p}{,}
+    \PYG{p}{)}
+    \PYG{n}{stdout}\PYG{p}{,} \PYG{n}{\PYGZus{}} \PYG{o}{=} \PYG{k}{await} \PYG{n}{proc}\PYG{o}{.}\PYG{n}{communicate}\PYG{p}{(}\PYG{k}{await} \PYG{n}{file}\PYG{o}{.}\PYG{n}{read}\PYG{p}{())}
+
+    \PYG{k}{if} \PYG{n}{proc}\PYG{o}{.}\PYG{n}{returncode}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{PlainTextResponse}\PYG{p}{(}
+            \PYG{n}{content}\PYG{o}{=}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Process died with exit code }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{proc}\PYG{o}{.}\PYG{n}{returncode}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,}
+            \PYG{n}{status\PYGZus{}code}\PYG{o}{=}\PYG{l+m+mi}{500}\PYG{p}{,}
+        \PYG{p}{)}
+
+    \PYG{n}{\PYGZus{}}\PYG{p}{,} \PYG{n}{not\PYGZus{}garbage} \PYG{o}{=} \PYG{n}{stdout}\PYG{o}{.}\PYG{n}{decode}\PYG{p}{()}\PYG{o}{.}\PYG{n}{split}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}prompt:\PYGZdq{}}\PYG{p}{,} \PYG{n}{maxsplit}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{not\PYGZus{}garbage} \PYG{o}{=} \PYG{n}{not\PYGZus{}garbage}\PYG{o}{.}\PYG{n}{split}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{maxsplit}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)[}\PYG{l+m+mi}{1}\PYG{p}{]}
+
+    \PYG{n}{not\PYGZus{}garbage}\PYG{p}{,} \PYG{n}{\PYGZus{}} \PYG{o}{=} \PYG{n}{not\PYGZus{}garbage}\PYG{o}{.}\PYG{n}{split}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}main:\PYGZdq{}}\PYG{p}{,} \PYG{n}{maxsplit}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+    \PYG{k}{return} \PYG{n}{Response}\PYG{p}{(}\PYG{n}{answer}\PYG{o}{=}\PYG{n}{not\PYGZus{}garbage}\PYG{o}{.}\PYG{n}{strip}\PYG{p}{())}
+\end{Verbatim}
